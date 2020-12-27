@@ -1,0 +1,25 @@
+{
+    "items": [
+        {
+            "name": "OTHER_COIN",
+            "ItemDescription": {
+                "title": "Coin",
+                "description": "Gold coin."
+            }
+        },
+        {
+            "name": "OTHER_GLASS",
+            "ItemDescription": {
+                "title": "Glass",
+                "description": "Transparent"
+            }
+        },
+        {
+            "name": "MELEE_SWORD_1",
+            "ItemDescription": {
+                "title": "Sword",
+                "description": "Sharp"
+            }
+        }
+    ]
+}

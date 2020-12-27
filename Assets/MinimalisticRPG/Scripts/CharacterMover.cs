@@ -68,7 +68,7 @@ public class CharacterMover : MonoBehaviour
     private void UpdateRotation()
     {
 
-        if (!Mathf.Approximately(animator.deltaRotation.eulerAngles.magnitude, 0f))
+        if (animator.deltaRotation.eulerAngles.magnitude > 1f)
         {
             return;
         }

@@ -1,0 +1,12 @@
+{
+    "names": [
+        {
+            "unique_name": "NPC_KASIMIR",
+            "display_name": "Kasimir"
+        },
+        {
+            "unique_name": "NPC_IVAN",
+            "display_name": "Ivan"
+        }
+    ]
+}
