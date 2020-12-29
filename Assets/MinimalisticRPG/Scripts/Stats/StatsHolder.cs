@@ -60,6 +60,7 @@ namespace KG.Stats {
             if (sum <= 5) sum = 5;
             Health -= sum;
             animator.SetTrigger("GetDamage");
+            Debug.Log("GetDamage");
         }
 
     }

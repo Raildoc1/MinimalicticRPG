@@ -4,29 +4,35 @@ using UnityEngine;
 using KG.Stats;
 using KG.Inventory;
 
-namespace KG.CombatCore {
+namespace KG.CombatCore
+{
     [RequireComponent(typeof(Collider))]
-    public class HitBox : MonoBehaviour {
+    public class HitBox : MonoBehaviour
+    {
 
         private Combat owner = null;
         private string weaponName;
 
-        public void SetOwner(Combat combat) {
+        public void SetOwner(Combat combat)
+        {
             owner = combat;
         }
 
-        public void SetWeaponName(string name) {
+        public void SetWeaponName(string name)
+        {
             weaponName = name;
         }
 
-        private void OnTriggerStay(Collider other) {
+        private void OnTriggerStay(Collider other)
+        {
 
             if (!owner) return;
             if (!owner.IsTagRight(other.gameObject.tag)) return;
 
             var target = other.gameObject.GetComponent<StatsHolder>();
 
-            if (!target) {
+            if (!target)
+            {
                 Debug.LogWarning($"Failed to send damage: {other.gameObject.name} doesn't have StatsHolder!");
                 return;
             }
