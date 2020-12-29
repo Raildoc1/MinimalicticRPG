@@ -28,6 +28,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputSensitivity: 4
+  stopTime: 0.2
   OnDrawWeaponInput:
     m_PersistentCalls:
       m_Calls:
@@ -120,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angleError: 0.2
-  rotationSpeed: 10
+  rotationSpeed: 720
 --- !u!114 &8108508538731449866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +139,9 @@ MonoBehaviour:
   lockCamera: {fileID: 0}
   targetWeight: 1.5
   targetRadius: 1
-  tagsToLockOn: []
+  tagsToLockOn:
+  - Enemy
+  - NPC
   distanceToDetect: 10
   maxAngle: 90
 --- !u!1001 &3272851691317165202

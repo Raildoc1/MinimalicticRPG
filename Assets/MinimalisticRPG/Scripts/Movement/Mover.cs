@@ -32,7 +32,7 @@ namespace KG.Movement {
         private void UpdateRotation() {
             if(Vector3.Angle(transform.forward, targetDirection) > angleError) {
                 var qLookRotation = Quaternion.LookRotation(targetDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, qLookRotation, rotationSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, qLookRotation, rotationSpeed * Time.deltaTime);
             } else {
                 transform.forward = targetDirection;
             }

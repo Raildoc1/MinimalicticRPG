@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace KG.Inventory {
     [CreateAssetMenu(menuName = "Item/Weapon/Melee")]

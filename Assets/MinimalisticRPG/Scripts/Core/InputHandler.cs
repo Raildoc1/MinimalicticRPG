@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace KG.Core {
+namespace KG.Core
+{
     [RequireComponent(typeof(Animator))]
-    public class InputHandler : MonoBehaviour {
+    public class InputHandler : MonoBehaviour
+    {
 
         #region PublicOrSerializableFields
 
         [SerializeField] private float inputSensitivity = 4f;
+        [SerializeField] private float stopTime = 0.2f;
         [SerializeField] private UnityEvent OnDrawWeaponInput;
         [SerializeField] private UnityEvent OnMainKeyInput;
         [SerializeField] private UnityEvent OnLockOnKeyInput;
@@ -16,39 +19,52 @@ namespace KG.Core {
         public KeyCode MainKey = KeyCode.Mouse0;
         public KeyCode LockOn = KeyCode.Mouse1;
 
-        public float Vertical {
-            private set {
+        public float Vertical
+        {
+            private set
+            {
                 if (!animator) GetAnimator();
                 animator.SetFloat("InputVertical", value);
                 _vertical = value;
             }
-            get{
+            get
+            {
                 return _vertical;
             }
         }
 
-        public float Horizontal {
-            private set {
+        public float Horizontal
+        {
+            private set
+            {
                 if (!animator) GetAnimator();
                 animator.SetFloat("InputHorizontal", value);
                 _horizontal = value;
             }
-            get {
+            get
+            {
                 return _horizontal;
             }
         }
 
-        public float Magnitude {
-            get {
+        public float Magnitude
+        {
+            get
+            {
                 return Mathf.Clamp01((new Vector2(Vertical, Horizontal)).magnitude);
             }
         }
 
-        public Vector3 InputDirection {
-            get{
+        public float RawInputMagnitude => Mathf.Max(Mathf.Abs(Input.GetAxisRaw("Vertical")), Mathf.Abs(Input.GetAxisRaw("Horizontal")));
+
+
+        public Vector3 InputDirection
+        {
+            get
+            {
                 return inputDirection;
             }
-        } 
+        }
         #endregion
 
         #region PrivateOrProtectedFields
@@ -61,17 +77,20 @@ namespace KG.Core {
         #endregion
 
         #region UnityFunctions
-        private void Start() {
+        private void Start()
+        {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             GetAnimator();
         }
 
-        private void GetAnimator() {
+        private void GetAnimator()
+        {
             animator = GetComponent<Animator>();
         }
 
-        public void Update() {
+        public void Update()
+        {
             UpdateInputAxises();
             UpdateInputDirection();
             UpdateAnimator();
@@ -79,19 +98,23 @@ namespace KG.Core {
         }
         #endregion
 
-        private void UpdateAnimator() {
-            animator.SetFloat("InputMagnitude", Magnitude);
+        private void UpdateAnimator()
+        {
+            animator.SetFloat("InputMagnitude", RawInputMagnitude, stopTime, Time.deltaTime);
         }
 
-        private void UpdateInputAxises() {
+        private void UpdateInputAxises()
+        {
             _horizontalRaw = Input.GetAxisRaw("Horizontal");
             _verticalRaw = Input.GetAxisRaw("Vertical");
             Vertical = Mathf.MoveTowards(Vertical, _verticalRaw, inputSensitivity * Time.deltaTime);
             Horizontal = Mathf.MoveTowards(Horizontal, _horizontalRaw, inputSensitivity * Time.deltaTime);
         }
 
-        private void UpdateInputDirection() {
-            if(!Camera.main) {
+        private void UpdateInputDirection()
+        {
+            if (!Camera.main)
+            {
                 Debug.LogError("Can't update direction because no main camera found!");
                 return;
             }
@@ -99,16 +122,20 @@ namespace KG.Core {
             inputDirection = cam.forward * Vertical + cam.right * Horizontal;
             inputDirection.y = 0;
             inputDirection = Vector3.Normalize(inputDirection);
-        } 
+        }
 
-        private void CheckKeyInput () {
-            if(Input.GetKeyDown(DrawWeaponKey)) {
+        private void CheckKeyInput()
+        {
+            if (Input.GetKeyDown(DrawWeaponKey))
+            {
                 OnDrawWeaponInput.Invoke();
             }
-            if(Input.GetKeyDown(MainKey)) {
+            if (Input.GetKeyDown(MainKey))
+            {
                 OnMainKeyInput.Invoke();
             }
-            if (Input.GetKeyDown(LockOn)) {
+            if (Input.GetKeyDown(LockOn))
+            {
                 OnLockOnKeyInput.Invoke();
             }
         }
