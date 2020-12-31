@@ -39,6 +39,12 @@ namespace KG.Movement
         }
         private void UpdateRotation()
         {
+            if (Equals(targetDirection, Vector3.zero))
+            {
+                targetDirection = transform.forward;
+                return;
+            }
+
             if (Vector3.Angle(transform.forward, targetDirection) > angleError)
             {
                 var qLookRotation = Quaternion.LookRotation(targetDirection);
