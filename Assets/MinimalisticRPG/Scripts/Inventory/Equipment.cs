@@ -3,7 +3,7 @@ using KG.Core;
 using UnityEngine;
 
 namespace KG.Inventory {
-    [RequireComponent(typeof(StateSwitch), typeof(Animator), typeof(EquipmentDisplay))]
+    [RequireComponent(typeof(StateSwitch), typeof(AnimatorProxy), typeof(EquipmentDisplay))]
     public class Equipment : MonoBehaviour {
         
         [SerializeField] private bool DEBUG_MODE = false;
@@ -11,7 +11,7 @@ namespace KG.Inventory {
         public enum WeaponType { NO_WEAPON = 0, MELEE = 1, BOW = 2, MAGIC = 3 }
 
         [SerializeField] private MeleeWeapon _meleeWeapon;
-        private Animator animator;
+        private AnimatorProxy animatorProxy;
         private StateSwitch stateSwitch;
         private EquipmentDisplay equipmentDisplay;
 
@@ -26,26 +26,26 @@ namespace KG.Inventory {
         
         public bool IsEquiping {
             get {
-                if(!animator) return false;
-                return animator.GetBool("IsEquiping");
+                if(!animatorProxy) return false;
+                return animatorProxy.isEquiping;
             }
             set {
-                if(animator) animator.SetBool("IsEquiping", value);
+                if(animatorProxy) animatorProxy.isEquiping = value;
             }
         }
 
         public bool IsUnequiping {
             get {
-                if(!animator) return false;
-                return animator.GetBool("IsUnequiping");
+                if(!animatorProxy) return false;
+                return animatorProxy.isUnequiping;
             }
             set {
-                if(animator) animator.SetBool("IsUnequiping", value);
+                if(animatorProxy) animatorProxy.isUnequiping = value;
             }
         }
 
         private void Start() {
-            animator = GetComponent<Animator>();
+            animatorProxy = GetComponent<AnimatorProxy>();
             stateSwitch = GetComponent<StateSwitch>();
             equipmentDisplay = GetComponent<EquipmentDisplay>();
             equipmentDisplay.Unequip(_meleeWeapon);
@@ -90,7 +90,7 @@ namespace KG.Inventory {
 
         private IEnumerator Draw(WeaponType weaponType) {
             if(DEBUG_MODE) Debug.Log($"Drawing {weaponType}...");
-            animator.SetTrigger("Equip");
+            animatorProxy.Equip();
             IsEquiping = true;
             while (IsEquiping) {
                 yield return null;
@@ -103,7 +103,7 @@ namespace KG.Inventory {
 
         private IEnumerator Hide(WeaponType weaponType) {
             if(DEBUG_MODE) Debug.Log($"Hiding {weaponType}...");
-            animator.SetTrigger("Unequip");
+            animatorProxy.Unequip();
             IsUnequiping = true;
             while (IsUnequiping) {
                 yield return null;

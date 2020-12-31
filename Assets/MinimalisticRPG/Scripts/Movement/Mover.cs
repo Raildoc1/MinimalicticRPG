@@ -3,7 +3,7 @@ using KG.Core;
 
 namespace KG.Movement
 {
-    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(AnimatorProxy))]
     public class Mover : MonoBehaviour
     {
         public float stopTime = 0.25f;
@@ -11,7 +11,7 @@ namespace KG.Movement
         [SerializeField] protected float angleError = .2f;
         [SerializeField] protected float rotationSpeed = 10f;
         protected Vector3 targetDirection;
-        protected Animator animator;
+        protected AnimatorProxy animator;
 
         protected bool _isStrafing;
 
@@ -23,8 +23,8 @@ namespace KG.Movement
             }
             set
             {
-                if (!animator) animator = GetComponent<Animator>();
-                animator.SetBool("IsStrafing", value);
+                if (!animator) animator = GetComponent<AnimatorProxy>();
+                animator.isStrafing = value;
                 _isStrafing = value;
             }
         }

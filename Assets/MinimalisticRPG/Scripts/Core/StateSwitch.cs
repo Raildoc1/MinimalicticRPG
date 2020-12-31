@@ -12,14 +12,14 @@ namespace KG.Core {
         DEAD = 5
     }
 
-    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(AnimatorProxy))]
     public class StateSwitch : MonoBehaviour {
         
         [System.Serializable]
         public class OnStateChangeEvent : UnityEngine.Events.UnityEvent<State> {}
         public OnStateChangeEvent onStateChange = new OnStateChangeEvent();
 
-        private Animator animator;
+        private AnimatorProxy animatorProxy;
 
         private State _currentState = State.PEACE;
 
@@ -31,8 +31,8 @@ namespace KG.Core {
                 if(_currentState != value) {
                     _currentState = value;
                     onStateChange.Invoke(_currentState);
-                    if (!animator) animator = GetComponent<Animator>();
-                    animator.SetInteger("CurrentState", (int)value);
+                    if (!animatorProxy) animatorProxy = GetComponent<AnimatorProxy>();
+                    animatorProxy.currentState = (int)value;
                 }
             }
         }

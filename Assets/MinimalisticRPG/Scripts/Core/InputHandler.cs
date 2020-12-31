@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace KG.Core
 {
-    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(AnimatorProxy))]
     public class InputHandler : MonoBehaviour
     {
 
@@ -23,8 +23,8 @@ namespace KG.Core
         {
             private set
             {
-                if (!animator) GetAnimator();
-                animator.SetFloat("InputVertical", value);
+                if (!animatorProxy) GetAnimator();
+                animatorProxy.inputVertical = value;
                 _vertical = value;
             }
             get
@@ -37,8 +37,8 @@ namespace KG.Core
         {
             private set
             {
-                if (!animator) GetAnimator();
-                animator.SetFloat("InputHorizontal", value);
+                if (!animatorProxy) GetAnimator();
+                animatorProxy.inputHorizontal = value;
                 _horizontal = value;
             }
             get
@@ -69,7 +69,7 @@ namespace KG.Core
 
         #region PrivateOrProtectedFields
         private Vector3 inputDirection;
-        private Animator animator;
+        private AnimatorProxy animatorProxy;
         private float _horizontalRaw = 0f;
         private float _verticalRaw = 0f;
         private float _vertical = 0f;
@@ -86,7 +86,7 @@ namespace KG.Core
 
         private void GetAnimator()
         {
-            animator = GetComponent<Animator>();
+            animatorProxy = GetComponent<AnimatorProxy>();
         }
 
         public void Update()
@@ -100,7 +100,7 @@ namespace KG.Core
 
         private void UpdateAnimator()
         {
-            animator.SetFloat("InputMagnitude", RawInputMagnitude, stopTime, Time.deltaTime);
+            animatorProxy.inputMagnitude = RawInputMagnitude;
         }
 
         private void UpdateInputAxises()

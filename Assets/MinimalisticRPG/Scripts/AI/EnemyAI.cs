@@ -14,6 +14,7 @@ namespace KG.AI
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Equipment))]
     [RequireComponent(typeof(Combat))]
+    [RequireComponent(typeof(AnimatorProxy))]
     public class EnemyAI : MonoBehaviour
     {
 
@@ -26,7 +27,7 @@ namespace KG.AI
 
         private Transform currentTarget = null;
         private Mover mover;
-        private Animator animator;
+        private AnimatorProxy animatorProxy;
         private StateSwitch stateSwitch;
         private NavMeshAgent agent;
         private Equipment equipment;
@@ -37,7 +38,7 @@ namespace KG.AI
         private void Awake()
         {
             mover = GetComponent<Mover>();
-            animator = GetComponent<Animator>();
+            animatorProxy = GetComponent<AnimatorProxy>();
             stateSwitch = GetComponent<StateSwitch>();
             agent = GetComponent<NavMeshAgent>();
             equipment = GetComponent<Equipment>();
@@ -53,10 +54,8 @@ namespace KG.AI
         {
             if (!currentTarget)
             {
-                animator.SetFloat("InputMagnitude", 0f, mover.stopTime, Time.deltaTime);
-                animator.SetFloat("InputVertical", 0f, mover.stopTime, Time.deltaTime);
-                animator.SetFloat("InputHorizontal", 0f, mover.stopTime, Time.deltaTime);
-                animator.SetBool("IsStrafing", false);
+                animatorProxy.ResetInput();
+                animatorProxy.isStrafing = false;
                 agent.SetDestination(transform.position);
                 return;
             }
@@ -66,10 +65,8 @@ namespace KG.AI
             if (targetDistance < stopDistance)
             {
                 agent.isStopped = true;
-                animator.SetBool("IsStrafing", true);
-                animator.SetFloat("InputMagnitude", 0f, mover.stopTime, Time.deltaTime);
-                animator.SetFloat("InputVertical", 0f, mover.stopTime, Time.deltaTime);
-                animator.SetFloat("InputHorizontal", 0f, mover.stopTime, Time.deltaTime);
+                animatorProxy.ResetInput();
+                animatorProxy.isStrafing = true;
                 combat.Attack();
                 mover.RotateToDirection((currentTarget.position - transform.position).normalized);
 
@@ -77,22 +74,24 @@ namespace KG.AI
             else if (targetDistance < strafeDistance)
             {
                 agent.isStopped = false;
-                animator.SetBool("IsStrafing", true);
-                animator.SetFloat("InputVertical", 1f, mover.stopTime, Time.deltaTime);
+                animatorProxy.isStrafing = true;
+
+                animatorProxy.SetAxisInput(new Vector2(0f, 1f));
+
                 mover.RotateToDirection(agent.desiredVelocity);
             }
             else if (targetDistance < detectMinRadius)
             {
                 agent.isStopped = false;
-                animator.SetBool("IsStrafing", false);
-                animator.SetFloat("InputMagnitude", 1f, mover.stopTime, Time.deltaTime);
+                animatorProxy.isStrafing = false;
+                animatorProxy.inputMagnitude = 1f;
                 mover.RotateToDirection(agent.desiredVelocity);
             }
             else
             {
                 agent.isStopped = true;
-                animator.SetBool("IsStrafing", false);
-                animator.SetFloat("InputMagnitude", 0f, mover.stopTime, Time.deltaTime);
+                animatorProxy.isStrafing = false;
+                animatorProxy.ResetInput();
                 mover.RotateToDirection((currentTarget.position - transform.position).normalized);
             }
 
