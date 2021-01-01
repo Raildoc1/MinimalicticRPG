@@ -408,6 +408,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Equip
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsDead
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3793229924773235036}
   m_Solo: 0
@@ -1321,8 +1324,8 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 160, y: 100, z: 0}
   m_EntryPosition: {x: 410, y: 50, z: 0}
-  m_ExitPosition: {x: 800, y: 120, z: 0}
-  m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
+  m_ExitPosition: {x: 710, y: 100, z: 0}
+  m_ParentStateMachinePosition: {x: 690, y: 40, z: 0}
   m_DefaultState: {fileID: -2474840212891991473}
 --- !u!1101 &1916318132338584874
 AnimatorStateTransition:
@@ -1943,6 +1946,9 @@ AnimatorStateTransition:
     m_EventTreshold: 0.1
   - m_ConditionMode: 1
     m_ConditionEvent: Unequip
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsDead
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3730435515189116203}

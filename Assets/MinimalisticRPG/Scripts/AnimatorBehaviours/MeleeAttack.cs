@@ -49,7 +49,7 @@ public class MeleeAttack : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (Mathf.Approximately(end_time, 1f)) _combat.EndDamage();
+        _combat.EndDamage();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
