@@ -7,6 +7,10 @@
         {
             "unique_name": "NPC_IVAN",
             "display_name": "Ivan"
+        },
+        {
+            "unique_name": "NPC_DANIEL",
+            "display_name": "Daniel"
         }
     ]
 }
