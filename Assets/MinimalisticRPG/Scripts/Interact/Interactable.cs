@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace KG.Interact
 {
-    public class Interactable : MonoBehaviour
+    public abstract class Interactable : MonoBehaviour
     {
         public string Name { get; private set; } = "";
 
@@ -14,9 +14,7 @@ namespace KG.Interact
             Name = NameDB.Instance.GetName(name);
         }
 
-        public virtual void Interact()
-        {
-        }
+        public abstract void Interact();
     }
 }
 
