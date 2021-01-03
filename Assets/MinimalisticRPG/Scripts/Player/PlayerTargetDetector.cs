@@ -35,6 +35,11 @@ namespace KG.Interact
                 return;
             }
 
+            if (current_target is Talkable)
+            {
+                stateSwitch.CurrentState = State.DIALOG;
+            }
+
             current_target.Interact();
         }
 

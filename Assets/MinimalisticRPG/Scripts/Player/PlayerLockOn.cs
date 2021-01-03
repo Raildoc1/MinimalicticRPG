@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using KG.CameraControl;
 using KG.Core;
 using KG.Movement;
 using System;
@@ -6,14 +7,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace KG.CombatCore {
+namespace KG.CombatCore
+{
     [RequireComponent(typeof(PlayerMover))]
     [RequireComponent(typeof(StateSwitch))]
-    public class PlayerLockOn : MonoBehaviour {
+    public class PlayerLockOn : MonoBehaviour
+    {
+
+        [SerializeField] private CameraStateController cameraStateController;
 
         [SerializeField] private CinemachineTargetGroup targetGroup;
-        [SerializeField] private GameObject freeCamera;
-        [SerializeField] private GameObject lockCamera;
 
         [SerializeField] private float targetWeight = 1.5f;
         [SerializeField] private float targetRadius = 1f;
@@ -27,21 +30,24 @@ namespace KG.CombatCore {
         private PlayerMover mover;
         private StateSwitch stateSwitch;
 
-        private void Start() {
+        private void Start()
+        {
             mover = GetComponent<PlayerMover>();
             stateSwitch = GetComponent<StateSwitch>();
         }
 
-        private void SetTarget(Transform transform) {
+        private void SetTarget(Transform transform)
+        {
             if (currentTarget) targetGroup.RemoveMember(currentTarget);
-            if (transform) {
+            if (transform)
+            {
                 targetGroup.AddMember(transform, targetWeight, targetRadius);
-                lockCamera.SetActive(true);
-                freeCamera.SetActive(false);
+                cameraStateController.LockOnTarget();
                 isLockedOn = true;
-            } else {
-                lockCamera.SetActive(false);
-                freeCamera.SetActive(true);
+            }
+            else
+            {
+                cameraStateController.FreeCamera();
                 isLockedOn = false;
             }
             currentTarget = transform;
@@ -49,8 +55,10 @@ namespace KG.CombatCore {
             mover.LookAt = transform;
         }
 
-        public void LockOn() {
-            if (stateSwitch.CurrentState != State.COMBAT) {
+        public void LockOn()
+        {
+            if (stateSwitch.CurrentState != State.COMBAT)
+            {
                 ResetTarget();
                 return;
             }
@@ -58,27 +66,34 @@ namespace KG.CombatCore {
             else SetTarget(FindBestTarget());
         }
 
-        public void ResetTarget() {
+        public void ResetTarget()
+        {
             SetTarget(null);
         }
 
-        public void OnChangeState(State state) {
-            if (stateSwitch.CurrentState != State.COMBAT) {
+        public void OnChangeState(State state)
+        {
+            if (stateSwitch.CurrentState != State.COMBAT)
+            {
                 ResetTarget();
             }
         }
 
-        private Transform FindBestTarget() {
+        private Transform FindBestTarget()
+        {
 
             Transform target = null;
             float absTargetAngle = 360f;
 
-            foreach (var tag in tagsToLockOn) {
-                foreach (var obj in GameObject.FindGameObjectsWithTag(tag)) {
+            foreach (var tag in tagsToLockOn)
+            {
+                foreach (var obj in GameObject.FindGameObjectsWithTag(tag))
+                {
                     if (Vector3.Distance(transform.position, obj.transform.position) > distanceToDetect) continue;
                     float angle = AbsTargetAngle(obj.transform);
                     Debug.Log($"Angle = {angle}");
-                    if (angle < absTargetAngle) { 
+                    if (angle < absTargetAngle)
+                    {
                         target = obj.transform;
                         absTargetAngle = angle;
                     }
@@ -90,7 +105,8 @@ namespace KG.CombatCore {
             return target;
         }
 
-        private float AbsTargetAngle(Transform target) {
+        private float AbsTargetAngle(Transform target)
+        {
             var cameraTransform = Camera.main.transform;
             Vector3 cameraForward = cameraTransform.forward;
             cameraForward.y = 0;

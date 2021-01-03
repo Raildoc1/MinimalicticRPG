@@ -4,6 +4,7 @@ using UnityEngine.Events;
 namespace KG.Core
 {
     [RequireComponent(typeof(AnimatorProxy))]
+    [RequireComponent(typeof(StateSwitch))]
     public class InputHandler : MonoBehaviour
     {
 
@@ -70,6 +71,7 @@ namespace KG.Core
         #region PrivateOrProtectedFields
         private Vector3 inputDirection;
         private AnimatorProxy animatorProxy;
+        private StateSwitch stateSwitch;
         private float _horizontalRaw = 0f;
         private float _verticalRaw = 0f;
         private float _vertical = 0f;
@@ -77,6 +79,12 @@ namespace KG.Core
         #endregion
 
         #region UnityFunctions
+
+        private void Awake()
+        {
+            stateSwitch = GetComponent<StateSwitch>();
+        }
+
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -100,15 +108,31 @@ namespace KG.Core
 
         private void UpdateAnimator()
         {
-            animatorProxy.inputMagnitude = RawInputMagnitude;
+            if (stateSwitch.CurrentState == State.COMBAT || stateSwitch.CurrentState == State.PEACE)
+            {
+                animatorProxy.inputMagnitude = RawInputMagnitude;
+            }
+            else
+            {
+                animatorProxy.inputMagnitude = 0f;
+            }
         }
 
         private void UpdateInputAxises()
         {
-            _horizontalRaw = Input.GetAxisRaw("Horizontal");
-            _verticalRaw = Input.GetAxisRaw("Vertical");
-            Vertical = Mathf.MoveTowards(Vertical, _verticalRaw, inputSensitivity * Time.deltaTime);
-            Horizontal = Mathf.MoveTowards(Horizontal, _horizontalRaw, inputSensitivity * Time.deltaTime);
+            if (stateSwitch.CurrentState == State.COMBAT || stateSwitch.CurrentState == State.PEACE)
+            {
+                _horizontalRaw = Input.GetAxisRaw("Horizontal");
+                _verticalRaw = Input.GetAxisRaw("Vertical");
+                Vertical = Mathf.MoveTowards(Vertical, _verticalRaw, inputSensitivity * Time.deltaTime);
+                Horizontal = Mathf.MoveTowards(Horizontal, _horizontalRaw, inputSensitivity * Time.deltaTime);
+            }
+            else
+            {
+                Vertical = Mathf.MoveTowards(Vertical, 0f, inputSensitivity * Time.deltaTime);
+                Horizontal = Mathf.MoveTowards(Horizontal, 0f, inputSensitivity * Time.deltaTime);
+            }
+
         }
 
         private void UpdateInputDirection()
