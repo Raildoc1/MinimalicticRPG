@@ -11,6 +11,18 @@
         {
             "unique_name": "NPC_DANIEL",
             "display_name": "Daniel"
+        },
+        {
+            "unique_name": "NPC_SOFIA",
+            "display_name": "Sofia"
+        },
+        {
+            "unique_name": "NPC_YHORM",
+            "display_name": "Yhorm"
+        },
+        {
+            "unique_name": "NPC_DAVID",
+            "display_name": "David"
         }
     ]
 }

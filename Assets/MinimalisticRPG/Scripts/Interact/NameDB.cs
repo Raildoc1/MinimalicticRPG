@@ -29,9 +29,11 @@ namespace KG.Interact {
 
         private NameDictionaryEntity nameDictionaryEntity;
 
+        private bool namesLoaded = false;
+
         private NameDBAsset Names {
             get {
-                if (_names == null) LoadNames(GameSettings.Instance.Language);
+                if (_names == null || !namesLoaded) LoadNames(GameSettings.Instance.Language);
                 if (_names == null) Debug.LogError($"Could not load names of {GameSettings.Instance.Language} language.");
                 return _names;
             }
@@ -45,9 +47,11 @@ namespace KG.Interact {
             try {
                 string json = Resources.Load<TextAsset>("Names/" + LanguageName + "/names").text;
                 Names = JsonUtility.FromJson<NameDBAsset>(json);
+                namesLoaded = true;
                 Debug.Log($"{Names.names.Count} {LanguageName} names loaded successfully...");
             } catch (System.NullReferenceException) {
                 Debug.Log($"Failed to load {LanguageName} names...");
+                namesLoaded = false;
             }
 
         }

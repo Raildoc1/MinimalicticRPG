@@ -44,7 +44,9 @@ namespace KG.UI {
                 return;
             }
 
-            var labelPos = target.transform.Find("LabelPosition");
+            var labelPos = target.labelPosition;
+
+            Debug.Log(target.transform.name + " " + target.transform.position + ": " + labelPos.position);
 
             if (labelPos) currentTargetLabelPosition = labelPos;
             else currentTargetLabelPosition = target.transform;

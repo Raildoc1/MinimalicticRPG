@@ -1,12 +1,28 @@
 {
-    "names": [
-        {
-            "unique_name": "NPC_KASIMIR",
-            "display_name": "Казимир"
-        },
-        {
-            "unique_name": "NPC_IVAN",
-            "display_name": "Иван"
-        }
-    ]
+  "names": [
+    {
+      "unique_name": "NPC_KASIMIR",
+      "display_name": "Казимир"
+    },
+    {
+      "unique_name": "NPC_IVAN",
+      "display_name": "Иван"
+    },
+    {
+      "unique_name": "NPC_DANIEL",
+      "display_name": "Дэниэль"
+    },
+    {
+      "unique_name": "NPC_SOFIA",
+      "display_name": "София"
+    },
+    {
+      "unique_name": "NPC_YHORM",
+      "display_name": "Йорм"
+    },
+    {
+      "unique_name": "NPC_DAVID",
+      "display_name": "Давид"
+    }
+  ]
 }

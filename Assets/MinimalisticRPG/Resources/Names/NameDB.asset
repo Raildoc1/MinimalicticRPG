@@ -15,6 +15,14 @@ MonoBehaviour:
   _names:
     names:
     - unique_name: NPC_KASIMIR
-      display_name: "\u041A\u0430\u0437\u0438\u043C\u0438\u0440"
+      display_name: Kasimir
     - unique_name: NPC_IVAN
-      display_name: "\u0418\u0432\u0430\u043D"
+      display_name: Ivan
+    - unique_name: NPC_DANIEL
+      display_name: Daniel
+    - unique_name: NPC_SOFIA
+      display_name: Sofia
+    - unique_name: NPC_YHORM
+      display_name: Yhorm
+    - unique_name: NPC_DAVID
+      display_name: David
