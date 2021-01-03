@@ -46,8 +46,6 @@ namespace KG.UI {
 
             var labelPos = target.labelPosition;
 
-            Debug.Log(target.transform.name + " " + target.transform.position + ": " + labelPos.position);
-
             if (labelPos) currentTargetLabelPosition = labelPos;
             else currentTargetLabelPosition = target.transform;
 
@@ -60,6 +58,20 @@ namespace KG.UI {
         public void ResetTarget() {
             currentTargetLabelPosition = null;
             textMesh.enabled = false;
+        }
+
+        private IEnumerator TestRoutine(Transform transform)
+        {
+            while (true)
+            {
+                var pos = transform.position;
+
+                pos.y += Time.deltaTime;
+
+                transform.position = pos;
+
+                yield return null;
+            }
         }
 
     }

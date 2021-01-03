@@ -9,7 +9,7 @@ namespace KG.Interact
         public string Name { get; private set; } = "";
         public Transform labelPosition;
 
-        private void Start()
+        protected virtual void Start()
         {
             Name = NameDB.Instance.GetName(name);
             Debug.Log($"{name} got name \"{Name}\"");

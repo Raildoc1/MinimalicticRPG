@@ -14,6 +14,12 @@ namespace KG.Interact
             usable = GetComponent<Usable>();
         }
 
+        protected override void Start()
+        {
+            base.Start();
+            Debug.Log($"{name} : {transform.position} : {labelPosition.position}");
+        }
+
         public override void Interact()
         {
             usable.OnUseUsable();
