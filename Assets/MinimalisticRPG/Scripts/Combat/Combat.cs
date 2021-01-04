@@ -10,7 +10,7 @@ namespace KG.CombatCore
 
         [SerializeField] private List<string> _tagsToAttack;
 
-        private Animator animator;
+        private AnimatorProxy animatorProxy;
         private StateSwitch stateSwitch;
         private Collider _weaponHitBox;
 
@@ -38,14 +38,14 @@ namespace KG.CombatCore
 
         private void Start()
         {
-            animator = GetComponent<Animator>();
+            animatorProxy = GetComponent<AnimatorProxy>();
             stateSwitch = GetComponent<StateSwitch>();
         }
 
         public void Attack()
         {
             if (stateSwitch.CurrentState != State.COMBAT) return;
-            animator.SetTrigger("Attack");
+            animatorProxy.Attack();
         }
 
         public void SendDamage()

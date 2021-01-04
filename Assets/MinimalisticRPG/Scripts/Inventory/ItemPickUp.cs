@@ -32,6 +32,13 @@ namespace KG.Inventory
                 inventory.AddItems(item.name, item.amount);
             }
 
+            var animatorProxy = origin.GetComponent<AnimatorProxy>();
+
+            if (animatorProxy)
+            {
+                animatorProxy.PickUp();
+            }
+
             Destroy(gameObject);
         }
     }

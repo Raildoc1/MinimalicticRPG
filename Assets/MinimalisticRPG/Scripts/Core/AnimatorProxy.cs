@@ -121,6 +121,15 @@ public class AnimatorProxy : MonoBehaviour
         animator.SetTrigger(unequipParamID);
     }
 
+    public void PickUp()
+    {
+        animator.SetTrigger(pickUpParamID);
+    }
+
+    public void Attack()
+    {
+        animator.SetTrigger(attackParamID);
+    }
 
     public void SetAxisInput(Vector2 input)
     {
@@ -155,11 +164,13 @@ public class AnimatorProxy : MonoBehaviour
     private readonly string equipParamName = "Equip";
     private readonly string unequipParamName = "Unequip";
     private readonly string getDamageParamName = "GetDamage";
+    private readonly string pickUpParamName = "PickUp";
 
     private int attackParamID;
     private int equipParamID;
     private int unequipParamID;
     private int getDamageParamID;
+    private int pickUpParamID;
 
     #endregion
 
@@ -197,6 +208,7 @@ public class AnimatorProxy : MonoBehaviour
         equipParamID = Animator.StringToHash(equipParamName);
         unequipParamID = Animator.StringToHash(unequipParamName);
         getDamageParamID = Animator.StringToHash(getDamageParamName);
+        pickUpParamID = Animator.StringToHash(pickUpParamName);
 
         isStrafingParamID = Animator.StringToHash(isStrafingParamName);
         isEquipingParamID = Animator.StringToHash(isEquipingParamName);
