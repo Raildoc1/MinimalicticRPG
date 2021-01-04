@@ -31,13 +31,13 @@ namespace KG.CameraControl
             dialogCamera.SetActive(true);
         }
 
-        public void OnChangeState(State state)
+        public void OnChangeState(State _, State currentState)
         {
-            if (state == State.DIALOG)
+            if (currentState == State.DIALOG)
             {
                 StartDialog();
             }
-            else {
+            else if(currentState == State.PEACE) {
                 FreeCamera();
             }
         }

@@ -88,3 +88,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fa3f4e03dcb034d82dbc455fbd0733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  labelPosition: {fileID: 7800261141837188331}

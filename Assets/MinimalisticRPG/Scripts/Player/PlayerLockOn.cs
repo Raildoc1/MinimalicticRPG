@@ -71,9 +71,9 @@ namespace KG.CombatCore
             SetTarget(null);
         }
 
-        public void OnChangeState(State state)
+        public void OnChangeState(State _, State currentState)
         {
-            if (stateSwitch.CurrentState != State.COMBAT)
+            if (currentState != State.COMBAT)
             {
                 ResetTarget();
             }

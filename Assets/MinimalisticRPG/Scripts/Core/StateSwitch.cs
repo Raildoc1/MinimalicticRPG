@@ -19,13 +19,13 @@ namespace KG.Core
     public class StateSwitch : MonoBehaviour
     {
 
-        [System.Serializable]
-        public class OnStateChangeEvent : UnityEngine.Events.UnityEvent<State> { }
-        public OnStateChangeEvent onStateChange = new OnStateChangeEvent();
+        public UnityEngine.Events.UnityEvent<State, State> onStateChange = new UnityEngine.Events.UnityEvent<State, State>();
 
         private AnimatorProxy animatorProxy;
 
         private State _currentState = State.PEACE;
+
+        private StateSwitch currentInterlocutor = null;
 
         public State CurrentState
         {
@@ -37,11 +37,26 @@ namespace KG.Core
             {
                 if (_currentState != value)
                 {
+                    onStateChange.Invoke(_currentState, value);
+                    if (!animatorProxy)
+                    {
+                        animatorProxy = GetComponent<AnimatorProxy>();
+                    }
                     _currentState = value;
-                    onStateChange.Invoke(_currentState);
-                    if (!animatorProxy) animatorProxy = GetComponent<AnimatorProxy>();
                     animatorProxy.currentState = (int)value;
                 }
+            }
+        }
+
+        public void DrawHideWeapon()
+        {
+            if (CurrentState == State.COMBAT)
+            {
+                CurrentState = State.PEACE;
+            }
+            else if (CurrentState == State.PEACE)
+            {
+                CurrentState = State.COMBAT;
             }
         }
 
@@ -50,10 +65,48 @@ namespace KG.Core
             CurrentState = state;
         }
 
+        public void StartDialog(StateSwitch interlocutor, bool initiator)
+        {
+            if (currentInterlocutor)
+            {
+                currentInterlocutor.FinishDialog(false);
+            }
+
+            currentInterlocutor = interlocutor;
+
+            if (initiator)
+            {
+                currentInterlocutor.StartDialog(this, false);
+            }
+
+            CurrentState = State.DIALOG;
+        }
+
+        public void FinishDialog(bool initiator)
+        {
+
+            if (currentInterlocutor)
+            {
+
+                if (initiator)
+                {
+                    currentInterlocutor.FinishDialog(false);
+                }
+
+                currentInterlocutor = null;
+            }
+
+            if (CurrentState != State.DIALOG)
+            {
+                return;
+            }
+
+            CurrentState = State.PEACE;
+        }
+
         public void OnConversationEnd(Transform transform)
         {
-            CurrentState = State.PEACE;
-            PlayerReference.stateSwitch.CurrentState = State.PEACE;
+            FinishDialog(true);
         }
 
     }

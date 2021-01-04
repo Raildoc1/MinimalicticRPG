@@ -30,8 +30,8 @@ MonoBehaviour:
   OnDrawWeaponInput:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2663130687346857969}
-        m_TargetAssemblyTypeName: KG.Inventory.Equipment, Assembly-CSharp
+      - m_Target: {fileID: 2663130687346857970}
+        m_TargetAssemblyTypeName: KG.Core.StateSwitch, Assembly-CSharp
         m_MethodName: DrawHideWeapon
         m_Mode: 1
         m_Arguments:
@@ -250,12 +250,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8108508538731449866}
+    - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+      propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2663130687346857969}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -265,11 +269,19 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+      propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnChangeState
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnStateChange
+      objectReference: {fileID: 0}
+    - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+      propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: OnChangeState
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
@@ -278,6 +290,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: KG.Inventory.Equipment, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+      propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: KG.CameraControl.CameraStateController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
@@ -286,6 +302,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+      propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []

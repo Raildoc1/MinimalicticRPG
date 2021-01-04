@@ -24,9 +24,18 @@ namespace KG.Interact
             Debug.Log($"{name} : {transform.position} : {labelPosition.position}");
         }
 
-        public override void Interact()
+        public override void Interact(Transform origin)
         {
-            stateSwitch.CurrentState = State.DIALOG;
+            var originStateSwitch = origin.GetComponent<StateSwitch>();
+
+            if (!originStateSwitch)
+            {
+                Debug.LogError("Something with no StateSwitch trying to start a dialog!");
+                return;
+            }
+
+            originStateSwitch.StartDialog(stateSwitch, true);
+
             usable.OnUseUsable();
             usable.gameObject.SendMessage("OnUse", transform, SendMessageOptions.DontRequireReceiver);
         }

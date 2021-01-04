@@ -15,7 +15,7 @@ namespace KG.Interact
             Debug.Log($"{name} got name \"{Name}\"");
         }
 
-        public abstract void Interact();
+        public abstract void Interact(Transform origin);
     }
 }
 

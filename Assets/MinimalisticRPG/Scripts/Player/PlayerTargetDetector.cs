@@ -40,7 +40,7 @@ namespace KG.Interact
                 stateSwitch.CurrentState = State.DIALOG;
             }
 
-            current_target.Interact();
+            current_target.Interact(transform);
         }
 
         private void Update()
