@@ -11,7 +11,8 @@ namespace KG.Core
         ACTION = 2,
         DIALOG = 3,
         KNOCKOUT = 4,
-        DEAD = 5
+        DEAD = 5,
+        INVENTORY = 6
     }
 
     [RequireComponent(typeof(AnimatorProxy))]

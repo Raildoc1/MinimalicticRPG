@@ -13,12 +13,14 @@ namespace KG.Core
         [SerializeField] private float inputSensitivity = 4f;
         [SerializeField] private float stopTime = 0.2f;
         [SerializeField] private UnityEvent OnDrawWeaponInput;
+        [SerializeField] private UnityEvent OnInventoryInput;
         [SerializeField] private UnityEvent OnMainKeyInput;
         [SerializeField] private UnityEvent OnLockOnKeyInput;
 
         public KeyCode DrawWeaponKey = KeyCode.Mouse2;
         public KeyCode MainKey = KeyCode.Mouse0;
         public KeyCode LockOn = KeyCode.Mouse1;
+        public KeyCode Inventory = KeyCode.Tab;
 
         public float Vertical
         {
@@ -161,6 +163,10 @@ namespace KG.Core
             if (Input.GetKeyDown(LockOn))
             {
                 OnLockOnKeyInput.Invoke();
+            }
+            if (Input.GetKeyDown(Inventory))
+            {
+                OnInventoryInput.Invoke();
             }
         }
     }
