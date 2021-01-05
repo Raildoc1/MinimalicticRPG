@@ -1,5 +1,26 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &411849836716041114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670585382039735231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450d9dc7eeefff8478181791c492060e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headTransform: {fileID: 1411514578867913606}
+  detectMinRadius: 10
+  strafeDistance: 5
+  stopDistance: 2
+  tagsToDetect:
+    serializedVersion: 2
+    m_Bits: 4096
+  companion: {fileID: 0}
+  companionStopDistance: 2
 --- !u!114 &2055385687185209257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +262,21 @@ MonoBehaviour:
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
   selectedDatabase: {fileID: 11400000, guid: 8520dd5055209ef47ad9aadc183b89b2, type: 2}
+--- !u!114 &9138152875127540742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670585382039735231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5dc23e30588ac3489124902e6d82dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopTime: 0.25
+  angleError: 0.2
+  rotationSpeed: 720
 --- !u!1001 &5129355169615503595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -294,7 +330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417812, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: m_Name
-      value: NPC_YHORM
+      value: NPC
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417812, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: m_Layer
@@ -357,6 +393,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e31e3a2246d5ff46996719d64d7da3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1411514578867913606 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6105073902517216109, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+  m_PrefabInstance: {fileID: 5129355169615503595}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2967243767425254261 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7927150243699827614, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}

@@ -25,45 +25,6 @@ namespace KG.AI
             }
         }
 
-        protected override void AttackTarget()
-        {
-            agent.SetDestination(currentTarget.position);
-
-            if (targetDistance < stopDistance)
-            {
-                agent.isStopped = true;
-                animatorProxy.ResetInput();
-                animatorProxy.isStrafing = true;
-                combat.Attack();
-                mover.RotateToDirection((currentTarget.position - transform.position).normalized);
-
-            }
-            else if (targetDistance < strafeDistance)
-            {
-                agent.isStopped = false;
-                animatorProxy.isStrafing = true;
-
-                animatorProxy.SetAxisInput(new Vector2(0f, 1f));
-
-                mover.RotateToDirection(agent.desiredVelocity);
-            }
-            else if (targetDistance < detectMinRadius)
-            {
-                agent.isStopped = false;
-                animatorProxy.isStrafing = false;
-                animatorProxy.inputMagnitude = 1f;
-                mover.RotateToDirection(agent.desiredVelocity);
-            }
-            else
-            {
-                agent.isStopped = true;
-                animatorProxy.isStrafing = false;
-                animatorProxy.ResetInput();
-                mover.RotateToDirection((currentTarget.position - transform.position).normalized);
-            }
-        }
-
-
         protected override void OnDontHaveTarget()
         {
             animatorProxy.ResetInput();

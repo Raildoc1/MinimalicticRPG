@@ -42,10 +42,10 @@ namespace KG.CameraControl
         {
             var fwd = cameraTransform.forward;
             var tmp = new Vector3(fwd.x, 0f, fwd.z);
-            Debug.Log($"angle (w/o y) = {Vector3.Angle(cameraDefaultForward, tmp)} {Vector3.Angle(cameraDefaultRight, tmp)}");
-            Debug.Log($"angle (proj w/o y) = {Vector3.Angle(Vector3.ProjectOnPlane(cameraDefaultForward, cameraDefaultUp), tmp)} {Vector3.Angle(Vector3.ProjectOnPlane(cameraDefaultForward, cameraDefaultUp), tmp)}");
-            Debug.Log($"angle (proj) = {Vector3.Angle(Vector3.ProjectOnPlane(cameraDefaultForward, cameraDefaultUp), fwd)} {Vector3.Angle(Vector3.ProjectOnPlane(cameraDefaultForward, cameraDefaultUp), fwd)}");
-            Debug.Log($"angle = {Vector3.Angle(cameraDefaultForward, fwd)} {Vector3.Angle(cameraDefaultRight, fwd)}");
+            //Debug.Log($"angle (w/o y) = {Vector3.Angle(cameraDefaultForward, tmp)} {Vector3.Angle(cameraDefaultRight, tmp)}");
+            //Debug.Log($"angle (proj w/o y) = {Vector3.Angle(Vector3.ProjectOnPlane(cameraDefaultForward, cameraDefaultUp), tmp)} {Vector3.Angle(Vector3.ProjectOnPlane(cameraDefaultForward, cameraDefaultUp), tmp)}");
+            //Debug.Log($"angle (proj) = {Vector3.Angle(Vector3.ProjectOnPlane(cameraDefaultForward, cameraDefaultUp), fwd)} {Vector3.Angle(Vector3.ProjectOnPlane(cameraDefaultForward, cameraDefaultUp), fwd)}");
+            //Debug.Log($"angle = {Vector3.Angle(cameraDefaultForward, fwd)} {Vector3.Angle(cameraDefaultRight, fwd)}");
         }
 
         public void LockOnTarget()

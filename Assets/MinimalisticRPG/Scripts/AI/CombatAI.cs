@@ -1,19 +1,12 @@
 using KG.CombatCore;
 using KG.Core;
-using KG.Inventory;
-using KG.Movement;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace KG.AI
 {
-    [RequireComponent(typeof(Mover))]
-    [RequireComponent(typeof(StateSwitch))]
-    [RequireComponent(typeof(NavMeshAgent))]
-    [RequireComponent(typeof(Equipment))]
+
     [RequireComponent(typeof(Combat))]
-    [RequireComponent(typeof(AnimatorProxy))]
-    public abstract class CombatAI : MonoBehaviour
+    public abstract class CombatAI : AIBase
     {
 
         public Transform headTransform;
@@ -22,29 +15,53 @@ namespace KG.AI
         public float stopDistance = 2f;
         public LayerMask tagsToDetect;
 
-        protected NavMeshAgent agent;
         protected Transform currentTarget = null;
-        protected AnimatorProxy animatorProxy;
-        protected Mover mover;
-        protected StateSwitch stateSwitch;
-        protected Equipment equipment;
+
         protected Combat combat;
 
         protected float targetDistance => currentTarget ? Vector3.Distance(transform.position, currentTarget.position) : 0f;
 
-        protected abstract void AttackTarget();
+        protected abstract void OnDontHaveTarget();
 
-        private void Awake()
+        protected virtual void AttackTarget()
         {
-            mover = GetComponent<Mover>();
-            animatorProxy = GetComponent<AnimatorProxy>();
-            stateSwitch = GetComponent<StateSwitch>();
-            agent = GetComponent<NavMeshAgent>();
-            equipment = GetComponent<Equipment>();
-            combat = GetComponent<Combat>();
+            agent.SetDestination(currentTarget.position);
+
+            if (targetDistance < stopDistance)
+            {
+                agent.isStopped = true;
+                animatorProxy.ResetInput();
+                animatorProxy.isStrafing = true;
+                combat.Attack();
+                mover.RotateToDirection((currentTarget.position - transform.position).normalized);
+
+            }
+            else if (targetDistance < strafeDistance)
+            {
+                agent.isStopped = false;
+                animatorProxy.isStrafing = true;
+
+                animatorProxy.SetAxisInput(new Vector2(0f, 1f));
+
+                mover.RotateToDirection(agent.desiredVelocity);
+            }
+            else if (targetDistance < detectMinRadius)
+            {
+                agent.isStopped = false;
+                animatorProxy.isStrafing = false;
+                animatorProxy.inputMagnitude = 1f;
+                mover.RotateToDirection(agent.desiredVelocity);
+            }
+            else
+            {
+                agent.isStopped = true;
+                animatorProxy.isStrafing = false;
+                animatorProxy.ResetInput();
+                mover.RotateToDirection((currentTarget.position - transform.position).normalized);
+            }
         }
 
-        void Update()
+        protected virtual void Update()
         {
             if (!currentTarget)
             {
@@ -56,7 +73,12 @@ namespace KG.AI
             }
         }
 
-        protected abstract void OnDontHaveTarget();
+        protected override void Awake()
+        {
+            base.Awake();
+            combat = GetComponent<Combat>();
+        }
+
 
         public virtual void SetTarget(Transform newTarget)
         {
@@ -70,10 +92,7 @@ namespace KG.AI
                 return;
             }
 
-            if (stateSwitch.CurrentState == State.PEACE)
-            {
-                equipment.DrawWeapon();
-            }
+            stateSwitch.CurrentState = State.COMBAT;
 
             currentTarget = newTarget;
         }
@@ -85,11 +104,8 @@ namespace KG.AI
             {
                 return;
             }
-
-            if (stateSwitch.CurrentState == State.COMBAT)
-            {
-                equipment.HideWeapon();
-            }
+            
+            stateSwitch.CurrentState = State.PEACE;
 
             currentTarget = null;
         }
