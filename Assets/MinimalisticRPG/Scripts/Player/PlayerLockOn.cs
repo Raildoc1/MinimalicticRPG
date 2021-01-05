@@ -91,7 +91,7 @@ namespace KG.CombatCore
                 {
                     if (Vector3.Distance(transform.position, obj.transform.position) > distanceToDetect) continue;
                     float angle = AbsTargetAngle(obj.transform);
-                    Debug.Log($"Angle = {angle}");
+                    //Debug.Log($"Angle = {angle}");
                     if (angle < absTargetAngle)
                     {
                         target = obj.transform;
