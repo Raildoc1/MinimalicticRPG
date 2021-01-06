@@ -6,10 +6,15 @@ namespace KG.AI
 {
     public class NpcAI : CombatAI
     {
-        public Transform companion;
         public float companionStopDistance = 2f;
 
+        private Transform companion;
         private float companionDistance => companion ? Vector3.Distance(companion.position, transform.position) : 0f;
+
+        public void SetCompanion(Transform companion)
+        {
+            this.companion = companion;
+        }
 
         protected override void OnDontHaveTarget()
         {

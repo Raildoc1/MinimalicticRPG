@@ -21,7 +21,7 @@ namespace KG.Interact
         protected override void Start()
         {
             base.Start();
-            Debug.Log($"{name} : {transform.position} : {labelPosition.position}");
+            //Debug.Log($"{name} : {transform.position} : {labelPosition.position}");
         }
 
         public override void Interact(Transform origin)

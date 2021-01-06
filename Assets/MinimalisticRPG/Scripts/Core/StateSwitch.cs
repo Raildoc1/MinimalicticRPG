@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using PixelCrushers.DialogueSystem;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace KG.Core
     {
 
         public UnityEngine.Events.UnityEvent<State, State> onStateChange = new UnityEngine.Events.UnityEvent<State, State>();
+        public UnityEngine.Events.UnityEvent<Transform> onAddCompanion = new UnityEngine.Events.UnityEvent<Transform>();
 
         private AnimatorProxy animatorProxy;
 
@@ -78,6 +80,11 @@ namespace KG.Core
             {
                 currentInterlocutor.StartDialog(this, false);
             }
+            else
+            {
+                Debug.Log($"Lua.RegisterFunction");
+                Lua.RegisterFunction("AddCompanion", this, SymbolExtensions.GetMethodInfo(() => AddCompanion()));
+            }
 
             CurrentState = State.DIALOG;
         }
@@ -100,6 +107,11 @@ namespace KG.Core
             {
                 return;
             }
+            else
+            {
+                Debug.Log($"Lua.UnregisterFunction");
+                Lua.UnregisterFunction("AddCompanion");
+            }
 
             CurrentState = State.PEACE;
         }
@@ -107,6 +119,11 @@ namespace KG.Core
         public void OnConversationEnd(Transform transform)
         {
             FinishDialog(true);
+        }
+
+        private void AddCompanion()
+        {
+            onAddCompanion?.Invoke(currentInterlocutor.transform);
         }
 
     }
