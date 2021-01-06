@@ -80,11 +80,6 @@ namespace KG.Core
             {
                 currentInterlocutor.StartDialog(this, false);
             }
-            else
-            {
-                Debug.Log($"Lua.RegisterFunction");
-                Lua.RegisterFunction("AddCompanion", this, SymbolExtensions.GetMethodInfo(() => AddCompanion()));
-            }
 
             CurrentState = State.DIALOG;
         }
@@ -107,11 +102,6 @@ namespace KG.Core
             {
                 return;
             }
-            else
-            {
-                Debug.Log($"Lua.UnregisterFunction");
-                Lua.UnregisterFunction("AddCompanion");
-            }
 
             CurrentState = State.PEACE;
         }
@@ -121,8 +111,14 @@ namespace KG.Core
             FinishDialog(true);
         }
 
-        private void AddCompanion()
+        public void AddCompanion()
         {
+            if (!currentInterlocutor)
+            {
+                Debug.LogError($"{name} cannot add a companion, because currentInterlocutor is null!");
+                return;
+            }
+
             onAddCompanion?.Invoke(currentInterlocutor.transform);
         }
 
