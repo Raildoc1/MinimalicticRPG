@@ -22,6 +22,7 @@ namespace KG.Core
 
         public UnityEngine.Events.UnityEvent<State, State> onStateChange = new UnityEngine.Events.UnityEvent<State, State>();
         public UnityEngine.Events.UnityEvent<Transform> onAddCompanion = new UnityEngine.Events.UnityEvent<Transform>();
+        public UnityEngine.Events.UnityEvent<Transform> onDialogStart = new UnityEngine.Events.UnityEvent<Transform>();
 
         private AnimatorProxy animatorProxy;
 
@@ -82,6 +83,8 @@ namespace KG.Core
             }
 
             CurrentState = State.DIALOG;
+
+            onDialogStart.Invoke(interlocutor.transform);
         }
 
         public void FinishDialog(bool initiator)

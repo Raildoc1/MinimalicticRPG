@@ -67,5 +67,11 @@ namespace KG.Movement
         {
             RotateToDirection(new Vector3(direction.x, 0f, direction.y), immediate);
         }
+        public void LookAtTransform(Transform target)
+        {
+            Debug.Log($"{name} looks at {target.name}");
+            var direction = (target.position - transform.position).normalized;
+            targetDirection = (new Vector3(direction.x, 0f, direction.z)).normalized;
+        }
     }
 }
