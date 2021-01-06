@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace KG.Inventory {
     public class ItemCollection : MonoBehaviour {
-        
-        [SerializeField]
-        private List<ItemStack> items = new List<ItemStack>();
+
+        [SerializeField] private long gold = 0;
+
+        [SerializeField] private List<ItemStack> items = new List<ItemStack>();
 
         public void AddItems(string itemName, int amount = 1) {
             if(amount < 1) {
@@ -48,8 +48,25 @@ namespace KG.Inventory {
             }
             return false;
         }
+        public void EarnGold(double amount)
+        {
+            gold += (long)amount;
+        }
+
+        public bool SpendGold(double amount)
+        {
+            if (gold < amount)
+            {
+                return false;
+            }
+
+            gold -= (long)amount;
+
+            return true;
+        }
 
     }
+
 
     [System.Serializable]
     public class ItemStack {
