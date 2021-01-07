@@ -27,7 +27,7 @@ namespace KG.Inventory {
                 var hitboxCollider = _rightArmMeleeObject.GetComponentInChildren<Collider>();
                 var hitbox = _rightArmMeleeObject.GetComponentInChildren<HitBox>();
                 hitbox.SetOwner(combat);
-                hitbox.SetWeaponName(weapon.name);
+                //hitbox.SetWeaponName(weapon.name);
                 combat.WeaponHitBox = hitboxCollider;
             }
         }

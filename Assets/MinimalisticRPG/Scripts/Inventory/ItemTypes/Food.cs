@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace KG.Inventory
 {
-    [CreateAssetMenu(menuName = "Item/Food")]
+    [System.Serializable]
     public class Food : Item
     {
         public int cureHealthAmount = 0;

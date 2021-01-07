@@ -12,7 +12,9 @@ namespace KG.Inventory
 
         public enum WeaponType { NO_WEAPON = 0, MELEE = 1, BOW = 2, MAGIC = 3 }
 
-        [SerializeField] private MeleeWeapon _meleeWeapon;
+        public string initWeaponName = "";
+
+        private MeleeWeapon _meleeWeapon;
         private AnimatorProxy animatorProxy;
         private EquipmentDisplay equipmentDisplay;
 
@@ -57,15 +59,20 @@ namespace KG.Inventory
         {
             animatorProxy = GetComponent<AnimatorProxy>();
             equipmentDisplay = GetComponent<EquipmentDisplay>();
-            equipmentDisplay.Unequip(_meleeWeapon);
+
+            if (!initWeaponName.Equals(""))
+            { 
+                SetWeapon(initWeaponName);
+                equipmentDisplay.Unequip(_meleeWeapon);
+            }
         }
 
         public void SetWeapon(string weaponName)
         {
-            MeleeWeapon weapon = ItemDatabase.Instance.GetWeapon(weaponName);
-            if (!weapon)
+            MeleeWeapon weapon = PlayerInventory.instance.FindItemByName(weaponName) as MeleeWeapon;
+            if (weapon == null)
             {
-                Debug.LogWarning($"Weapon {weaponName} not found! Please, add it to \"Resources/Items/Items/\".");
+                Debug.LogWarning($"Weapon {weaponName} doesn't exists or {weaponName} is not a MeleeWeapon.");
             }
             _meleeWeapon = weapon;
         }

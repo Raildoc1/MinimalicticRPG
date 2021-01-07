@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-
-namespace KG.Inventory
+﻿namespace KG.Inventory
 {
-    public abstract class Item : ScriptableObject
+    [System.Serializable]
+    public abstract class Item
     {
         public string itemName;
-
+        public int hash;
     }
 }

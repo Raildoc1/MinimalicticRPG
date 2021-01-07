@@ -4,11 +4,47 @@ using UnityEngine;
 namespace KG.Inventory {
     public class PlayerInventory : ItemCollection {
 
+        #region Singleton
 
-        private void Start()
+        public static PlayerInventory instance;
+
+        private void InitSingleton()
         {
-            Debug.Log($"hash {Animator.StringToHash("ITM_PICKAXE")}");
+            if (instance)
+            {
+                Debug.LogError("More than one instance of PlayerInventory found!");
+                Destroy(this);
+                return;
+            }
+
+            instance = this;
         }
+
+        #endregion
+
+        private void Awake()
+        {
+            InitSingleton();
+
+            if (!itemsList)
+            {
+                Debug.LogError("No ItemsList assigned in PlayerInventory!");
+            }
+        }
+
+        public ItemsList itemsList;
+
+        public Item FindItemByName(string name)
+        {
+            return FindItemByHash(Animator.StringToHash(name));
+        }
+
+        public Item FindItemByHash(int hash)
+        {
+            return itemsList.FindItemByHash(hash);
+        }
+
+        #region Lua
 
         private void OnEnable()
         {
@@ -21,5 +57,8 @@ namespace KG.Inventory {
             Lua.UnregisterFunction("EarnGold");
             Lua.UnregisterFunction("SpendGold");
         }
+
+        #endregion
+
     }
 }

@@ -11,7 +11,18 @@ namespace KG.CombatCore
     {
 
         private Combat owner = null;
-        private string weaponName;
+        [SerializeField] private string weaponName;
+        private MeleeWeapon weapon;
+
+        private void Start()
+        {
+            weapon = PlayerInventory.instance.FindItemByName(weaponName) as MeleeWeapon;
+
+            if (weapon == null)
+            {
+                Debug.LogWarning($"Cannot find weapon {weaponName}");
+            }
+        }
 
         public void SetOwner(Combat combat)
         {
@@ -37,7 +48,7 @@ namespace KG.CombatCore
                 return;
             }
 
-            target.ApplyDamage(ItemDatabase.Instance.GetWeapon(weaponName).damage);
+            target.ApplyDamage(weapon.damage);
 
             GetComponent<Collider>().enabled = false;
         }

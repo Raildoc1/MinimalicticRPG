@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb53038a29a08204ea9daf7584c7a2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: MELEE_SWORD_1
 --- !u!1001 &4621055233393553548
 PrefabInstance:
   m_ObjectHideFlags: 0
