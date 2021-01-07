@@ -14,14 +14,14 @@ namespace KG.Inventory
 
         public string initWeaponName = "";
 
-        private MeleeWeapon _meleeWeapon;
+        private Item _meleeWeapon;
         private AnimatorProxy animatorProxy;
         private EquipmentDisplay equipmentDisplay;
 
         private WeaponType lastWeapon = WeaponType.MELEE;
         private WeaponType currentWeapon = WeaponType.NO_WEAPON;
 
-        public MeleeWeapon MeleeWeapon
+        public Item MeleeWeapon
         {
             get
             {
@@ -69,7 +69,7 @@ namespace KG.Inventory
 
         public void SetWeapon(string weaponName)
         {
-            MeleeWeapon weapon = PlayerInventory.instance.FindItemByName(weaponName) as MeleeWeapon;
+            var weapon = PlayerInventory.instance.FindItemInDatabaseByName(weaponName);
             if (weapon == null)
             {
                 Debug.LogWarning($"Weapon {weaponName} doesn't exists or {weaponName} is not a MeleeWeapon.");

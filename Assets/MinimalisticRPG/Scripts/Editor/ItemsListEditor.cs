@@ -16,7 +16,7 @@ namespace KG.CustomEditors
             {
                 var tar = (ItemsList)target;
 
-                foreach (var item in tar.meleeWeapons)
+                foreach (var item in tar.items)
                 {
                     if (!item.itemName.Equals(""))
                     {

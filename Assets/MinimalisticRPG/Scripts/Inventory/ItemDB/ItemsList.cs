@@ -6,11 +6,11 @@ using UnityEngine;
 [CreateAssetMenu]
 public class ItemsList : ScriptableObject
 {
-    public List<MeleeWeapon> meleeWeapons;
+    public List<Item> items;
 
     public Item FindItemByHash(int hash)
     {
-        foreach (var item in meleeWeapons)
+        foreach (var item in items)
         {
             if (item.hash == hash)
             {

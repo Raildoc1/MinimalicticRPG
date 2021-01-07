@@ -18,12 +18,11 @@ namespace KG.Inventory {
             combat = GetComponent<Combat>();
         }
 
-        public void Equip(Weapon weapon) {
-            if(weapon is MeleeWeapon) {
-                MeleeWeapon w = (MeleeWeapon)weapon;
+        public void Equip(Item weapon) {
+            if(weapon.type == ItemType.MELEE_WEAPON) {
                 Destroy(_rightArmMeleeObject);
                 Destroy(_beltMeleeObject);
-                _rightArmMeleeObject = Instantiate(w.prefab, _rightArmMeleeHolder);
+                _rightArmMeleeObject = Instantiate(weapon.gameObject, _rightArmMeleeHolder);
                 var hitboxCollider = _rightArmMeleeObject.GetComponentInChildren<Collider>();
                 var hitbox = _rightArmMeleeObject.GetComponentInChildren<HitBox>();
                 hitbox.SetOwner(combat);
@@ -32,13 +31,12 @@ namespace KG.Inventory {
             }
         }
 
-        public void Unequip(Weapon weapon) {
-            if(weapon is MeleeWeapon) {
-                MeleeWeapon w = (MeleeWeapon)weapon;
+        public void Unequip(Item weapon) {
+            if(weapon.type == ItemType.MELEE_WEAPON) {
                 combat.WeaponHitBox = null;
                 Destroy(_rightArmMeleeObject);
                 Destroy(_beltMeleeObject);
-                _beltMeleeObject = Instantiate(w.prefab, _beltMeleeHolder);
+                _beltMeleeObject = Instantiate(weapon.gameObject, _beltMeleeHolder);
             }
         }
 

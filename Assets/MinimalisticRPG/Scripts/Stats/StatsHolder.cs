@@ -75,6 +75,12 @@ namespace KG.Stats
             animatorProxy.GetDamage();
         }
 
+        public void ApplyPhysicalDamage(int damage)
+        {
+            Health -= damage < 5 ? 5 : damage;
+            animatorProxy.GetDamage();
+        }
+
     }
 }
 

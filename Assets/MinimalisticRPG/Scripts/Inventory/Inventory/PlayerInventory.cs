@@ -1,4 +1,5 @@
 ﻿using PixelCrushers.DialogueSystem;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace KG.Inventory {
@@ -25,23 +26,6 @@ namespace KG.Inventory {
         private void Awake()
         {
             InitSingleton();
-
-            if (!itemsList)
-            {
-                Debug.LogError("No ItemsList assigned in PlayerInventory!");
-            }
-        }
-
-        public ItemsList itemsList;
-
-        public Item FindItemByName(string name)
-        {
-            return FindItemByHash(Animator.StringToHash(name));
-        }
-
-        public Item FindItemByHash(int hash)
-        {
-            return itemsList.FindItemByHash(hash);
         }
 
         #region Lua

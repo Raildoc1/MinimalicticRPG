@@ -9,16 +9,16 @@ namespace KG.CombatCore
     [RequireComponent(typeof(Collider))]
     public class HitBox : MonoBehaviour
     {
+        [SerializeField] private string weaponName;
 
         private Combat owner = null;
-        [SerializeField] private string weaponName;
-        private MeleeWeapon weapon;
+        private Item weapon;
 
         private void Start()
         {
-            weapon = PlayerInventory.instance.FindItemByName(weaponName) as MeleeWeapon;
+            weapon = PlayerInventory.instance.FindItemInDatabaseByName(weaponName);
 
-            if (weapon == null)
+            if (weapon == null || weapon.type != ItemType.MELEE_WEAPON)
             {
                 Debug.LogWarning($"Cannot find weapon {weaponName}");
             }
@@ -48,7 +48,7 @@ namespace KG.CombatCore
                 return;
             }
 
-            target.ApplyDamage(weapon.damage);
+            target.ApplyPhysicalDamage(weapon.GetAttributeValue(AttributeType.PHYSICAL_DAMAGE));
 
             GetComponent<Collider>().enabled = false;
         }
