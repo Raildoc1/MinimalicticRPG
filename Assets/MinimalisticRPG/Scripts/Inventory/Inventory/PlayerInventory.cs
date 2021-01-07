@@ -1,7 +1,14 @@
 ﻿using PixelCrushers.DialogueSystem;
+using UnityEngine;
 
 namespace KG.Inventory {
     public class PlayerInventory : ItemCollection {
+
+
+        private void Start()
+        {
+            Debug.Log($"hash {Animator.StringToHash("ITM_PICKAXE")}");
+        }
 
         private void OnEnable()
         {

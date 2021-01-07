@@ -1994,8 +1994,8 @@ MonoBehaviour:
         y: 217.40262
         width: 160
         height: 30
-    canvasScrollPosition: {x: 146.68423, y: 0}
-    canvasZoom: 0.78999996
+    canvasScrollPosition: {x: 27.347916, y: 0}
+    canvasZoom: 0.6400001
   - id: 3
     fields:
     - title: Title
