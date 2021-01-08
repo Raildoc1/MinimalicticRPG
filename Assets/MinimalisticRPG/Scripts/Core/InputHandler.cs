@@ -16,11 +16,13 @@ namespace KG.Core
         [SerializeField] private UnityEvent OnInventoryInput;
         [SerializeField] private UnityEvent OnMainKeyInput;
         [SerializeField] private UnityEvent OnLockOnKeyInput;
+        [SerializeField] private UnityEvent DodgeOnKeyInput;
 
         public KeyCode DrawWeaponKey = KeyCode.Mouse2;
         public KeyCode MainKey = KeyCode.Mouse0;
-        public KeyCode LockOn = KeyCode.Mouse1;
+        public KeyCode LockOn = KeyCode.Q;
         public KeyCode Inventory = KeyCode.Tab;
+        public KeyCode Dodge = KeyCode.Mouse1;
 
         public float Vertical
         {
@@ -167,6 +169,10 @@ namespace KG.Core
             if (Input.GetKeyDown(Inventory))
             {
                 OnInventoryInput.Invoke();
+            }
+            if (Input.GetKeyDown(Dodge))
+            {
+                DodgeOnKeyInput.Invoke();
             }
         }
     }

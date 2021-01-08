@@ -144,6 +144,11 @@ public class AnimatorProxy : MonoBehaviour
         animator.SetFloat(inputHorizontalParamID, 0f, immediate ? 0f : stopTime, Time.deltaTime);
     }
 
+    public void Dodge()
+    {
+        animator.SetTrigger(dodgeParamID);
+    }
+
     private Animator animator;
 
     #region FLOATS
@@ -180,11 +185,13 @@ public class AnimatorProxy : MonoBehaviour
     private readonly string isEquipingParamName = "IsEquiping";
     private readonly string isUnequipingParamName = "IsUnequiping";
     private readonly string isDeadParamName = "IsDead";
+    private readonly string dodgeParamName = "Dodge";
 
     private int isStrafingParamID;
     private int isEquipingParamID;
     private int isUnequipingParamID;
     private int isDeadParamID;
+    private int dodgeParamID;
 
     #endregion
 
@@ -214,6 +221,7 @@ public class AnimatorProxy : MonoBehaviour
         isEquipingParamID = Animator.StringToHash(isEquipingParamName);
         isUnequipingParamID = Animator.StringToHash(isUnequipingParamName);
         isDeadParamID = Animator.StringToHash(isDeadParamName);
+        dodgeParamID = Animator.StringToHash(dodgeParamName);
 
         currentStateParamID = Animator.StringToHash(currentStateParamName);
     }

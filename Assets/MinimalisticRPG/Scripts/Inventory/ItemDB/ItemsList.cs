@@ -23,6 +23,6 @@ public class ItemsList : ScriptableObject
 
     public Item FindItemByName(string name)
     {
-        return FindItemByHash(Animator.StringToHash(name));
+        return FindItemByHash(name.GetHashCode());
     }
 }

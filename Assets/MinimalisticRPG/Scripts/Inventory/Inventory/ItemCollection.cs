@@ -9,7 +9,7 @@ namespace KG.Inventory
         public ItemsList itemsList;
 
         [SerializeField] private long gold = 0;
-        [SerializeField] private List<ItemStack> items = new List<ItemStack>();
+        public List<ItemStack> items = new List<ItemStack>();
 
         private void Awake()
         {
@@ -21,7 +21,7 @@ namespace KG.Inventory
 
         public Item FindItemInDatabaseByName(string name)
         {
-            return FindItemInDatabaseByHash(Animator.StringToHash(name));
+            return FindItemInDatabaseByHash(name.GetHashCode());
         }
 
         public Item FindItemInDatabaseByHash(int hash)
@@ -37,15 +37,17 @@ namespace KG.Inventory
                 return;
             }
 
-            foreach (ItemStack i in items)
+            var hash = itemName.GetHashCode();
+
+            foreach (ItemStack stack in items)
             {
-                if (i.itemName.Equals(itemName))
+                if (stack.item.hash == hash)
                 {
-                    i.itemsAmount += amount;
+                    stack.amount += amount;
                     return;
                 }
             }
-            ItemStack newItemStack = new ItemStack(itemName, amount);
+            ItemStack newItemStack = new ItemStack(itemName, amount, itemsList);
             items.Add(newItemStack);
         }
 
@@ -57,13 +59,15 @@ namespace KG.Inventory
                 return;
             }
 
-            foreach (ItemStack i in items)
+            var hash = itemName.GetHashCode();
+
+            foreach (ItemStack stack in items)
             {
-                if (i.itemName.Equals(itemName))
+                if (stack.item.hash == hash)
                 {
-                    if (i.itemsAmount < amount) Debug.Log($"Trying to remove {amount} items, but have only {i.itemsAmount}!");
-                    i.itemsAmount -= amount;
-                    if (i.itemsAmount < 1) items.Remove(i);
+                    if (stack.amount < amount) Debug.LogError($"Trying to remove {amount} items, but have only {stack.amount}!");
+                    stack.amount -= amount;
+                    if (stack.amount < 1) items.Remove(stack);
                     return;
                 }
             }
@@ -71,11 +75,14 @@ namespace KG.Inventory
 
         public bool HasItems(string itemName, int amount = 1)
         {
-            foreach (ItemStack i in items)
+
+            var hash = itemName.GetHashCode();
+
+            foreach (ItemStack stack in items)
             {
-                if (i.itemName.Equals(itemName))
+                if (stack.item.hash == hash)
                 {
-                    return i.itemsAmount >= amount;
+                    return stack.amount >= amount;
                 }
             }
             return false;
@@ -103,12 +110,14 @@ namespace KG.Inventory
     [System.Serializable]
     public class ItemStack
     {
-        public string itemName;
-        public int itemsAmount;
-        public ItemStack(string itemName, int itemsAmount)
+        public string name; // Used by inspector
+        public Item item;
+        public int amount;
+        public ItemStack(string itemName, int itemsAmount, ItemsList itemsList)
         {
-            this.itemName = itemName;
-            this.itemsAmount = itemsAmount;
+            name = itemName;
+            item = itemsList.FindItemByName(itemName);
+            amount = itemsAmount;
         }
 
     }

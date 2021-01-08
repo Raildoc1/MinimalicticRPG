@@ -20,7 +20,7 @@ namespace KG.CustomEditors
                 {
                     if (!item.itemName.Equals(""))
                     {
-                        item.hash = Animator.StringToHash(item.itemName);
+                        item.hash = item.itemName.GetHashCode();
                     }
                 }
             }
