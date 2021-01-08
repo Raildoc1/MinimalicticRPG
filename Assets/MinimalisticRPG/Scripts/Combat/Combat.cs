@@ -44,7 +44,10 @@ namespace KG.CombatCore
 
         public void Attack()
         {
-            if (stateSwitch.CurrentState != State.COMBAT) return;
+            if (stateSwitch.CurrentState != State.COMBAT)
+            {
+                return;
+            }
             animatorProxy.Attack();
         }
 
@@ -63,5 +66,14 @@ namespace KG.CombatCore
             if (WeaponHitBox) WeaponHitBox.enabled = false;
         }
 
+        public void Dodge()
+        {
+            if (stateSwitch.CurrentState != State.COMBAT)
+            {
+                return;
+            }
+
+            animatorProxy.Dodge();
+        }
     }
 }
