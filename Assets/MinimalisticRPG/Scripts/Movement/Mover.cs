@@ -4,6 +4,7 @@ using KG.Core;
 namespace KG.Movement
 {
     [RequireComponent(typeof(AnimatorProxy))]
+    [RequireComponent(typeof(StateSwitch))]
     public class Mover : MonoBehaviour
     {
         public float stopTime = 0.25f;
@@ -12,6 +13,7 @@ namespace KG.Movement
         [SerializeField] protected float rotationSpeed = 10f;
         protected Vector3 targetDirection;
         protected AnimatorProxy animator;
+        protected StateSwitch stateSwitch;
 
         protected bool _isStrafing;
 
@@ -23,14 +25,25 @@ namespace KG.Movement
             }
             set
             {
-                if (!animator) animator = GetComponent<AnimatorProxy>();
                 animator.isStrafing = value;
                 _isStrafing = value;
             }
         }
 
+        protected virtual void Awake()
+        {
+            animator = GetComponent<AnimatorProxy>();
+            stateSwitch = GetComponent<StateSwitch>();
+        }
+
+        protected void OnDisable()
+        {
+            stateSwitch.onDialogStart.RemoveListener(LookAtTransform);
+        }
+
         protected virtual void Start()
         {
+            stateSwitch.onDialogStart.AddListener(LookAtTransform);
             targetDirection = transform.forward;
         }
         protected virtual void Update()

@@ -30,10 +30,20 @@ namespace KG.CombatCore
         private PlayerMover mover;
         private StateSwitch stateSwitch;
 
-        private void Start()
+        private void Awake()
         {
             mover = GetComponent<PlayerMover>();
             stateSwitch = GetComponent<StateSwitch>();
+        }
+
+        private void Start()
+        {
+            stateSwitch.onStateChange.AddListener(OnChangeState);
+        }
+
+        private void OnDisable()
+        {
+            stateSwitch.onStateChange.RemoveListener(OnChangeState);
         }
 
         private void SetTarget(Transform transform)

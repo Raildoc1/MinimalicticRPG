@@ -4,7 +4,9 @@ using UnityEngine;
 
 namespace KG.Inventory
 {
-    [RequireComponent(typeof(AnimatorProxy), typeof(EquipmentDisplay))]
+    [RequireComponent(typeof(AnimatorProxy))]
+    [RequireComponent(typeof(EquipmentDisplay))]
+    [RequireComponent(typeof(StateSwitch))]
     public class Equipment : MonoBehaviour
     {
 
@@ -17,6 +19,7 @@ namespace KG.Inventory
         private Item _meleeWeapon;
         private AnimatorProxy animatorProxy;
         private EquipmentDisplay equipmentDisplay;
+        private StateSwitch stateSwitch;
 
         private WeaponType lastWeapon = WeaponType.MELEE;
         private WeaponType currentWeapon = WeaponType.NO_WEAPON;
@@ -55,16 +58,28 @@ namespace KG.Inventory
             }
         }
 
-        private void Start()
+        private void Awake()
         {
             animatorProxy = GetComponent<AnimatorProxy>();
             equipmentDisplay = GetComponent<EquipmentDisplay>();
+            stateSwitch = GetComponent<StateSwitch>();
+        }
+
+        private void Start()
+        {
+
+            stateSwitch.onStateChange.AddListener(OnStateChange);
 
             if (!initWeaponName.Equals(""))
             { 
                 SetWeapon(initWeaponName);
                 equipmentDisplay.Unequip(_meleeWeapon);
             }
+        }
+
+        private void OnDisable()
+        {
+            stateSwitch.onStateChange.RemoveListener(OnStateChange);
         }
 
         public void SetWeapon(string weaponName)

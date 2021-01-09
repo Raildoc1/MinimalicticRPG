@@ -19,6 +19,8 @@ namespace KG.CameraControl
         private Vector3 cameraDefaultRight;
         private Vector3 cameraDefaultUp;
 
+        private StateSwitch playerStateSwtich;
+
         private void Awake()
         {
             freeLookCamera = freeCamera.GetComponent<CinemachineFreeLook>();
@@ -31,11 +33,26 @@ namespace KG.CameraControl
 
         private void Start()
         {
+            playerStateSwtich = playerTransform.GetComponent<StateSwitch>();
+
+            if (!playerStateSwtich)
+            {
+                Debug.LogError($"Player do not have StateSwtich component!");
+            }
+
+            playerStateSwtich.onStateChange.AddListener(OnChangeState);
+
+
             freeLookCamera.m_XAxis.Value = 0f;
             freeLookCamera.m_YAxis.Value = 0f;
             cameraDefaultForward = cameraTransform.forward;
             cameraDefaultRight = cameraTransform.right;
             cameraDefaultUp = cameraTransform.up;
+        }
+
+        private void OnDisable()
+        {
+            playerStateSwtich.onStateChange.RemoveListener(OnChangeState);
         }
 
         private void FixedUpdate()

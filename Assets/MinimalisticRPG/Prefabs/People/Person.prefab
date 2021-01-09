@@ -246,19 +246,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onStateChange:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 693226713093417827}
-        m_TargetAssemblyTypeName: KG.Inventory.Equipment, Assembly-CSharp
-        m_MethodName: OnStateChange
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  onAddCompanion:
+    m_PersistentCalls:
+      m_Calls: []
+  onDialogStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &693226713093417826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,7 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
-  _meleeWeapon: {fileID: 11400000, guid: b6d5d37071a3473439f166a7406288f0, type: 2}
+  initWeaponName: 
 --- !u!114 &693226713093417820
 MonoBehaviour:
   m_ObjectHideFlags: 0

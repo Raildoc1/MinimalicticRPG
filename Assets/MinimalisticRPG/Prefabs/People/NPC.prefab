@@ -16,9 +16,14 @@ MonoBehaviour:
   detectMinRadius: 10
   strafeDistance: 5
   stopDistance: 2
+  tooCloseDistance: 1
   tagsToDetect:
     serializedVersion: 2
     m_Bits: 4096
+  outflankTime: -1
+  outflankDirection: 1
+  outFlankProbability: 0.25
+  dodgeProbability: 0.25
   companionStopDistance: 2
   waypointStopDistance: 0.2
   waypath: {fileID: 0}
@@ -347,11 +352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: onDialogStart.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
-      propertyPath: onAddCompanion.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: onDialogStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target

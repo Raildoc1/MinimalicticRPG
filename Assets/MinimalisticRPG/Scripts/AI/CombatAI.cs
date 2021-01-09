@@ -77,7 +77,7 @@ namespace KG.AI
                     action = CombatAction.ATTACK;
                 }
 
-                Debug.Log($"Generated {temp}; Action {action}");
+                //Debug.Log($"Generated {temp}; Action {action}");
 
                 switch (action)
                 {

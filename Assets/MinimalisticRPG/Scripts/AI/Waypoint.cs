@@ -7,9 +7,13 @@ namespace KG.AI
     public class Waypoint : MonoBehaviour
     {
 
+        public float exitTime;
+
         protected virtual void OnDrawGizmos()
         {
             Gizmos.DrawCube(transform.position, Vector3.one * 0.1f);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position, transform.position + transform.forward);
         }
 
     }
