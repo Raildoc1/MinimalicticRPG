@@ -24,6 +24,7 @@ MonoBehaviour:
     gameObject: {fileID: 4621055232258266464, guid: c994d771eb0b1ed479d538aaf106c13a, type: 3}
     cost: 250
     canBeSold: 1
+    icon: {fileID: 21300000, guid: 3294472400c29954f8fa1e765cc92cd2, type: 3}
   - itemName: ITM_PICKAXE
     hash: 1608248602
     type: 0
@@ -35,3 +36,4 @@ MonoBehaviour:
     gameObject: {fileID: 4621055232258266464, guid: c994d771eb0b1ed479d538aaf106c13a, type: 3}
     cost: 100
     canBeSold: 1
+    icon: {fileID: 21300000, guid: 2169eb876e4723d41b045ab36286d0af, type: 3}

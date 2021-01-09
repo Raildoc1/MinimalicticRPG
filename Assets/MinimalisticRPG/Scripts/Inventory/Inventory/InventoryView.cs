@@ -1,4 +1,5 @@
 using KG.Core;
+using KG.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace KG.Inventory
 
         public GameObject inventory;
         public StateSwitch playerStateSwitch;
+        public InventoryGridUI inventoryGridUI;
 
         private PlayerInventory playerInventory;
         private bool inventoryOpened = false;
@@ -18,7 +20,11 @@ namespace KG.Inventory
         private void Awake()
         {
             playerInventory = GetComponent<PlayerInventory>();
-            inventory.SetActive(false);
+        }
+
+        private void Start()
+        {
+            inventory.SetActive(inventoryOpened);
         }
 
         public void OpenCloseInventory()
@@ -30,6 +36,7 @@ namespace KG.Inventory
             else
             {
                 OpenInventory();
+                inventoryGridUI.UpdateUI();
             }
 
         }

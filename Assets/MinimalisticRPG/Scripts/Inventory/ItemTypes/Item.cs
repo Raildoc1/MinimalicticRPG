@@ -19,6 +19,8 @@ namespace KG.Inventory
             return AttributesTools.GetAttributeValue(attributes, type);
         }
 
+        public Sprite icon;
+
     }
 
     [System.Serializable]

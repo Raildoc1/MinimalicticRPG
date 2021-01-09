@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace KG.Inventory {
-    public class PlayerInventory : ItemCollection {
+namespace KG.Inventory
+{
+    public class PlayerInventory : ItemCollection
+    {
 
         #region Singleton
 
