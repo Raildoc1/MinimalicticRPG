@@ -13,7 +13,10 @@ namespace KG.AI
         public float detectMinRadius = 10f;
         public float strafeDistance = 5f;
         public float stopDistance = 2f;
+        public float tooCloseDistance = 1f;
         public LayerMask tagsToDetect;
+        public float outflankTime = -1f;
+        public bool outflankDirection = true;
 
         [Range(0f, 1f)]
         public float outFlankProbability = 0.25f;
@@ -30,9 +33,29 @@ namespace KG.AI
 
         protected virtual void AttackTarget()
         {
+
+            if (animatorProxy.isDead || stateSwitch.CurrentState != State.COMBAT)
+            {
+                return;
+            }
+
             agent.SetDestination(currentTarget.position);
 
-            if (targetDistance < stopDistance)
+            if (animatorProxy.inDodge)
+            {
+                return;
+            }
+            else if (outflankTime > 0f)
+            {
+                agent.isStopped = true;
+                outflankTime -= Time.deltaTime;
+                animatorProxy.inputHorizontal = outflankDirection ? 1f : -1f;
+
+                animatorProxy.inputVertical = targetDistance < tooCloseDistance ? -1f : 0f;
+
+                mover.RotateToDirection((currentTarget.position - transform.position).normalized);
+            }
+            else if (targetDistance < stopDistance)
             {
                 agent.isStopped = true;
                 animatorProxy.ResetInput();
@@ -49,7 +72,7 @@ namespace KG.AI
                 {
                     action = CombatAction.DODGE;
                 }
-                else 
+                else
                 {
                     action = CombatAction.ATTACK;
                 }
@@ -64,6 +87,8 @@ namespace KG.AI
                         combat.Attack();
                         break;
                     case CombatAction.OUTFLANK:
+                        outflankTime = Random.Range(2f, 4f);
+                        outflankDirection = Random.Range(0f, 1f) > 0.5f;
                         break;
                     case CombatAction.DODGE:
                         combat.Dodge();
@@ -143,7 +168,7 @@ namespace KG.AI
             {
                 return;
             }
-            
+
             stateSwitch.CurrentState = State.PEACE;
 
             currentTarget = null;
@@ -151,7 +176,7 @@ namespace KG.AI
 
 
         private enum CombatAction
-        { 
+        {
             NONE = 0,
             ATTACK = 1,
             OUTFLANK = 2,

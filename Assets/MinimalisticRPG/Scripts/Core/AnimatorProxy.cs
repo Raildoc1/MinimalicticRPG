@@ -149,6 +149,22 @@ public class AnimatorProxy : MonoBehaviour
         animator.SetTrigger(dodgeParamID);
     }
 
+    public bool inDodge
+    {
+        get
+        {
+            return animator.GetBool(inDodgeParamID);
+        }
+    }
+
+    public bool cannotBlock
+    {
+        get
+        {
+            return animator.GetBool(cannotBlockParamID);
+        }
+    }
+
     private Animator animator;
 
     #region FLOATS
@@ -170,12 +186,14 @@ public class AnimatorProxy : MonoBehaviour
     private readonly string unequipParamName = "Unequip";
     private readonly string getDamageParamName = "GetDamage";
     private readonly string pickUpParamName = "PickUp";
+    private readonly string dodgeParamName = "Dodge";
 
     private int attackParamID;
     private int equipParamID;
     private int unequipParamID;
     private int getDamageParamID;
     private int pickUpParamID;
+    private int dodgeParamID;
 
     #endregion
 
@@ -185,13 +203,15 @@ public class AnimatorProxy : MonoBehaviour
     private readonly string isEquipingParamName = "IsEquiping";
     private readonly string isUnequipingParamName = "IsUnequiping";
     private readonly string isDeadParamName = "IsDead";
-    private readonly string dodgeParamName = "Dodge";
+    private readonly string inDodgeParamName = "InDodge";
+    private readonly string cannotBlockParamName = "CannotBlock";
 
     private int isStrafingParamID;
     private int isEquipingParamID;
     private int isUnequipingParamID;
     private int isDeadParamID;
-    private int dodgeParamID;
+    private int inDodgeParamID;
+    private int cannotBlockParamID;
 
     #endregion
 
@@ -216,12 +236,14 @@ public class AnimatorProxy : MonoBehaviour
         unequipParamID = Animator.StringToHash(unequipParamName);
         getDamageParamID = Animator.StringToHash(getDamageParamName);
         pickUpParamID = Animator.StringToHash(pickUpParamName);
+        dodgeParamID = Animator.StringToHash(dodgeParamName);
 
         isStrafingParamID = Animator.StringToHash(isStrafingParamName);
         isEquipingParamID = Animator.StringToHash(isEquipingParamName);
         isUnequipingParamID = Animator.StringToHash(isUnequipingParamName);
         isDeadParamID = Animator.StringToHash(isDeadParamName);
-        dodgeParamID = Animator.StringToHash(dodgeParamName);
+        inDodgeParamID = Animator.StringToHash(inDodgeParamName);
+        cannotBlockParamID = Animator.StringToHash(cannotBlockParamName);
 
         currentStateParamID = Animator.StringToHash(currentStateParamName);
     }
