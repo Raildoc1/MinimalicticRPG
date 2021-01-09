@@ -15,6 +15,11 @@ namespace KG.AI
         public float stopDistance = 2f;
         public LayerMask tagsToDetect;
 
+        [Range(0f, 1f)]
+        public float outFlankProbability = 0.25f;
+        [Range(0f, 1f)]
+        public float dodgeProbability = 0.25f;
+
         protected Transform currentTarget = null;
 
         protected Combat combat;
@@ -32,7 +37,41 @@ namespace KG.AI
                 agent.isStopped = true;
                 animatorProxy.ResetInput();
                 animatorProxy.isStrafing = true;
-                combat.Attack();
+
+                var temp = Random.Range(0f, 1f);
+                CombatAction action;
+
+                if (temp < outFlankProbability)
+                {
+                    action = CombatAction.OUTFLANK;
+                }
+                else if (temp < dodgeProbability + outFlankProbability)
+                {
+                    action = CombatAction.DODGE;
+                }
+                else 
+                {
+                    action = CombatAction.ATTACK;
+                }
+
+                Debug.Log($"Generated {temp}; Action {action}");
+
+                switch (action)
+                {
+                    case CombatAction.NONE:
+                        break;
+                    case CombatAction.ATTACK:
+                        combat.Attack();
+                        break;
+                    case CombatAction.OUTFLANK:
+                        break;
+                    case CombatAction.DODGE:
+                        combat.Dodge();
+                        break;
+                    default:
+                        break;
+                }
+
                 mover.RotateToDirection((currentTarget.position - transform.position).normalized);
 
             }
@@ -108,6 +147,15 @@ namespace KG.AI
             stateSwitch.CurrentState = State.PEACE;
 
             currentTarget = null;
+        }
+
+
+        private enum CombatAction
+        { 
+            NONE = 0,
+            ATTACK = 1,
+            OUTFLANK = 2,
+            DODGE = 3
         }
 
     }
