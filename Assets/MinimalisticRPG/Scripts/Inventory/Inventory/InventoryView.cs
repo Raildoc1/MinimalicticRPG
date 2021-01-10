@@ -12,7 +12,6 @@ namespace KG.Inventory
 
         public GameObject inventory;
         public StateSwitch playerStateSwitch;
-        public InventoryGridUI inventoryGridUI;
 
         private PlayerInventory playerInventory;
         private bool inventoryOpened = false;
@@ -36,20 +35,32 @@ namespace KG.Inventory
             else
             {
                 OpenInventory();
-                inventoryGridUI.UpdateUI();
             }
 
         }
 
         public void OpenInventory()
         {
+            UnlockCursor();
             inventory.SetActive(true);
             playerStateSwitch.SetCurrentState(State.INVENTORY);
             inventoryOpened = true;
         }
 
+        private static void UnlockCursor()
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        private static void LockCursor()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
         public void CloseInventory()
         {
+            LockCursor();
             inventory.SetActive(false);
             playerStateSwitch.SetCurrentState(State.PEACE);
             inventoryOpened = false;

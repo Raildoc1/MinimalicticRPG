@@ -16,6 +16,14 @@ namespace KG.Stats
         [SerializeField] private int dexterity = 10;
         [SerializeField] private int intelligence = 10;
 
+        public int MaxHealth
+        {
+            get
+            {
+                return maxHealth;
+            }
+        }
+
         public int Health
         {
             get
@@ -26,6 +34,30 @@ namespace KG.Stats
             {
                 _currentHealth = Mathf.Clamp(value, 0, maxHealth);
                 if (_currentHealth == 0) IsDead = true;
+            }
+        }
+
+        public int Strength
+        {
+            get
+            {
+                return strength;
+            }
+        }
+
+        public int Dexterity
+        {
+            get
+            {
+                return dexterity;
+            }
+        }
+
+        public int Intelligence
+        {
+            get
+            {
+                return intelligence;
             }
         }
 
@@ -40,6 +72,7 @@ namespace KG.Stats
                 animatorProxy.isDead = value;
             }
         }
+
         #endregion
 
         #region PrivateFields

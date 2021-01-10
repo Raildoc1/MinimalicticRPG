@@ -26,6 +26,11 @@ namespace KG.UI
 
         }
 
+        private void OnEnable()
+        {
+            UpdateUI();
+        }
+
         public void UpdateUI()
         {
             for (int i = 0; i < Mathf.Min(slots.Length, inventory.items.Count); i++)
@@ -34,9 +39,7 @@ namespace KG.UI
                 slots[i].image.enabled = true;
             }
 
-            var empty_slots = slots.Length - inventory.items.Count + 1;
-
-            for (int i = inventory.items.Count; i < empty_slots; i++)
+            for (int i = inventory.items.Count; i < slots.Length; i++)
             {
                 slots[i].image.enabled = false;
             }
