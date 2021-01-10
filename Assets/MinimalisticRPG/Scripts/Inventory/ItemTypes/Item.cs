@@ -13,6 +13,7 @@ namespace KG.Inventory
         public GameObject gameObject;
         public int cost;
         public bool canBeSold = true;
+        public bool canBeEquiped = false;
 
         public int GetAttributeValue(AttributeType type)
         {

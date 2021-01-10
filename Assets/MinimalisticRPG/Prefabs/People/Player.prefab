@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4d185c7d912b144498f04df03064bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyHpBar: {fileID: 0}
   maxDistance: 6
   tags_to_detect:
   - Enemy
@@ -314,7 +315,8 @@ PrefabInstance:
       propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5696198633058882757, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
 --- !u!1 &2663130687346857926 stripped
 GameObject:

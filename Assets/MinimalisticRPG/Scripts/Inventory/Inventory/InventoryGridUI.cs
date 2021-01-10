@@ -9,6 +9,7 @@ namespace KG.UI
     {
 
         public PlayerInventory inventory;
+        public Equipment equipment;
 
         private InventorySlotUI[] slots;
 
@@ -22,6 +23,7 @@ namespace KG.UI
             foreach (var slot in slots)
             {
                 slot.index = i++;
+                slot.inventoryGridUI = this;
             }
 
         }
@@ -37,12 +39,19 @@ namespace KG.UI
             {
                 slots[i].image.sprite = inventory.items[i].item.icon;
                 slots[i].image.enabled = true;
+                slots[i].equipedIcon.SetActive(inventory.items[i].isEquiped && inventory.items[i].item.canBeEquiped);
             }
 
             for (int i = inventory.items.Count; i < slots.Length; i++)
             {
                 slots[i].image.enabled = false;
+                slots[i].equipedIcon.SetActive(false);
             }
+        }
+
+        public void OnClick(int index)
+        {
+            equipment.EquipUnequip(inventory.GetItemByIndex(index));
         }
 
     }

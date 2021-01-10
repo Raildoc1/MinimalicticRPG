@@ -7,6 +7,7 @@ namespace KG.Inventory
     [RequireComponent(typeof(AnimatorProxy))]
     [RequireComponent(typeof(EquipmentDisplay))]
     [RequireComponent(typeof(StateSwitch))]
+    [RequireComponent(typeof(ItemCollection))]
     public class Equipment : MonoBehaviour
     {
 
@@ -20,6 +21,7 @@ namespace KG.Inventory
         private AnimatorProxy animatorProxy;
         private EquipmentDisplay equipmentDisplay;
         private StateSwitch stateSwitch;
+        private ItemCollection itemColllection;
 
         private WeaponType lastWeapon = WeaponType.MELEE;
         private WeaponType currentWeapon = WeaponType.NO_WEAPON;
@@ -63,6 +65,7 @@ namespace KG.Inventory
             animatorProxy = GetComponent<AnimatorProxy>();
             equipmentDisplay = GetComponent<EquipmentDisplay>();
             stateSwitch = GetComponent<StateSwitch>();
+            itemColllection = GetComponent<ItemCollection>();
         }
 
         private void Start()
@@ -71,15 +74,61 @@ namespace KG.Inventory
             stateSwitch.onStateChange.AddListener(OnStateChange);
 
             if (!initWeaponName.Equals(""))
-            { 
+            {
+
+                if (!itemColllection.HasItems(initWeaponName))
+                {
+                    itemColllection.AddItems(initWeaponName);
+                }
+
+                itemColllection.EquipItem(initWeaponName);
                 SetWeapon(initWeaponName);
-                equipmentDisplay.Unequip(_meleeWeapon);
+
+                equipmentDisplay.Hide(_meleeWeapon);
             }
         }
 
         private void OnDisable()
         {
             stateSwitch.onStateChange.RemoveListener(OnStateChange);
+        }
+
+        public void EquipUnequip(Item weapon)
+        {
+            if (weapon.type == ItemType.MELEE_WEAPON)
+            {
+                if ((_meleeWeapon != null) && (_meleeWeapon.hash == weapon.hash))
+                {
+                    Debug.Log($"UnequipItem({weapon.itemName})");
+                    UnequipItem(weapon);
+                }
+                else
+                {
+                    Debug.Log($"EquipItem({weapon.itemName})");
+                    EquipItem(weapon);
+                }
+            }
+        }
+
+        public void UnequipItem(Item weapon)
+        {
+            if (weapon.type == ItemType.MELEE_WEAPON)
+            {
+                _meleeWeapon = null;
+                equipmentDisplay.Unequip(weapon);
+                itemColllection.EquipItem(weapon.itemName, false);
+            }
+        }
+
+        public void EquipItem(Item weapon)
+        {
+            if (weapon.type == ItemType.MELEE_WEAPON)
+            {
+                _meleeWeapon = weapon;
+                itemColllection.EquipItem(weapon.itemName);
+                SetWeapon(weapon.itemName);
+                equipmentDisplay.Hide(weapon);
+            }
         }
 
         public void SetWeapon(string weaponName)
@@ -160,7 +209,7 @@ namespace KG.Inventory
                 yield return null;
             }
             if (DEBUG_MODE) Debug.Log($"Hiding IsUnequiping = {IsUnequiping}.");
-            equipmentDisplay.Unequip(_meleeWeapon);
+            equipmentDisplay.Hide(_meleeWeapon);
             if (DEBUG_MODE) Debug.Log($"{weaponType} is hidden successfully!");
         }
 

@@ -73,6 +73,24 @@ namespace KG.Inventory
             }
         }
 
+        public void EquipItem(string itemName, bool equiped = true)
+        {
+
+            var hash = itemName.GetHashCode();
+
+            foreach (ItemStack stack in items)
+            {
+                if (stack.item.hash == hash)
+                {
+                    stack.isEquiped = equiped;
+                    Debug.Log($"EquipItem({itemName}) successfully");
+                    return;
+                }
+            }
+
+            Debug.Log($"EquipItem({itemName}) failed");
+        }
+
         public bool HasItems(string itemName, int amount = 1)
         {
 
@@ -104,6 +122,16 @@ namespace KG.Inventory
             return true;
         }
 
+        public Item GetItemByIndex(int index)
+        {
+            if (index >= items.Count)
+            {
+                return null;
+            }
+
+            return items[index].item;
+        }
+
     }
 
 
@@ -113,6 +141,7 @@ namespace KG.Inventory
         public string name; // Used by inspector
         public Item item;
         public int amount;
+        public bool isEquiped = false;
         public ItemStack(string itemName, int itemsAmount, ItemsList itemsList)
         {
             name = itemName;

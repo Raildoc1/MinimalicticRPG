@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 693226713093417827}
   - component: {fileID: 693226713093417820}
   - component: {fileID: 4094837621821031944}
+  - component: {fileID: 5696198633058882757}
   m_Layer: 0
   m_Name: Person
   m_TagString: Untagged
@@ -308,6 +309,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34100199dc3c8d478a32c0673c77b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHealthUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   maxHealth: 100
   strength: 10
   dexterity: 10
@@ -325,6 +329,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stopTime: 0.25
+--- !u!114 &5696198633058882757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693226713093417812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19c5ca079a3022e41b88df932ddc77b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsList: {fileID: 11400000, guid: 8f57ee921280d094fa814dfe4ba467b2, type: 2}
+  gold: 0
+  items: []
 --- !u!1 &746119006705895439
 GameObject:
   m_ObjectHideFlags: 0
