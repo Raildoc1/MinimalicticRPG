@@ -7,6 +7,7 @@ using UnityEngine;
 namespace KG.Inventory
 {
     [RequireComponent(typeof(PlayerInventory))]
+    [RequireComponent(typeof(InputHandler))]
     public class InventoryView : MonoBehaviour
     {
 
@@ -14,11 +15,14 @@ namespace KG.Inventory
         public StateSwitch playerStateSwitch;
 
         private PlayerInventory playerInventory;
+        private InputHandler inputHandler;
         private bool inventoryOpened = false;
+        private float lockInputTime = .75f;
 
         private void Awake()
         {
             playerInventory = GetComponent<PlayerInventory>();
+            inputHandler = GetComponent<InputHandler>();
         }
 
         private void Start()
@@ -60,6 +64,7 @@ namespace KG.Inventory
 
         public void CloseInventory()
         {
+            inputHandler.LockInputAxisInput(lockInputTime);
             LockCursor();
             inventory.SetActive(false);
             playerStateSwitch.SetCurrentState(State.PEACE);

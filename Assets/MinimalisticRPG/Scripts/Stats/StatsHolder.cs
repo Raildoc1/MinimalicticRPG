@@ -2,12 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace KG.Stats
 {
     [RequireComponent(typeof(AnimatorProxy))]
     public class StatsHolder : MonoBehaviour
     {
+
+        public UnityEvent<int, int> OnHealthUpdate = new UnityEvent<int, int>();
 
         #region SerializableAndPublicFields
 
@@ -33,7 +36,11 @@ namespace KG.Stats
             set
             {
                 _currentHealth = Mathf.Clamp(value, 0, maxHealth);
-                if (_currentHealth == 0) IsDead = true;
+                if (_currentHealth == 0)
+                {
+                    IsDead = true;
+                }
+                OnHealthUpdate.Invoke(Health, MaxHealth);
             }
         }
 

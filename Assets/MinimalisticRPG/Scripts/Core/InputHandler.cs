@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace KG.Core
@@ -60,7 +61,7 @@ namespace KG.Core
             }
         }
 
-        public float RawInputMagnitude => Mathf.Max(Mathf.Abs(Input.GetAxisRaw("Vertical")), Mathf.Abs(Input.GetAxisRaw("Horizontal")));
+        public float RawInputMagnitude => axisInputLocked ? 0f : Mathf.Max(Mathf.Abs(Input.GetAxisRaw("Vertical")), Mathf.Abs(Input.GetAxisRaw("Horizontal")));
 
 
         public Vector3 InputDirection
@@ -80,6 +81,7 @@ namespace KG.Core
         private float _verticalRaw = 0f;
         private float _vertical = 0f;
         private float _horizontal = 0f;
+        private bool axisInputLocked = false;
         #endregion
 
         #region UnityFunctions
@@ -101,7 +103,7 @@ namespace KG.Core
             animatorProxy = GetComponent<AnimatorProxy>();
         }
 
-        public void Update()
+        private void Update()
         {
             UpdateInputAxises();
             UpdateInputDirection();
@@ -109,6 +111,18 @@ namespace KG.Core
             CheckKeyInput();
         }
         #endregion
+
+        public void LockInputAxisInput(float time)
+        {
+            axisInputLocked = true;
+            StartCoroutine(LockInputRoutine(time));
+        }
+
+        public IEnumerator LockInputRoutine(float time)
+        {
+            yield return new WaitForSeconds(time);
+            axisInputLocked = false;
+        }
 
         private void UpdateAnimator()
         {
@@ -124,7 +138,7 @@ namespace KG.Core
 
         private void UpdateInputAxises()
         {
-            if (stateSwitch.CurrentState == State.COMBAT || stateSwitch.CurrentState == State.PEACE)
+            if (!axisInputLocked && (stateSwitch.CurrentState == State.COMBAT || stateSwitch.CurrentState == State.PEACE))
             {
                 _horizontalRaw = Input.GetAxisRaw("Horizontal");
                 _verticalRaw = Input.GetAxisRaw("Vertical");

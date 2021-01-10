@@ -1,4 +1,5 @@
 ﻿using KG.Core;
+using KG.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace KG.Interact
     [RequireComponent(typeof(StateSwitch))]
     public class PlayerTargetDetector : MonoBehaviour
     {
+
+        public BarView enemyHpBar;
 
         [SerializeField] private float maxDistance = 6f;
         [SerializeField] private List<string> tags_to_detect;
@@ -49,10 +52,24 @@ namespace KG.Interact
             RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.forward, maxDistance);
             var new_target = GetNewTarget(hits);
 
+
             if (new_target == null || new_target != current_target)
             {
+                enemyHpBar.Disable();
                 if (OnUpdateTarget != null) OnUpdateTarget.Invoke(new_target);
                 current_target = new_target;
+            }
+
+            if (new_target)
+            {
+                var stats = new_target.GetComponent<StatsHolder>();
+
+                if (stats)
+                {
+                    enemyHpBar.stats = stats;
+
+                    enemyHpBar.gameObject.SetActive(true);
+                }
             }
         }
 
