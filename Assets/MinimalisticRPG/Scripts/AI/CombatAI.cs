@@ -36,6 +36,8 @@ namespace KG.AI
         public float outFlankProbability = 0.25f;
         [Range(0f, 1f)]
         public float dodgeProbability = 0.25f;
+        [Range(0f, 1f)]
+        public float dodgeWhileGettingDamgeProbability = 0.5f;
 
 
         protected Transform currentTarget = null;
@@ -59,7 +61,22 @@ namespace KG.AI
             if (animatorProxy.inDodge)
             {
                 return;
-            } 
+            } if (animatorProxy.gettingDamage)
+            {
+                attackTime = -1f;
+                outflankTime = -1f;
+
+                if (!animatorProxy.cannotBlock)
+                {
+                    if (Random.Range(0f, 1f) < dodgeWhileGettingDamgeProbability)
+                    {
+                        animatorProxy.inputVertical = -1f;
+                        animatorProxy.inputHorizontal = 0f;
+                        combat.Dodge();
+                    }
+                }
+
+            }
             else if (attackTime > 0f)
             {
                 attackTime -= Time.deltaTime;

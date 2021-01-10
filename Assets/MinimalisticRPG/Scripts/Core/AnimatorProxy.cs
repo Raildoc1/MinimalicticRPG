@@ -8,6 +8,10 @@ public class AnimatorProxy : MonoBehaviour
 
     public float stopTime = 0.25f;
 
+    #region Public animator variables
+
+    #region INT
+
     public int currentState
     {
         get
@@ -19,6 +23,52 @@ public class AnimatorProxy : MonoBehaviour
             animator.SetInteger(currentStateParamID, value);
         }
     }
+
+    #endregion
+
+    #region FLOAT
+
+    public float inputMagnitude
+    {
+        get
+        {
+            return animator.GetFloat(inputMagnitudeParamID);
+        }
+        set
+        {
+            animator.SetFloat(inputMagnitudeParamID, value, stopTime, Time.deltaTime);
+        }
+    }
+
+    public float inputVertical
+    {
+        get
+        {
+            return animator.GetFloat(inputVerticalParamID);
+        }
+
+        set
+        {
+            animator.SetFloat(inputVerticalParamID, Mathf.Clamp(value, -1f, 1f), stopTime, Time.deltaTime);
+        }
+    }
+
+    public float inputHorizontal
+    {
+        get
+        {
+            return animator.GetFloat(inputHorizontalParamID);
+        }
+
+        set
+        {
+            animator.SetFloat(inputHorizontalParamID, Mathf.Clamp(value, -1f, 1f), stopTime, Time.deltaTime);
+        }
+    }
+
+    #endregion
+
+    #region BOOL
 
     public bool isStrafing
     {
@@ -68,44 +118,33 @@ public class AnimatorProxy : MonoBehaviour
         }
     }
 
-    public float inputMagnitude
+    public bool gettingDamage
     {
         get
         {
-            return animator.GetFloat(inputMagnitudeParamID);
-        }
-        set
-        {
-            animator.SetFloat(inputMagnitudeParamID, value, stopTime, Time.deltaTime);
+            return animator.GetBool(gettingDamageParamID);
         }
     }
 
-    public float inputVertical
+    public bool inDodge
     {
         get
         {
-            return animator.GetFloat(inputVerticalParamID);
-        }
-
-        set
-        {
-            animator.SetFloat(inputVerticalParamID, Mathf.Clamp(value, -1f, 1f), stopTime, Time.deltaTime);
+            return animator.GetBool(inDodgeParamID);
         }
     }
 
-    public float inputHorizontal
+    public bool cannotBlock
     {
         get
         {
-            return animator.GetFloat(inputHorizontalParamID);
-        }
-
-        set
-        {
-            animator.SetFloat(inputHorizontalParamID, Mathf.Clamp(value, -1f, 1f), stopTime, Time.deltaTime);
+            return animator.GetBool(cannotBlockParamID);
         }
     }
 
+    #endregion
+
+    #region VOID
     public void GetDamage()
     {
         animator.SetTrigger(getDamageParamID);
@@ -148,24 +187,11 @@ public class AnimatorProxy : MonoBehaviour
     {
         animator.SetTrigger(dodgeParamID);
     }
+    #endregion
 
-    public bool inDodge
-    {
-        get
-        {
-            return animator.GetBool(inDodgeParamID);
-        }
-    }
+    #endregion
 
-    public bool cannotBlock
-    {
-        get
-        {
-            return animator.GetBool(cannotBlockParamID);
-        }
-    }
-
-    private Animator animator;
+    #region Names and IDs
 
     #region FLOATS
 
@@ -205,6 +231,7 @@ public class AnimatorProxy : MonoBehaviour
     private readonly string isDeadParamName = "IsDead";
     private readonly string inDodgeParamName = "InDodge";
     private readonly string cannotBlockParamName = "CannotBlock";
+    private readonly string gettingDamageParamName = "GettingDamage";
 
     private int isStrafingParamID;
     private int isEquipingParamID;
@@ -212,6 +239,7 @@ public class AnimatorProxy : MonoBehaviour
     private int isDeadParamID;
     private int inDodgeParamID;
     private int cannotBlockParamID;
+    private int gettingDamageParamID;
 
     #endregion
 
@@ -222,6 +250,10 @@ public class AnimatorProxy : MonoBehaviour
     private int currentStateParamID;
 
     #endregion
+
+    #endregion
+
+    private Animator animator;
 
     private void Awake()
     {
@@ -244,6 +276,7 @@ public class AnimatorProxy : MonoBehaviour
         isDeadParamID = Animator.StringToHash(isDeadParamName);
         inDodgeParamID = Animator.StringToHash(inDodgeParamName);
         cannotBlockParamID = Animator.StringToHash(cannotBlockParamName);
+        gettingDamageParamID = Animator.StringToHash(gettingDamageParamName);
 
         currentStateParamID = Animator.StringToHash(currentStateParamName);
     }
