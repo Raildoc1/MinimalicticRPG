@@ -1,6 +1,7 @@
 ﻿using Cinemachine;
 using KG.CameraControl;
 using KG.Core;
+using KG.Interact;
 using KG.Movement;
 using System;
 using System.Collections;
@@ -11,6 +12,7 @@ namespace KG.CombatCore
 {
     [RequireComponent(typeof(PlayerMover))]
     [RequireComponent(typeof(StateSwitch))]
+    [RequireComponent(typeof(PlayerTargetDetector))]
     public class PlayerLockOn : MonoBehaviour
     {
 
@@ -29,11 +31,13 @@ namespace KG.CombatCore
         private bool isLockedOn = false;
         private PlayerMover mover;
         private StateSwitch stateSwitch;
+        private PlayerTargetDetector playerTargetDetector;
 
         private void Awake()
         {
             mover = GetComponent<PlayerMover>();
             stateSwitch = GetComponent<StateSwitch>();
+            playerTargetDetector = GetComponent<PlayerTargetDetector>();
         }
 
         private void Start()
@@ -48,15 +52,27 @@ namespace KG.CombatCore
 
         private void SetTarget(Transform transform)
         {
-            if (currentTarget) targetGroup.RemoveMember(currentTarget);
+            if (currentTarget) { 
+                targetGroup.RemoveMember(currentTarget);
+            }
+
             if (transform)
             {
+
+                var interactable = transform.GetComponent<Interactable>();
+
+                if (interactable)
+                {
+                    playerTargetDetector.ForceNewTarget(interactable);
+                }
+
                 targetGroup.AddMember(transform, targetWeight, targetRadius);
                 cameraStateController.LockOnTarget();
                 isLockedOn = true;
             }
             else
             {
+                playerTargetDetector.UnlockTarget();
                 cameraStateController.FreeCamera();
                 isLockedOn = false;
             }
