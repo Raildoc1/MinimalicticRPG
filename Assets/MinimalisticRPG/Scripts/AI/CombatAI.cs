@@ -8,20 +8,35 @@ namespace KG.AI
     [RequireComponent(typeof(Combat))]
     public abstract class CombatAI : AIBase
     {
-
+        [Header("References")]
         public Transform headTransform;
+
+        [Header("Detection")]
+        public LayerMask tagsToDetect;
         public float detectMinRadius = 10f;
         public float strafeDistance = 5f;
         public float stopDistance = 2f;
         public float tooCloseDistance = 1f;
-        public LayerMask tagsToDetect;
-        public float outflankTime = -1f;
-        public bool outflankDirection = true;
 
+        [Header("Outflank")]
+        public float outflankMinTime = 1f;
+        public float outflankMaxTime = 2f;
+
+        private float outflankTime = -1f;
+        private bool outflankDirection = true;
+
+        [Header("Attack")]
+        public float attackMinTime = 1f;
+        public float attackMaxTime = 2f;
+
+        private float attackTime = -1f;
+
+        [Header("Probabilities")]
         [Range(0f, 1f)]
         public float outFlankProbability = 0.25f;
         [Range(0f, 1f)]
         public float dodgeProbability = 0.25f;
+
 
         protected Transform currentTarget = null;
 
@@ -44,6 +59,13 @@ namespace KG.AI
             if (animatorProxy.inDodge)
             {
                 return;
+            } 
+            else if (attackTime > 0f)
+            {
+                attackTime -= Time.deltaTime;
+                combat.Attack();
+
+                mover.RotateToDirection((currentTarget.position - transform.position).normalized);
             }
             else if (outflankTime > 0f)
             {
@@ -84,10 +106,10 @@ namespace KG.AI
                     case CombatAction.NONE:
                         break;
                     case CombatAction.ATTACK:
-                        combat.Attack();
+                        attackTime = Random.Range(attackMinTime, attackMaxTime);
                         break;
                     case CombatAction.OUTFLANK:
-                        outflankTime = Random.Range(2f, 4f);
+                        outflankTime = Random.Range(outflankTime, outflankMaxTime);
                         outflankDirection = Random.Range(0f, 1f) > 0.5f;
                         break;
                     case CombatAction.DODGE:
