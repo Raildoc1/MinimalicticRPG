@@ -101,12 +101,12 @@ namespace KG.Inventory
             {
                 if ((_meleeWeapon != null) && (_meleeWeapon.hash == weapon.hash))
                 {
-                    Debug.Log($"UnequipItem({weapon.itemName})");
+                    //Debug.Log($"UnequipItem({weapon.itemName})");
                     UnequipItem(weapon);
                 }
                 else
                 {
-                    Debug.Log($"EquipItem({weapon.itemName})");
+                    //Debug.Log($"EquipItem({weapon.itemName})");
                     EquipItem(weapon);
                 }
             }

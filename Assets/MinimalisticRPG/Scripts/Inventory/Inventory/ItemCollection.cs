@@ -83,12 +83,12 @@ namespace KG.Inventory
                 if (stack.item.hash == hash)
                 {
                     stack.isEquiped = equiped;
-                    Debug.Log($"EquipItem({itemName}) successfully");
+                    //Debug.Log($"EquipItem({itemName}) successfully");
                     return;
                 }
             }
 
-            Debug.Log($"EquipItem({itemName}) failed");
+            //Debug.Log($"EquipItem({itemName}) failed");
         }
 
         public bool HasItems(string itemName, int amount = 1)

@@ -43,3 +43,9 @@ MonoBehaviour:
       name: Bread
     - language: RU
       name: "\u0425\u043B\u0435\u0431"
+  - unique_name: MELEE_SWORD_2
+    display_name:
+    - language: EN
+      name: Mace
+    - language: RU
+      name: "\u0414\u0443\u0431\u0438\u043D\u0430"

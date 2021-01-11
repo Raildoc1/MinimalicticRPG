@@ -6,6 +6,8 @@ using UnityEngine;
 public class MeleeAttack : StateMachineBehaviour
 {
 
+    public bool DEBUG_MODE = false;
+
     [Range(0, 1)]
     public float start_time = 0f;
 
@@ -37,20 +39,20 @@ public class MeleeAttack : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
-        Debug.Log(stateInfo.normalizedTime);
+        if (DEBUG_MODE) Debug.Log(stateInfo.normalizedTime);
 
         var normTime = stateInfo.normalizedTime;
         if (normTime > start_time && normTime < end_time && !_start)
         {
             _combat.StartDamage(rightArm);
             _start = true;
-            Debug.Log("Start damage");
+            if (DEBUG_MODE) Debug.Log("Start damage");
         }
         else if (normTime > end_time && !_end)
         {
             _combat.EndDamage(rightArm);
             _end = true;
-            Debug.Log("End damage");
+            if (DEBUG_MODE) Debug.Log("End damage");
         }
     }
 
