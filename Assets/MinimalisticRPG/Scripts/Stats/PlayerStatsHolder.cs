@@ -50,6 +50,7 @@ namespace KG.Stats
         public void AddExperience(int value)
         {
             _experience += value;
+            DebugLineSpawner.instance.ShowMessage($"Gained {value} experience");
         }
 
 
