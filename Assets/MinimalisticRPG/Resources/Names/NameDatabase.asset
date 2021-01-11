@@ -37,3 +37,9 @@ MonoBehaviour:
       name: David
     - language: RU
       name: "\u0414\u044D\u0432\u0438\u0434"
+  - unique_name: ITM_BREAD
+    display_name:
+    - language: EN
+      name: Bread
+    - language: RU
+      name: "\u0425\u043B\u0435\u0431"
