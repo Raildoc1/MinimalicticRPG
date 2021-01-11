@@ -13,17 +13,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headTransform: {fileID: 1411514578867913606}
+  tagsToDetect:
+    serializedVersion: 2
+    m_Bits: 4096
   detectMinRadius: 10
   strafeDistance: 5
   stopDistance: 2
   tooCloseDistance: 1
-  tagsToDetect:
-    serializedVersion: 2
-    m_Bits: 4096
-  outflankTime: -1
-  outflankDirection: 1
+  outflankMinTime: 1
+  outflankMaxTime: 2
+  attackMinTime: 1
+  attackMaxTime: 2
   outFlankProbability: 0.25
   dodgeProbability: 0.25
+  dodgeWhileGettingDamgeProbability: 0.5
   companionStopDistance: 2
   waypointStopDistance: 0.2
   waypath: {fileID: 0}
@@ -64,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0164b62708fedd4da8a062c1312d474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueName: no_name
   labelPosition: {fileID: 2967243767425254261}
   _talkOnTrigger: 0
   player: {fileID: 0}
@@ -349,6 +353,30 @@ PrefabInstance:
     - target: {fileID: 693226713093417812, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: m_TagString
       value: NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 693226713093417820, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+      propertyPath: OnGetDamage.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 693226713093417820, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+      propertyPath: OnGetDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 411849836716041114}
+    - target: {fileID: 693226713093417820, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+      propertyPath: OnGetDamage.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 693226713093417820, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+      propertyPath: OnGetDamage.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetTarget
+      objectReference: {fileID: 0}
+    - target: {fileID: 693226713093417820, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+      propertyPath: OnGetDamage.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: KG.AI.CombatAI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 693226713093417820, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+      propertyPath: OnGetDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: onDialogStart.m_PersistentCalls.m_Calls.Array.size

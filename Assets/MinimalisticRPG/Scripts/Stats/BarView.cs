@@ -9,23 +9,47 @@ namespace KG.Stats
     {
 
         public Image image;
-        public StatsHolder stats;
-
-        public void Init()
+        [SerializeField] private StatsHolder _stats;
+        public StatsHolder stats
         {
-            stats.OnHealthUpdate.AddListener(OnHealthUpdate);
-        }
-
-        private void OnEnable()
-        {
-
-            if (!stats)
+            get
             {
-                enabled = false;
-                return;
+                return _stats;
+            }
+            set
+            {
+                if (stats)
+                {
+                    stats.OnHealthUpdate.RemoveListener(OnHealthUpdate);
+                }
+
+                _stats = value;
+
+                if (stats)
+                {
+                    stats.OnHealthUpdate.AddListener(OnHealthUpdate);
+                    OnHealthUpdate(stats.Health, stats.MaxHealth);
+                }
+                else 
+                {
+                    Disable();
+                }
+
             }
 
-            Init();
+        }
+
+        private void Start()
+        {
+            if (stats)
+            {
+                stats.OnHealthUpdate.AddListener(OnHealthUpdate);
+                OnHealthUpdate(stats.Health, stats.MaxHealth);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         public void Disable()
@@ -35,11 +59,6 @@ namespace KG.Stats
 
         private void OnDisable()
         {
-            if (stats)
-            {
-                stats.OnHealthUpdate.RemoveListener(OnHealthUpdate);
-            }
-
             stats = null;
         }
 

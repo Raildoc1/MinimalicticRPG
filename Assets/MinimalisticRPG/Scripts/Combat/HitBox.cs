@@ -48,7 +48,7 @@ namespace KG.CombatCore
                 return;
             }
 
-            target.ApplyPhysicalDamage(weapon.GetAttributeValue(AttributeType.PHYSICAL_DAMAGE));
+            target.ApplyPhysicalDamage(weapon.GetAttributeValue(AttributeType.PHYSICAL_DAMAGE), owner.transform);
 
             GetComponent<Collider>().enabled = false;
         }

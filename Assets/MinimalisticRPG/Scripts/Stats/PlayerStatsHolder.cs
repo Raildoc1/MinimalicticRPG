@@ -38,6 +38,7 @@ namespace KG.Stats
 
         protected override void Awake()
         {
+            base.Awake();
             InitSingleton();
         }
 

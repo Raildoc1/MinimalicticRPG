@@ -13,6 +13,7 @@ namespace KG.Stats
     {
 
         public UnityEvent<int, int> OnHealthUpdate = new UnityEvent<int, int>();
+        public UnityEvent<Transform> OnGetDamage = new UnityEvent<Transform>();
 
         #region SerializableAndPublicFields
 
@@ -102,13 +103,9 @@ namespace KG.Stats
 
         #endregion
 
-        protected void Start()
-        {
-            _currentHealth = maxHealth;
-        }
-
         protected virtual void Awake()
         {
+            _currentHealth = maxHealth;
             stateSwitch = GetComponent<StateSwitch>();
         }
 
@@ -134,10 +131,16 @@ namespace KG.Stats
             animatorProxy.GetDamage();
         }
 
-        public void ApplyPhysicalDamage(int damage)
+        public void ApplyPhysicalDamage(int damage, Transform target = null)
         {
             Health -= damage < 5 ? 5 : damage;
             animatorProxy.GetDamage();
+
+            if (target)
+            {
+                OnGetDamage.Invoke(target);
+            }
+
         }
 
     }
