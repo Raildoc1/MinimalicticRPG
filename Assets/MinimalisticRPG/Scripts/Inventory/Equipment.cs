@@ -112,6 +112,11 @@ namespace KG.Inventory
 
         public void UnequipItem(Item weapon)
         {
+            if (_meleeWeapon == null || weapon == null)
+            {
+                return;
+            }
+
             if (weapon.type == ItemType.MELEE_WEAPON)
             {
                 _meleeWeapon = null;
@@ -122,6 +127,9 @@ namespace KG.Inventory
 
         public void EquipItem(Item weapon)
         {
+
+            UnequipItem(_meleeWeapon);
+
             if (weapon.type == ItemType.MELEE_WEAPON)
             {
                 _meleeWeapon = weapon;
