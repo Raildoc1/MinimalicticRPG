@@ -1,15 +1,20 @@
 using KG.Inventory;
+using KG.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace KG.UI
 {
     public class InventoryGridUI : MonoBehaviour
     {
 
+        public UnityEvent OnUpdateUI = new UnityEvent();
+
         public PlayerInventory inventory;
         public Equipment equipment;
+        public StatsHolder statsHolder;
 
         private InventorySlotUI[] slots;
 
@@ -47,11 +52,31 @@ namespace KG.UI
                 slots[i].image.enabled = false;
                 slots[i].equipedIcon.SetActive(false);
             }
+
+            OnUpdateUI.Invoke();
         }
 
         public void OnClick(int index)
         {
-            equipment.EquipUnequip(inventory.GetItemByIndex(index));
+
+            var item = inventory.GetItemByIndex(index);
+
+            if (item == null)
+            {
+                Debug.LogError($"No item at index {index}!");
+            }
+            else if (item.canBeEquiped)
+            {
+                equipment.EquipUnequip(item);
+            }
+            else if (item.consumable)
+            {
+                statsHolder.Eat(item);
+                inventory.RemoveItems(item.itemName);
+            }
+
+            UpdateUI();
+
         }
 
     }

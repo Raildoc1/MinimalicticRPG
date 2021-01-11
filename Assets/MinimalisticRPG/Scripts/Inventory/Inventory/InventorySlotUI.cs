@@ -24,7 +24,6 @@ namespace KG.UI
         public void OnClick()
         {
             inventoryGridUI.OnClick(index);
-            inventoryGridUI.UpdateUI();
         }
     }
 }

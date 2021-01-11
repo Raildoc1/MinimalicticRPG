@@ -103,6 +103,17 @@ namespace KG.Stats
             _currentHealth = maxHealth;
         }
 
+
+        public void Eat(Item item)
+        {
+            if (!item.consumable)
+            {
+                return;
+            }
+
+            Health += item.GetAttributeValue(AttributeType.HALTH_RECOVERY);
+        }
+
         public void ApplyDamage(List<ItemDamage> damage)
         {
             var sum = 0;
