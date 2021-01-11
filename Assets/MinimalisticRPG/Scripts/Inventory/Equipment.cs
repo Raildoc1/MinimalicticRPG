@@ -223,7 +223,7 @@ namespace KG.Inventory
 
         public void OnStateChange(State prevState, State currentState)
         {
-            if (prevState == State.COMBAT)
+            if (prevState == State.COMBAT && currentState == State.PEACE)
             {
                 HideWeapon();
             }

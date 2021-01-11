@@ -8,7 +8,7 @@ namespace KG.Stats
     public class StatsView : MonoBehaviour
     {
 
-        public StatsHolder target;
+        public PlayerStatsHolder target;
 
         public TextMeshProUGUI statNamesTMP;
         public TextMeshProUGUI statValuesTMP;
@@ -22,6 +22,7 @@ namespace KG.Stats
         {
             var statNames = "";
 
+            statNames += "Experience\n";
             statNames += "Health\n";
             statNames += "Strendth\n";
             statNames += "Dexterity\n";
@@ -31,6 +32,7 @@ namespace KG.Stats
 
             var statValues = "";
 
+            statValues += target.Experience + "\n";
             statValues += target.Health.ToString() + " / " + target.MaxHealth + "\n";
             statValues += target.Strength + "\n";
             statValues += target.Dexterity + "\n";

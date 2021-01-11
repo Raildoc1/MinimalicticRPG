@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 693226713093417820}
   - component: {fileID: 4094837621821031944}
   - component: {fileID: 5696198633058882757}
+  - component: {fileID: 9130359768318504117}
   m_Layer: 0
   m_Name: Person
   m_TagString: Untagged
@@ -344,6 +345,19 @@ MonoBehaviour:
   itemsList: {fileID: 11400000, guid: 8f57ee921280d094fa814dfe4ba467b2, type: 2}
   gold: 0
   items: []
+--- !u!114 &9130359768318504117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693226713093417812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ec9cff27d25a14f8c161e51cbd0678, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experience: 0
 --- !u!1 &746119006705895439
 GameObject:
   m_ObjectHideFlags: 0

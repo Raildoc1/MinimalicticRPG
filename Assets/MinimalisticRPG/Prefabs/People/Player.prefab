@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7df8c83ed81ac624eb52ff9ae41888c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsList: {fileID: 0}
+  itemsList: {fileID: 11400000, guid: 8f57ee921280d094fa814dfe4ba467b2, type: 2}
   gold: 0
   items: []
 --- !u!114 &3326279676373637356
@@ -103,10 +103,22 @@ MonoBehaviour:
         m_CallState: 2
   DodgeOnKeyInput:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2663130687346857971}
+        m_TargetAssemblyTypeName: KG.CombatCore.Combat, Assembly-CSharp
+        m_MethodName: Dodge
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   DrawWeaponKey: 325
   MainKey: 323
-  LockOn: 324
+  LockOn: 113
   Inventory: 9
   Dodge: 324
 --- !u!114 &5037641036263485222
@@ -156,6 +168,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5577139846154936967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2663130687346857926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea65be419c9a99c459b023e516162d5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnHealthUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHealth: 100
+  strength: 10
+  dexterity: 10
+  intelligence: 10
 --- !u!114 &7289727180853420569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraStateController: {fileID: 0}
   targetGroup: {fileID: 0}
-  targetWeight: 5
+  targetWeight: 1
   targetRadius: 1
   tagsToLockOn:
   - Enemy
@@ -257,7 +288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -317,6 +348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5696198633058882757, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+    - {fileID: 693226713093417820, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
 --- !u!1 &2663130687346857926 stripped
 GameObject:

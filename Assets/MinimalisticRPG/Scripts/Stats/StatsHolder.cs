@@ -1,4 +1,5 @@
-﻿using KG.Inventory;
+﻿using KG.Core;
+using KG.Inventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ using UnityEngine.Events;
 namespace KG.Stats
 {
     [RequireComponent(typeof(AnimatorProxy))]
+    [RequireComponent(typeof(StateSwitch))]
     public class StatsHolder : MonoBehaviour
     {
 
@@ -14,10 +16,10 @@ namespace KG.Stats
 
         #region SerializableAndPublicFields
 
-        [SerializeField] private int maxHealth = 100;
-        [SerializeField] private int strength = 10;
-        [SerializeField] private int dexterity = 10;
-        [SerializeField] private int intelligence = 10;
+        [SerializeField] protected int maxHealth = 100;
+        [SerializeField] protected int strength = 10;
+        [SerializeField] protected int dexterity = 10;
+        [SerializeField] protected int intelligence = 10;
 
         public int MaxHealth
         {
@@ -39,6 +41,7 @@ namespace KG.Stats
                 if (_currentHealth == 0)
                 {
                     IsDead = true;
+                    stateSwitch.CurrentState = State.DEAD;
                 }
                 OnHealthUpdate.Invoke(Health, MaxHealth);
             }
@@ -84,10 +87,11 @@ namespace KG.Stats
 
         #region PrivateFields
 
-        private int _currentHealth;
-        private AnimatorProxy _animator;
+        protected int _currentHealth;
+        protected AnimatorProxy _animator;
+        protected StateSwitch stateSwitch;
 
-        private AnimatorProxy animatorProxy
+        protected AnimatorProxy animatorProxy
         {
             get
             {
@@ -98,11 +102,15 @@ namespace KG.Stats
 
         #endregion
 
-        private void Start()
+        protected void Start()
         {
             _currentHealth = maxHealth;
         }
 
+        protected virtual void Awake()
+        {
+            stateSwitch = GetComponent<StateSwitch>();
+        }
 
         public void Eat(Item item)
         {
