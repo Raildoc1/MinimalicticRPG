@@ -142,6 +142,19 @@ public class AnimatorProxy : MonoBehaviour
         }
     }
 
+    public bool hasSword
+    {
+        get
+        {
+            return animator.GetBool(hasSwordParamID);
+        }
+
+        set
+        {
+            animator.SetBool(hasSwordParamID, value);
+        }
+    }
+
     #endregion
 
     #region VOID
@@ -232,6 +245,7 @@ public class AnimatorProxy : MonoBehaviour
     private readonly string inDodgeParamName = "InDodge";
     private readonly string cannotBlockParamName = "CannotBlock";
     private readonly string gettingDamageParamName = "GettingDamage";
+    private readonly string hasSwordParamName = "HasSword";
 
     private int isStrafingParamID;
     private int isEquipingParamID;
@@ -240,6 +254,7 @@ public class AnimatorProxy : MonoBehaviour
     private int inDodgeParamID;
     private int cannotBlockParamID;
     private int gettingDamageParamID;
+    private int hasSwordParamID;
 
     #endregion
 
@@ -277,6 +292,7 @@ public class AnimatorProxy : MonoBehaviour
         inDodgeParamID = Animator.StringToHash(inDodgeParamName);
         cannotBlockParamID = Animator.StringToHash(cannotBlockParamName);
         gettingDamageParamID = Animator.StringToHash(gettingDamageParamName);
+        hasSwordParamID = Animator.StringToHash(hasSwordParamName);
 
         currentStateParamID = Animator.StringToHash(currentStateParamName);
     }

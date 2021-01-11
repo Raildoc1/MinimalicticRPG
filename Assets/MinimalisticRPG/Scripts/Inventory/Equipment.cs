@@ -85,6 +85,8 @@ namespace KG.Inventory
                 SetWeapon(initWeaponName);
 
                 equipmentDisplay.Hide(_meleeWeapon);
+
+                animatorProxy.hasSword = true;
             }
         }
 
@@ -122,6 +124,7 @@ namespace KG.Inventory
                 _meleeWeapon = null;
                 equipmentDisplay.Unequip(weapon);
                 itemColllection.EquipItem(weapon.itemName, false);
+                animatorProxy.hasSword = false;
             }
         }
 
@@ -136,6 +139,7 @@ namespace KG.Inventory
                 itemColllection.EquipItem(weapon.itemName);
                 SetWeapon(weapon.itemName);
                 equipmentDisplay.Hide(weapon);
+                animatorProxy.hasSword = true;
             }
         }
 

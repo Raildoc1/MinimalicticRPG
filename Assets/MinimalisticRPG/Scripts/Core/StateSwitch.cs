@@ -49,12 +49,6 @@ namespace KG.Core
                     _currentState = value;
                     animatorProxy.currentState = (int)value;
 
-                    if (_currentState == State.DEAD)
-                    {
-                        // TODO: REMOVE ALL COMPONENTS
-                        Destroy(GetComponent<AddExperienceOnDestroy>());
-                    }
-
                 }
             }
         }
