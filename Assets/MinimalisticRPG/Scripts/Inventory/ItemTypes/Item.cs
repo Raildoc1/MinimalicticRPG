@@ -14,6 +14,7 @@ namespace KG.Inventory
         public int cost;
         public bool canBeSold = true;
         public bool canBeEquiped = false;
+        public bool consumable = false;
 
         public int GetAttributeValue(AttributeType type)
         {
@@ -62,6 +63,7 @@ namespace KG.Inventory
         PHYSICAL_DAMAGE,
         REQUIRE_STRENGTH,
         REQUIRE_DEXTERITY,
+        HALTH_RECOVERY,
         /*...*/
         CUSTOM
     }
