@@ -80,11 +80,11 @@ namespace KG.Movement
             }
             else
             {
-                Debug.Log("TOO FAR FROM GROUND");
+                //Debug.Log("TOO FAR FROM GROUND");
             }
 
 
-            Debug.Log(grounded);
+            //Debug.Log(grounded);
 
         }
 

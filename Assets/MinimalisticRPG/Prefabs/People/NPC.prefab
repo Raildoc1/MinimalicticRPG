@@ -27,8 +27,9 @@ MonoBehaviour:
   outFlankProbability: 0.25
   dodgeProbability: 0.25
   dodgeWhileGettingDamgeProbability: 0.5
+  dodgeWhileTargetAttacksProbability: 0.5
   companionStopDistance: 2
-  waypointStopDistance: 0.2
+  waypointStopDistance: 0.5
   waypath: {fileID: 0}
 --- !u!114 &2055385687185209257
 MonoBehaviour:
@@ -288,9 +289,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5dc23e30588ac3489124902e6d82dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopTime: 0.25
   angleError: 0.2
   rotationSpeed: 720
+  snapDistace: 0.5
+  pullDownMagnitude: 50
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &5129355169615503595
 PrefabInstance:
   m_ObjectHideFlags: 0
