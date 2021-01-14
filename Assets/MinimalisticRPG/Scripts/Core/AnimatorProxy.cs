@@ -155,6 +155,30 @@ public class AnimatorProxy : MonoBehaviour
         }
     }
 
+    public bool lockRotation
+    {
+        get
+        {
+            return animator.GetBool(lockRotationParamID);
+        }
+    }
+
+    public bool inAttack
+    {
+        get
+        {
+            return animator.GetBool(inAttackParamID);
+        }
+    }
+
+    public bool enteringAttack
+    {
+        get
+        {
+            return animator.GetBool(enteringAttackParamID);
+        }
+    }
+
     #endregion
 
     #region VOID
@@ -237,7 +261,7 @@ public class AnimatorProxy : MonoBehaviour
     #endregion
 
     #region BOOLS
-
+    
     private readonly string isStrafingParamName = "IsStrafing";
     private readonly string isEquipingParamName = "IsEquiping";
     private readonly string isUnequipingParamName = "IsUnequiping";
@@ -246,6 +270,9 @@ public class AnimatorProxy : MonoBehaviour
     private readonly string cannotBlockParamName = "CannotBlock";
     private readonly string gettingDamageParamName = "GettingDamage";
     private readonly string hasSwordParamName = "HasSword";
+    private readonly string lockRotationParamName = "LockRotation";
+    private readonly string inAttackParamName = "InAttack";
+    private readonly string enteringAttackParamName = "EnteringAttack";
 
     private int isStrafingParamID;
     private int isEquipingParamID;
@@ -255,6 +282,9 @@ public class AnimatorProxy : MonoBehaviour
     private int cannotBlockParamID;
     private int gettingDamageParamID;
     private int hasSwordParamID;
+    private int lockRotationParamID;
+    private int inAttackParamID;
+    private int enteringAttackParamID;
 
     #endregion
 
@@ -293,6 +323,9 @@ public class AnimatorProxy : MonoBehaviour
         cannotBlockParamID = Animator.StringToHash(cannotBlockParamName);
         gettingDamageParamID = Animator.StringToHash(gettingDamageParamName);
         hasSwordParamID = Animator.StringToHash(hasSwordParamName);
+        lockRotationParamID = Animator.StringToHash(lockRotationParamName);
+        inAttackParamID = Animator.StringToHash(inAttackParamName);
+        enteringAttackParamID = Animator.StringToHash(enteringAttackParamName);
 
         currentStateParamID = Animator.StringToHash(currentStateParamName);
     }

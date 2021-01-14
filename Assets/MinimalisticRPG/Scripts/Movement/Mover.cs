@@ -52,6 +52,12 @@ namespace KG.Movement
         }
         private void UpdateRotation()
         {
+
+            if (animator.lockRotation)
+            {
+                return;
+            }
+
             if (Equals(targetDirection, Vector3.zero))
             {
                 targetDirection = transform.forward;

@@ -55,14 +55,14 @@ namespace KG.CombatCore
         private void OnTriggerStay(Collider other)
         {
 
-            Debug.Log("You hitted some one!");
+            //Debug.Log("You hitted some one!");
 
             if (!owner) return;
 
-            Debug.Log($"He has tag {other.gameObject.tag}");
+            //Debug.Log($"He has tag {other.gameObject.tag}");
             if (!owner.IsTagRight(other.gameObject.tag)) return;
 
-            Debug.Log("Have owner and tags are right!");
+            //Debug.Log("Have owner and tags are right!");
 
             var target = other.gameObject.GetComponent<StatsHolder>();
 

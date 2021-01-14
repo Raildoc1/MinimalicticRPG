@@ -59,6 +59,11 @@ namespace KG.UI
         public void OnClick(int index)
         {
 
+            if (index >= inventory.items.Count)
+            {
+                return;
+            }
+
             var item = inventory.GetItemByIndex(index);
 
             if (item == null)

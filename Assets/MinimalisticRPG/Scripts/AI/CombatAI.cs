@@ -38,9 +38,12 @@ namespace KG.AI
         public float dodgeProbability = 0.25f;
         [Range(0f, 1f)]
         public float dodgeWhileGettingDamgeProbability = 0.5f;
+        [Range(0f, 1f)]
+        public float dodgeWhileTargetAttacksProbability = 0.5f;
 
 
         protected Transform currentTarget = null;
+        protected AnimatorProxy targetAnimator = null;
 
         protected Combat combat;
 
@@ -61,21 +64,26 @@ namespace KG.AI
             if (animatorProxy.inDodge)
             {
                 return;
-            } if (animatorProxy.gettingDamage)
+            }
+
+
+            if (animatorProxy.gettingDamage)
             {
                 attackTime = -1f;
                 outflankTime = -1f;
 
                 if (!animatorProxy.cannotBlock)
                 {
-                    if (Random.Range(0f, 1f) < dodgeWhileGettingDamgeProbability)
+                    if (CheckProbability(dodgeWhileGettingDamgeProbability))
                     {
-                        animatorProxy.inputVertical = -1f;
-                        animatorProxy.inputHorizontal = 0f;
-                        combat.Dodge();
+                        DodgeBackwards();
                     }
                 }
 
+            } 
+            else if (targetAnimator.enteringAttack && CheckProbability(dodgeWhileTargetAttacksProbability))
+            {
+                DodgeBackwards();
             }
             else if (attackTime > 0f)
             {
@@ -127,7 +135,7 @@ namespace KG.AI
                         break;
                     case CombatAction.OUTFLANK:
                         outflankTime = Random.Range(outflankTime, outflankMaxTime);
-                        outflankDirection = Random.Range(0f, 1f) > 0.5f;
+                        outflankDirection = CheckProbability(0.5f);
                         break;
                     case CombatAction.DODGE:
                         combat.Dodge();
@@ -164,6 +172,18 @@ namespace KG.AI
             }
         }
 
+        private void DodgeBackwards()
+        {
+            animatorProxy.inputVertical = -1f;
+            animatorProxy.inputHorizontal = 0f;
+            combat.Dodge();
+        }
+
+        private bool CheckProbability(float chance)
+        {
+            return Random.Range(0f, 1f) < chance;
+        }
+
         protected virtual void Update()
         {
             if (!currentTarget)
@@ -198,6 +218,7 @@ namespace KG.AI
             stateSwitch.CurrentState = State.COMBAT;
 
             currentTarget = newTarget;
+            targetAnimator = currentTarget.GetComponent<AnimatorProxy>();
         }
 
         public virtual void RemoveTarget()
@@ -211,6 +232,7 @@ namespace KG.AI
             stateSwitch.CurrentState = State.PEACE;
 
             currentTarget = null;
+            targetAnimator = null;
         }
 
 

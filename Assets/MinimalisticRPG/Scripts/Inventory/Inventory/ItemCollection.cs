@@ -49,6 +49,9 @@ namespace KG.Inventory
             }
             ItemStack newItemStack = new ItemStack(itemName, amount, itemsList);
             items.Add(newItemStack);
+
+            Sort();
+
         }
 
         public void RemoveItems(string itemName, int amount = 1)
@@ -71,6 +74,9 @@ namespace KG.Inventory
                     return;
                 }
             }
+
+            Sort();
+
         }
 
         public void EquipItem(string itemName, bool equiped = true)
@@ -130,6 +136,15 @@ namespace KG.Inventory
             }
 
             return items[index].item;
+        }
+
+        private void Sort()
+        {
+            items.Sort((a,b) => {
+                var temp = a.item.type.CompareTo(b.item.type);
+                temp = temp == 0 ? a.item.itemName.CompareTo(b.item.itemName) : temp;
+                return temp;
+            });
         }
 
     }

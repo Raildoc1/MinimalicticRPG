@@ -183,6 +183,9 @@ MonoBehaviour:
   OnHealthUpdate:
     m_PersistentCalls:
       m_Calls: []
+  OnGetDamage:
+    m_PersistentCalls:
+      m_Calls: []
   maxHealth: 100
   strength: 10
   dexterity: 10
@@ -349,6 +352,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5696198633058882757, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
     - {fileID: 693226713093417820, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
+    - {fileID: 9130359768318504117, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
 --- !u!1 &2663130687346857926 stripped
 GameObject:

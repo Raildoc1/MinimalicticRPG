@@ -612,9 +612,6 @@ AnimatorStateMachine:
   - {fileID: 2927306731991689485}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -8292388955676739030}
-    second:
-    - {fileID: 6753487353931486498}
   - first: {fileID: 1863438416849301412}
     second:
     - {fileID: -5194511195473032874}
@@ -630,6 +627,9 @@ AnimatorStateMachine:
   - first: {fileID: 2898096587850073827}
     second:
     - {fileID: -2500309963174386485}
+  - first: {fileID: -8292388955676739030}
+    second:
+    - {fileID: 6753487353931486498}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
@@ -1395,6 +1395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b17f640d0edb3e4ca832426622b4c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_MODE: 0
   start_time: 0.2
   end_time: 0.4
   rightArm: 1
@@ -1879,163 +1880,175 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: TurnAngle
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: InputVertical
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: InputHorizontal
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: CurrentState
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Attack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Equip
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Unequip
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: DrawSword
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: IsStrafing
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: InCombat
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: IsUnequiping
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: IsEquiping
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: FullLayerNormTime
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: GetDamage
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: IsDead
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: InAttack
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: GettingDamage
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: PickUp
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: IsBlocking
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Dodge
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: CannotBlock
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: InDodge
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: AttackNumber
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: MaxAttackCount
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 3
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: AttackLimitReached
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: HasSword
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: LockRotation
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: EnteringAttack
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -2085,6 +2098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b17f640d0edb3e4ca832426622b4c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_MODE: 0
   start_time: 0
   end_time: 1
   rightArm: 0
@@ -2450,6 +2464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b17f640d0edb3e4ca832426622b4c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_MODE: 0
   start_time: 0
   end_time: 0
   rightArm: 1
@@ -2500,6 +2515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b17f640d0edb3e4ca832426622b4c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_MODE: 0
   start_time: 0.3
   end_time: 0.6
   rightArm: 1
@@ -2669,6 +2685,16 @@ MonoBehaviour:
   - startTime: 0
     endTime: 1
     boolName: InAttack
+    startValue: 1
+    endValue: 0
+  - startTime: 0.29
+    endTime: 0.75
+    boolName: LockRotation
+    startValue: 1
+    endValue: 0
+  - startTime: 0.15
+    endTime: 0.3
+    boolName: EnteringAttack
     startValue: 1
     endValue: 0
 --- !u!1102 &3793229924773235036
@@ -2899,6 +2925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b17f640d0edb3e4ca832426622b4c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_MODE: 0
   start_time: 0
   end_time: 0
   rightArm: 1
@@ -2966,6 +2993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b17f640d0edb3e4ca832426622b4c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_MODE: 0
   start_time: 0
   end_time: 1
   rightArm: 1
@@ -3059,6 +3087,16 @@ MonoBehaviour:
   - startTime: 0
     endTime: 1
     boolName: InAttack
+    startValue: 1
+    endValue: 0
+  - startTime: 0.35
+    endTime: 0.75
+    boolName: LockRotation
+    startValue: 1
+    endValue: 0
+  - startTime: 0.15
+    endTime: 0.3
+    boolName: EnteringAttack
     startValue: 1
     endValue: 0
 --- !u!1107 &6076447562117416706
@@ -3322,6 +3360,16 @@ MonoBehaviour:
     boolName: AttackLimitReached
     startValue: 1
     endValue: 0
+  - startTime: 0.2
+    endTime: 0.75
+    boolName: LockRotation
+    startValue: 1
+    endValue: 0
+  - startTime: 0.05
+    endTime: 0.2
+    boolName: EnteringAttack
+    startValue: 1
+    endValue: 0
 --- !u!114 &7598927279336202444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3334,6 +3382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b17f640d0edb3e4ca832426622b4c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_MODE: 0
   start_time: 0.21
   end_time: 0.4
   rightArm: 1
@@ -3628,6 +3677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b17f640d0edb3e4ca832426622b4c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_MODE: 0
   start_time: 0.3
   end_time: 0.45
   rightArm: 1
