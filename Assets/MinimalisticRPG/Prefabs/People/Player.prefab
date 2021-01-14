@@ -202,9 +202,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a7c04fa94d01b34caa92ba725565771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopTime: 0.25
   angleError: 0.2
   rotationSpeed: 720
+  snapDistace: 0.5
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &8108508538731449866
 MonoBehaviour:
   m_ObjectHideFlags: 0
