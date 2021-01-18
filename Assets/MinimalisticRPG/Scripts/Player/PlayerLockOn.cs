@@ -52,7 +52,9 @@ namespace KG.CombatCore
 
         private void SetTarget(Transform transform)
         {
-            if (currentTarget) { 
+
+            if (currentTarget)
+            {
                 targetGroup.RemoveMember(currentTarget);
             }
 
@@ -73,7 +75,7 @@ namespace KG.CombatCore
             else
             {
                 playerTargetDetector.UnlockTarget();
-                cameraStateController.FreeCamera();
+                cameraStateController.UnlockTarget();
                 isLockedOn = false;
             }
             currentTarget = transform;
@@ -97,11 +99,21 @@ namespace KG.CombatCore
             SetTarget(null);
         }
 
+        public void ResetTarget(State currentState)
+        {
+            playerTargetDetector.UnlockTarget();
+            cameraStateController.UnlockTarget(currentState);
+            isLockedOn = false;
+            mover.IsStrafing = false;
+            currentTarget = null;
+            mover.LookAt = null;
+        }
+
         public void OnChangeState(State _, State currentState)
         {
             if (currentState != State.COMBAT)
             {
-                ResetTarget();
+                ResetTarget(currentState);
             }
         }
 

@@ -33,7 +33,7 @@ public class GrassGenerator : MonoBehaviour
         {
             Debug.Log("Prefab is null!");
             return;
-        }
+        } 
 
         for (int i = 0; i < prefabsAmount; i++)
         {

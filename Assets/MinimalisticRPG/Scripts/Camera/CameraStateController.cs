@@ -52,10 +52,28 @@ namespace KG.CameraControl
 
         public void LockOnTarget()
         {
-            freeCamera.SetActive(false);
             lockCamera.SetActive(true);
+            freeCamera.SetActive(false);
             dialogCamera.SetActive(false);
             inventoryCamera.SetActive(false);
+        }
+
+        public void UnlockTarget(State state = State.PEACE)
+        {
+            lockCamera.SetActive(false);
+
+            switch (state)
+            {
+                case State.DIALOG:
+                    StartDialog();
+                    break;
+                case State.INVENTORY:
+                    OpenInventory();
+                    break;
+                default:
+                    FreeCamera();
+                    break;
+            }
         }
 
         public void FreeCamera()
@@ -68,22 +86,25 @@ namespace KG.CameraControl
 
         public void StartDialog()
         {
+            dialogCamera.SetActive(true);
             freeCamera.SetActive(false);
             lockCamera.SetActive(false);
-            dialogCamera.SetActive(true);
             inventoryCamera.SetActive(false);
         }
 
         public void OpenInventory()
         {
+            inventoryCamera.SetActive(true);
             freeCamera.SetActive(false);
             lockCamera.SetActive(false);
             dialogCamera.SetActive(false);
-            inventoryCamera.SetActive(true);
         }
 
         public void OnChangeState(State _, State currentState)
         {
+
+            Debug.Log($"OnChangeState(_, {currentState})");
+
             if (currentState == State.DIALOG)
             {
                 StartDialog();
