@@ -22,8 +22,12 @@ public class ProceduralSkyHandler : MonoBehaviour
     [Range(0.2f, 3f)]
     public float GradientPower = 1f;
     public float MaxSunIntensity = 100_000f;
+    public float phi = 0;
     public Transform Sun;
     public Vector3 InitForward = new Vector3(-0.3f, -1.0f, 0.0f);
+
+    public float testTeta = 0f;
+    public Transform testTransform;
 
     private UnityEngine.Rendering.HighDefinition.HDAdditionalLightData lightData;
 
@@ -56,12 +60,17 @@ public class ProceduralSkyHandler : MonoBehaviour
         var time = GetMinutes();
         var halfTime = 12f * 60f;
 
-        var k = 1f - Mathf.Abs(time - halfTime) / halfTime;
+        //var k = 1f - Mathf.Abs(time - halfTime) / halfTime;
+        var k = time / 1440;
 
-        var phi = k * 2f * Mathf.PI;
+        var teta = (k * 2f + 1.5f) * Mathf.PI;
 
         var forward = Vector3.up * Mathf.Cos(phi) + Vector3.right * Mathf.Sin(phi);
 
+        Sun.position = new Vector3(Mathf.Sin(teta) * Mathf.Sin(phi), Mathf.Sin(teta) * Mathf.Cos(phi),  Mathf.Cos(teta));
+        Sun.LookAt(Vector3.zero);
+
+        testTransform.position = new Vector3(Mathf.Sin(testTeta) * Mathf.Sin(phi), Mathf.Sin(testTeta) * Mathf.Cos(phi), Mathf.Cos(testTeta));
     }
 
     private void UpdateSunIntensity()
