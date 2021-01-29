@@ -13,11 +13,15 @@ namespace KG.Inventory
         public GameObject gameObject;
         public int cost;
         public bool canBeSold = true;
+        public bool canBeEquiped = false;
+        public bool consumable = false;
 
         public int GetAttributeValue(AttributeType type)
         {
             return AttributesTools.GetAttributeValue(attributes, type);
         }
+
+        public Sprite icon;
 
     }
 
@@ -59,6 +63,7 @@ namespace KG.Inventory
         PHYSICAL_DAMAGE,
         REQUIRE_STRENGTH,
         REQUIRE_DEXTERITY,
+        HALTH_RECOVERY,
         /*...*/
         CUSTOM
     }

@@ -12,17 +12,27 @@ namespace KG.CustomEditors
         {
             base.OnInspectorGUI();
 
+            var list = (ItemsList)target;
+
             if (GUILayout.Button("Generate hashes"))
             {
-                var tar = (ItemsList)target;
-
-                foreach (var item in tar.items)
+                foreach (var item in list.items)
                 {
                     if (!item.itemName.Equals(""))
                     {
                         item.hash = item.itemName.GetHashCode();
                     }
                 }
+            }
+            else if (GUILayout.Button("Sort"))
+            {
+                list.items.Sort((a, b) => a.type.CompareTo(b.type));
+            }
+            else if (GUILayout.Button("Save"))
+            {
+                string json = JsonUtility.ToJson(list, true);
+                System.IO.File.WriteAllText(Application.persistentDataPath + "/itemList.json", json);
+                Debug.Log($"written to {Application.persistentDataPath + "/itemList.json"}");
             }
         }
     }

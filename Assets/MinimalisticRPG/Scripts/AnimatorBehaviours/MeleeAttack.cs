@@ -6,6 +6,8 @@ using UnityEngine;
 public class MeleeAttack : StateMachineBehaviour
 {
 
+    public bool DEBUG_MODE = false;
+
     [Range(0, 1)]
     public float start_time = 0f;
 
@@ -17,15 +19,18 @@ public class MeleeAttack : StateMachineBehaviour
     private bool _start = false;
     private bool _end = false;
 
+    public bool rightArm = true;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
         _combat = animator.GetComponent<Combat>();
         _start = false;
         _end = false;
         if (Mathf.Approximately(start_time, 0f))
         {
-            _combat.StartDamage();
+            _combat.StartDamage(rightArm);
             _start = true;
         }
     }
@@ -33,23 +38,28 @@ public class MeleeAttack : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
+        if (DEBUG_MODE) Debug.Log(stateInfo.normalizedTime);
+
         var normTime = stateInfo.normalizedTime;
         if (normTime > start_time && normTime < end_time && !_start)
         {
-            _combat.StartDamage();
+            _combat.StartDamage(rightArm);
             _start = true;
+            if (DEBUG_MODE) Debug.Log("Start damage");
         }
         else if (normTime > end_time && !_end)
         {
-            _combat.EndDamage();
+            _combat.EndDamage(rightArm);
             _end = true;
+            if (DEBUG_MODE) Debug.Log("End damage");
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _combat.EndDamage();
+        _combat.EndDamage(rightArm);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

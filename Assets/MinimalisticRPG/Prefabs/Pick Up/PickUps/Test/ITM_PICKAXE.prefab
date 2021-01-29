@@ -81,6 +81,10 @@ PrefabInstance:
       value: ITM_PICKAXE
       objectReference: {fileID: 0}
     - target: {fileID: 7800261141855895595, guid: 24a919cd64dd2114aa6d831f37512430, type: 3}
+      propertyPath: uniqueName
+      value: ITM_PICKAXE
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800261141855895595, guid: 24a919cd64dd2114aa6d831f37512430, type: 3}
       propertyPath: items.Array.size
       value: 1
       objectReference: {fileID: 0}

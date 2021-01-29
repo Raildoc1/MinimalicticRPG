@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace KG.Core
@@ -17,12 +18,14 @@ namespace KG.Core
         [SerializeField] private UnityEvent OnMainKeyInput;
         [SerializeField] private UnityEvent OnLockOnKeyInput;
         [SerializeField] private UnityEvent DodgeOnKeyInput;
+        [SerializeField] private UnityEvent OnJumpKeyInput;
 
         public KeyCode DrawWeaponKey = KeyCode.Mouse2;
         public KeyCode MainKey = KeyCode.Mouse0;
         public KeyCode LockOn = KeyCode.Q;
         public KeyCode Inventory = KeyCode.Tab;
         public KeyCode Dodge = KeyCode.Mouse1;
+        public KeyCode Jump = KeyCode.Space;
 
         public float Vertical
         {
@@ -60,7 +63,7 @@ namespace KG.Core
             }
         }
 
-        public float RawInputMagnitude => Mathf.Max(Mathf.Abs(Input.GetAxisRaw("Vertical")), Mathf.Abs(Input.GetAxisRaw("Horizontal")));
+        public float RawInputMagnitude => axisInputLocked ? 0f : Mathf.Max(Mathf.Abs(Input.GetAxisRaw("Vertical")), Mathf.Abs(Input.GetAxisRaw("Horizontal")));
 
 
         public Vector3 InputDirection
@@ -80,6 +83,7 @@ namespace KG.Core
         private float _verticalRaw = 0f;
         private float _vertical = 0f;
         private float _horizontal = 0f;
+        private bool axisInputLocked = false;
         #endregion
 
         #region UnityFunctions
@@ -101,7 +105,7 @@ namespace KG.Core
             animatorProxy = GetComponent<AnimatorProxy>();
         }
 
-        public void Update()
+        private void Update()
         {
             UpdateInputAxises();
             UpdateInputDirection();
@@ -109,6 +113,18 @@ namespace KG.Core
             CheckKeyInput();
         }
         #endregion
+
+        public void LockInputAxisInput(float time)
+        {
+            axisInputLocked = true;
+            StartCoroutine(LockInputRoutine(time));
+        }
+
+        public IEnumerator LockInputRoutine(float time)
+        {
+            yield return new WaitForSeconds(time);
+            axisInputLocked = false;
+        }
 
         private void UpdateAnimator()
         {
@@ -124,7 +140,7 @@ namespace KG.Core
 
         private void UpdateInputAxises()
         {
-            if (stateSwitch.CurrentState == State.COMBAT || stateSwitch.CurrentState == State.PEACE)
+            if (!axisInputLocked && (stateSwitch.CurrentState == State.COMBAT || stateSwitch.CurrentState == State.PEACE))
             {
                 _horizontalRaw = Input.GetAxisRaw("Horizontal");
                 _verticalRaw = Input.GetAxisRaw("Vertical");
@@ -173,6 +189,10 @@ namespace KG.Core
             if (Input.GetKeyDown(Dodge))
             {
                 DodgeOnKeyInput.Invoke();
+            }
+            if (Input.GetKeyDown(Jump))
+            {
+                OnJumpKeyInput.Invoke();
             }
         }
     }

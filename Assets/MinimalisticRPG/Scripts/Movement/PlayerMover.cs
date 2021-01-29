@@ -9,11 +9,9 @@ namespace KG.Movement {
 
         public Transform LookAt { set; private get; }
 
-        private StateSwitch stateSwitch;
-
-        protected void Awake()
+        protected override void Awake()
         {
-            stateSwitch = GetComponent<StateSwitch>();
+            base.Awake();
         }
 
         protected override void Start() {

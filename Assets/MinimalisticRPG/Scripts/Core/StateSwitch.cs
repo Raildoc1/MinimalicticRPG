@@ -1,4 +1,5 @@
-﻿using PixelCrushers.DialogueSystem;
+﻿using KG.Stats;
+using PixelCrushers.DialogueSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,6 +48,7 @@ namespace KG.Core
                     }
                     _currentState = value;
                     animatorProxy.currentState = (int)value;
+
                 }
             }
         }

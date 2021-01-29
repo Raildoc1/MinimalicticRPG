@@ -9,10 +9,13 @@ namespace KG.CombatCore
     {
 
         [SerializeField] private List<string> _tagsToAttack;
+        [SerializeField] private Collider rightArmHitbox;
+        [SerializeField] private Collider leftArmHitbox;
 
         private AnimatorProxy animatorProxy;
         private StateSwitch stateSwitch;
         private Collider _weaponHitBox;
+
 
         public Collider WeaponHitBox
         {
@@ -40,6 +43,9 @@ namespace KG.CombatCore
         {
             animatorProxy = GetComponent<AnimatorProxy>();
             stateSwitch = GetComponent<StateSwitch>();
+
+            rightArmHitbox.GetComponent<HitBox>().SetOwner(this);
+            leftArmHitbox.GetComponent<HitBox>().SetOwner(this);
         }
 
         public void Attack()
@@ -56,14 +62,42 @@ namespace KG.CombatCore
             //Debug.Log($"{name} sending damage");
         }
 
-        public void StartDamage()
+        public void StartDamage(bool rightArm = true)
         {
-            if (WeaponHitBox) WeaponHitBox.enabled = true;
+            if (WeaponHitBox)
+            {
+                WeaponHitBox.enabled = true;
+            }
+            else
+            {
+                if (rightArm)
+                {
+                    rightArmHitbox.enabled = true;
+                }
+                else
+                {
+                    leftArmHitbox.enabled = true;
+                }
+            }
         }
 
-        public void EndDamage()
+        public void EndDamage(bool rightArm = true)
         {
-            if (WeaponHitBox) WeaponHitBox.enabled = false;
+            if (WeaponHitBox)
+            {
+                WeaponHitBox.enabled = false;
+            }
+            else
+            {
+                if (rightArm)
+                {
+                    rightArmHitbox.enabled = false;
+                }
+                else
+                {
+                    leftArmHitbox.enabled = false;
+                }
+            }
         }
 
         public void Dodge()

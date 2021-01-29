@@ -1,20 +1,34 @@
-﻿using KG.Inventory;
+﻿using KG.Core;
+using KG.Inventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace KG.Stats
 {
     [RequireComponent(typeof(AnimatorProxy))]
+    [RequireComponent(typeof(StateSwitch))]
     public class StatsHolder : MonoBehaviour
     {
 
+        public UnityEvent<int, int> OnHealthUpdate = new UnityEvent<int, int>();
+        public UnityEvent<Transform> OnGetDamage = new UnityEvent<Transform>();
+
         #region SerializableAndPublicFields
 
-        [SerializeField] private int maxHealth = 100;
-        [SerializeField] private int strength = 10;
-        [SerializeField] private int dexterity = 10;
-        [SerializeField] private int intelligence = 10;
+        [SerializeField] protected int maxHealth = 100;
+        [SerializeField] protected int strength = 10;
+        [SerializeField] protected int dexterity = 10;
+        [SerializeField] protected int intelligence = 10;
+
+        public int MaxHealth
+        {
+            get
+            {
+                return maxHealth;
+            }
+        }
 
         public int Health
         {
@@ -25,7 +39,36 @@ namespace KG.Stats
             set
             {
                 _currentHealth = Mathf.Clamp(value, 0, maxHealth);
-                if (_currentHealth == 0) IsDead = true;
+                if (_currentHealth == 0)
+                {
+                    IsDead = true;
+                    stateSwitch.CurrentState = State.DEAD;
+                }
+                OnHealthUpdate.Invoke(Health, MaxHealth);
+            }
+        }
+
+        public int Strength
+        {
+            get
+            {
+                return strength;
+            }
+        }
+
+        public int Dexterity
+        {
+            get
+            {
+                return dexterity;
+            }
+        }
+
+        public int Intelligence
+        {
+            get
+            {
+                return intelligence;
             }
         }
 
@@ -40,14 +83,16 @@ namespace KG.Stats
                 animatorProxy.isDead = value;
             }
         }
+
         #endregion
 
         #region PrivateFields
 
-        private int _currentHealth;
-        private AnimatorProxy _animator;
+        protected int _currentHealth;
+        protected AnimatorProxy _animator;
+        protected StateSwitch stateSwitch;
 
-        private AnimatorProxy animatorProxy
+        protected AnimatorProxy animatorProxy
         {
             get
             {
@@ -58,9 +103,20 @@ namespace KG.Stats
 
         #endregion
 
-        private void Start()
+        protected virtual void Awake()
         {
             _currentHealth = maxHealth;
+            stateSwitch = GetComponent<StateSwitch>();
+        }
+
+        public void Eat(Item item)
+        {
+            if (!item.consumable)
+            {
+                return;
+            }
+
+            Health += item.GetAttributeValue(AttributeType.HALTH_RECOVERY);
         }
 
         public void ApplyDamage(List<ItemDamage> damage)
@@ -75,10 +131,16 @@ namespace KG.Stats
             animatorProxy.GetDamage();
         }
 
-        public void ApplyPhysicalDamage(int damage)
+        public void ApplyPhysicalDamage(int damage, Transform target = null)
         {
             Health -= damage < 5 ? 5 : damage;
             animatorProxy.GetDamage();
+
+            if (target)
+            {
+                OnGetDamage.Invoke(target);
+            }
+
         }
 
     }

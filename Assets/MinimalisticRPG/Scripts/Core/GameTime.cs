@@ -7,25 +7,26 @@ namespace KG.Core
     public class GameTime : MonoBehaviour
     {
 
-        #region Singleton
-
-        public static GameTime instance;
-
-        private void InitSingleton()
+        private static GameTime _instance;
+        public static GameTime instance
         {
-            if (instance)
+            get
             {
-                Debug.LogError("More than one instance of GameTime found!");
-                Destroy(this);
-                return;
-            }
+                if (!_instance)
+                {
+                    _instance = FindObjectOfType<GameTime>();
+                }
 
-            instance = this;
+                return _instance;
+            }
         }
 
-        #endregion
-
-        public long minutes { get; private set; } = 0;
+        [SerializeField] private long _minutes = 0;
+        public long minutes
+        {
+            get { return _minutes; }
+            private set { _minutes = value; }
+        }
         public long hour => (minutes / 60) % 24;
         public long day => minutes / (60 * 24);
 

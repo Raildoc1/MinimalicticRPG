@@ -24,6 +24,9 @@ MonoBehaviour:
     gameObject: {fileID: 4621055232258266464, guid: c994d771eb0b1ed479d538aaf106c13a, type: 3}
     cost: 250
     canBeSold: 1
+    canBeEquiped: 1
+    consumable: 0
+    icon: {fileID: 21300000, guid: 3294472400c29954f8fa1e765cc92cd2, type: 3}
   - itemName: ITM_PICKAXE
     hash: 1608248602
     type: 0
@@ -32,6 +35,35 @@ MonoBehaviour:
       value: 15
     - type: 1
       value: 15
-    gameObject: {fileID: 4621055232258266464, guid: c994d771eb0b1ed479d538aaf106c13a, type: 3}
+    gameObject: {fileID: 0}
     cost: 100
     canBeSold: 1
+    canBeEquiped: 0
+    consumable: 0
+    icon: {fileID: 21300000, guid: 2169eb876e4723d41b045ab36286d0af, type: 3}
+  - itemName: MELEE_SWORD_2
+    hash: 1622029675
+    type: 0
+    attributes:
+    - type: 0
+      value: 10
+    - type: 1
+      value: 10
+    gameObject: {fileID: 5853326021968927900, guid: 53cb27aa22a75db40a1b089be9d5937f, type: 3}
+    cost: 100
+    canBeSold: 1
+    canBeEquiped: 1
+    consumable: 0
+    icon: {fileID: 21300000, guid: ba75837e70b9c0b45bf6cfeb93f132c8, type: 3}
+  - itemName: ITM_BREAD
+    hash: 1071408531
+    type: 3
+    attributes:
+    - type: 3
+      value: 15
+    gameObject: {fileID: 491926389741893748, guid: fd7e440df74fdae43aa1a9731e05c9d3, type: 3}
+    cost: 100
+    canBeSold: 1
+    canBeEquiped: 0
+    consumable: 1
+    icon: {fileID: 21300000, guid: 5ef1705979047614dab30af5899bfa5c, type: 3}

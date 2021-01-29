@@ -1,6 +1,7 @@
 ﻿using Cinemachine;
 using KG.CameraControl;
 using KG.Core;
+using KG.Interact;
 using KG.Movement;
 using System;
 using System.Collections;
@@ -11,6 +12,7 @@ namespace KG.CombatCore
 {
     [RequireComponent(typeof(PlayerMover))]
     [RequireComponent(typeof(StateSwitch))]
+    [RequireComponent(typeof(PlayerTargetDetector))]
     public class PlayerLockOn : MonoBehaviour
     {
 
@@ -29,25 +31,51 @@ namespace KG.CombatCore
         private bool isLockedOn = false;
         private PlayerMover mover;
         private StateSwitch stateSwitch;
+        private PlayerTargetDetector playerTargetDetector;
 
-        private void Start()
+        private void Awake()
         {
             mover = GetComponent<PlayerMover>();
             stateSwitch = GetComponent<StateSwitch>();
+            playerTargetDetector = GetComponent<PlayerTargetDetector>();
+        }
+
+        private void Start()
+        {
+            stateSwitch.onStateChange.AddListener(OnChangeState);
+        }
+
+        private void OnDisable()
+        {
+            stateSwitch.onStateChange.RemoveListener(OnChangeState);
         }
 
         private void SetTarget(Transform transform)
         {
-            if (currentTarget) targetGroup.RemoveMember(currentTarget);
+
+            if (currentTarget)
+            {
+                targetGroup.RemoveMember(currentTarget);
+            }
+
             if (transform)
             {
+
+                var interactable = transform.GetComponent<Interactable>();
+
+                if (interactable)
+                {
+                    playerTargetDetector.ForceNewTarget(interactable);
+                }
+
                 targetGroup.AddMember(transform, targetWeight, targetRadius);
                 cameraStateController.LockOnTarget();
                 isLockedOn = true;
             }
             else
             {
-                cameraStateController.FreeCamera();
+                playerTargetDetector.UnlockTarget();
+                cameraStateController.UnlockTarget();
                 isLockedOn = false;
             }
             currentTarget = transform;
@@ -71,11 +99,21 @@ namespace KG.CombatCore
             SetTarget(null);
         }
 
+        public void ResetTarget(State currentState)
+        {
+            playerTargetDetector.UnlockTarget();
+            cameraStateController.UnlockTarget(currentState);
+            isLockedOn = false;
+            mover.IsStrafing = false;
+            currentTarget = null;
+            mover.LookAt = null;
+        }
+
         public void OnChangeState(State _, State currentState)
         {
             if (currentState != State.COMBAT)
             {
-                ResetTarget();
+                ResetTarget(currentState);
             }
         }
 

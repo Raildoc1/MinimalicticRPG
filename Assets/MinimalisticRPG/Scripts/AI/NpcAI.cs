@@ -17,6 +17,16 @@ namespace KG.AI
         private int waypathIndex;
         private Waypoint currentWaypoint;
 
+        private void Start()
+        {
+            stateSwitch.onAddCompanion.AddListener(SetCompanion);
+        }
+
+        private void OnDisable()
+        {
+            stateSwitch.onAddCompanion.RemoveListener(SetCompanion);
+        }
+
         public void SetCompanion(Transform companion)
         {
             this.companion = companion;

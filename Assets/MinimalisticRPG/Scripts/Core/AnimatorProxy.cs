@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,10 @@ public class AnimatorProxy : MonoBehaviour
 {
 
     public float stopTime = 0.25f;
+
+    #region Public animator variables
+
+    #region INT
 
     public int currentState
     {
@@ -19,6 +24,52 @@ public class AnimatorProxy : MonoBehaviour
             animator.SetInteger(currentStateParamID, value);
         }
     }
+
+    #endregion
+
+    #region FLOAT
+
+    public float inputMagnitude
+    {
+        get
+        {
+            return animator.GetFloat(inputMagnitudeParamID);
+        }
+        set
+        {
+            animator.SetFloat(inputMagnitudeParamID, value, stopTime, Time.deltaTime);
+        }
+    }
+
+    public float inputVertical
+    {
+        get
+        {
+            return animator.GetFloat(inputVerticalParamID);
+        }
+
+        set
+        {
+            animator.SetFloat(inputVerticalParamID, Mathf.Clamp(value, -1f, 1f), stopTime, Time.deltaTime);
+        }
+    }
+
+    public float inputHorizontal
+    {
+        get
+        {
+            return animator.GetFloat(inputHorizontalParamID);
+        }
+
+        set
+        {
+            animator.SetFloat(inputHorizontalParamID, Mathf.Clamp(value, -1f, 1f), stopTime, Time.deltaTime);
+        }
+    }
+
+    #endregion
+
+    #region BOOL
 
     public bool isStrafing
     {
@@ -68,44 +119,70 @@ public class AnimatorProxy : MonoBehaviour
         }
     }
 
-    public float inputMagnitude
+    public bool gettingDamage
     {
         get
         {
-            return animator.GetFloat(inputMagnitudeParamID);
-        }
-        set
-        {
-            animator.SetFloat(inputMagnitudeParamID, value, stopTime, Time.deltaTime);
+            return animator.GetBool(gettingDamageParamID);
         }
     }
 
-    public float inputVertical
+    public bool inDodge
     {
         get
         {
-            return animator.GetFloat(inputVerticalParamID);
-        }
-
-        set
-        {
-            animator.SetFloat(inputVerticalParamID, Mathf.Clamp(value, -1f, 1f), stopTime, Time.deltaTime);
+            return animator.GetBool(inDodgeParamID);
         }
     }
 
-    public float inputHorizontal
+    public bool cannotBlock
     {
         get
         {
-            return animator.GetFloat(inputHorizontalParamID);
+            return animator.GetBool(cannotBlockParamID);
+        }
+    }
+
+    public bool hasSword
+    {
+        get
+        {
+            return animator.GetBool(hasSwordParamID);
         }
 
         set
         {
-            animator.SetFloat(inputHorizontalParamID, Mathf.Clamp(value, -1f, 1f), stopTime, Time.deltaTime);
+            animator.SetBool(hasSwordParamID, value);
         }
     }
 
+    public bool lockRotation
+    {
+        get
+        {
+            return animator.GetBool(lockRotationParamID);
+        }
+    }
+
+    public bool inAttack
+    {
+        get
+        {
+            return animator.GetBool(inAttackParamID);
+        }
+    }
+
+    public bool enteringAttack
+    {
+        get
+        {
+            return animator.GetBool(enteringAttackParamID);
+        }
+    }
+
+    #endregion
+
+    #region VOID
     public void GetDamage()
     {
         animator.SetTrigger(getDamageParamID);
@@ -131,6 +208,11 @@ public class AnimatorProxy : MonoBehaviour
         animator.SetTrigger(attackParamID);
     }
 
+    internal void Jump()
+    {
+        animator.SetTrigger(jumpParamID);
+    }
+
     public void SetAxisInput(Vector2 input)
     {
         animator.SetFloat(inputHorizontalParamID, Mathf.Clamp(input.x, -1f, 1f), stopTime, Time.deltaTime);
@@ -148,8 +230,11 @@ public class AnimatorProxy : MonoBehaviour
     {
         animator.SetTrigger(dodgeParamID);
     }
+    #endregion
 
-    private Animator animator;
+    #endregion
+
+    #region Names and IDs
 
     #region FLOATS
 
@@ -170,28 +255,44 @@ public class AnimatorProxy : MonoBehaviour
     private readonly string unequipParamName = "Unequip";
     private readonly string getDamageParamName = "GetDamage";
     private readonly string pickUpParamName = "PickUp";
+    private readonly string dodgeParamName = "Dodge";
+    private readonly string jumpParamName = "Jump";
 
     private int attackParamID;
     private int equipParamID;
     private int unequipParamID;
     private int getDamageParamID;
     private int pickUpParamID;
+    private int dodgeParamID;
+    private int jumpParamID;
 
     #endregion
 
     #region BOOLS
-
+    
     private readonly string isStrafingParamName = "IsStrafing";
     private readonly string isEquipingParamName = "IsEquiping";
     private readonly string isUnequipingParamName = "IsUnequiping";
     private readonly string isDeadParamName = "IsDead";
-    private readonly string dodgeParamName = "Dodge";
+    private readonly string inDodgeParamName = "InDodge";
+    private readonly string cannotBlockParamName = "CannotBlock";
+    private readonly string gettingDamageParamName = "GettingDamage";
+    private readonly string hasSwordParamName = "HasSword";
+    private readonly string lockRotationParamName = "LockRotation";
+    private readonly string inAttackParamName = "InAttack";
+    private readonly string enteringAttackParamName = "EnteringAttack";
 
     private int isStrafingParamID;
     private int isEquipingParamID;
     private int isUnequipingParamID;
     private int isDeadParamID;
-    private int dodgeParamID;
+    private int inDodgeParamID;
+    private int cannotBlockParamID;
+    private int gettingDamageParamID;
+    private int hasSwordParamID;
+    private int lockRotationParamID;
+    private int inAttackParamID;
+    private int enteringAttackParamID;
 
     #endregion
 
@@ -202,6 +303,10 @@ public class AnimatorProxy : MonoBehaviour
     private int currentStateParamID;
 
     #endregion
+
+    #endregion
+
+    private Animator animator;
 
     private void Awake()
     {
@@ -216,14 +321,23 @@ public class AnimatorProxy : MonoBehaviour
         unequipParamID = Animator.StringToHash(unequipParamName);
         getDamageParamID = Animator.StringToHash(getDamageParamName);
         pickUpParamID = Animator.StringToHash(pickUpParamName);
+        dodgeParamID = Animator.StringToHash(dodgeParamName);
+        jumpParamID = Animator.StringToHash(jumpParamName);
 
         isStrafingParamID = Animator.StringToHash(isStrafingParamName);
         isEquipingParamID = Animator.StringToHash(isEquipingParamName);
         isUnequipingParamID = Animator.StringToHash(isUnequipingParamName);
         isDeadParamID = Animator.StringToHash(isDeadParamName);
-        dodgeParamID = Animator.StringToHash(dodgeParamName);
+        inDodgeParamID = Animator.StringToHash(inDodgeParamName);
+        cannotBlockParamID = Animator.StringToHash(cannotBlockParamName);
+        gettingDamageParamID = Animator.StringToHash(gettingDamageParamName);
+        hasSwordParamID = Animator.StringToHash(hasSwordParamName);
+        lockRotationParamID = Animator.StringToHash(lockRotationParamName);
+        inAttackParamID = Animator.StringToHash(inAttackParamName);
+        enteringAttackParamID = Animator.StringToHash(enteringAttackParamName);
 
         currentStateParamID = Animator.StringToHash(currentStateParamName);
+
     }
 
 }
