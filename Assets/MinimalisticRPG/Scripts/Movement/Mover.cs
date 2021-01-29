@@ -31,11 +31,13 @@ namespace KG.Movement
         protected CharacterController controller;
 
         protected Vector3 beforeJumpVelocity = Vector3.zero;
+        protected Vector3 playerVelocity;
 
         protected bool _isStrafing;
         protected bool _isJumping;
+        protected bool _isGrounded;
 
-        //protected readonly float defaultGravity = Physics.gravity.y;
+        protected readonly float defaultGravity = Physics.gravity.y;
 
         public bool IsStrafing
         {
@@ -60,6 +62,21 @@ namespace KG.Movement
             private set
             {
                 _isJumping = value;
+            }
+
+        }
+
+        public bool IsGrounded
+        {
+            get
+            {
+                return _isGrounded;
+            }
+
+            private set
+            {
+                animator.isGrounded = value;
+                _isGrounded = value;
             }
 
         }
@@ -90,33 +107,20 @@ namespace KG.Movement
 
         private void UpdatePosition()
         {
-            if (IsJumping)
-            {
-
-                if (!animator.startingJump)
-                {
-                    beforeJumpVelocity.y = 0f;
-                }
-
-                controller.Move(beforeJumpVelocity * Time.deltaTime);
-            }
+            controller.Move(playerVelocity * Time.deltaTime);
         }
 
         private void ProccesGravity()
         {
 
-            var wasGrounded = animator.isGrounded;
-
-            if (!wasGrounded)
+            if (!IsGrounded)
             {
                 animator.inAirTimer += Time.deltaTime;
             }
 
-            var grounded = controller.isGrounded;
-
             if (animator.startingJump)
             {
-                animator.isGrounded = false;
+                IsGrounded = false;
                 return;
             }
 
@@ -126,22 +130,38 @@ namespace KG.Movement
 
             if (Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, snapDistace + 1))
             {
-                controller.Move(new Vector3(0f, -pullDownMagnitude, 0f));
+                playerVelocity = Vector3.zero;
+                transform.position = hit.point;
                 IsJumping = false;
+                animator.inAirTimer = 0f;
 
-                animator.isGrounded = true;
+                IsGrounded = true;
             }
             else
             {
+                playerVelocity.y += defaultGravity * Time.deltaTime;
 
-                if (wasGrounded)
-                {
-                    animator.inAirTimer = 0f;
-                }
 
-                animator.isGrounded = false;
+                IsGrounded = false;
             }
 
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (IsGrounded)
+            {
+                return;
+            }
+
+            RaycastHit outHit;
+
+            if (Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out outHit, snapDistace + 1))
+            {
+                return;
+            }
+
+            controller.Move(hit.normal * controller.radius * 1.25f);
         }
 
         private void UpdateRotation()
@@ -197,7 +217,14 @@ namespace KG.Movement
             animator.Jump();
             IsJumping = true;
             animator.startingJump = true;
-            beforeJumpVelocity = controller.velocity * jumpSpeed + Vector3.up * jumpHeight;
+
+
+            var velocity = controller.velocity;
+            playerVelocity.y = Mathf.Sqrt(jumpHeight * 3f * 9.81f);
+            velocity.y = 0;
+
+
+            playerVelocity = velocity * jumpSpeed + Vector3.up * Mathf.Sqrt(jumpHeight * 3f * 9.81f);
         }
     }
 }
