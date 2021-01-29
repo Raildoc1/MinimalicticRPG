@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -207,6 +208,11 @@ public class AnimatorProxy : MonoBehaviour
         animator.SetTrigger(attackParamID);
     }
 
+    internal void Jump()
+    {
+        animator.SetTrigger(jumpParamID);
+    }
+
     public void SetAxisInput(Vector2 input)
     {
         animator.SetFloat(inputHorizontalParamID, Mathf.Clamp(input.x, -1f, 1f), stopTime, Time.deltaTime);
@@ -250,6 +256,7 @@ public class AnimatorProxy : MonoBehaviour
     private readonly string getDamageParamName = "GetDamage";
     private readonly string pickUpParamName = "PickUp";
     private readonly string dodgeParamName = "Dodge";
+    private readonly string jumpParamName = "Jump";
 
     private int attackParamID;
     private int equipParamID;
@@ -257,6 +264,7 @@ public class AnimatorProxy : MonoBehaviour
     private int getDamageParamID;
     private int pickUpParamID;
     private int dodgeParamID;
+    private int jumpParamID;
 
     #endregion
 
@@ -314,6 +322,7 @@ public class AnimatorProxy : MonoBehaviour
         getDamageParamID = Animator.StringToHash(getDamageParamName);
         pickUpParamID = Animator.StringToHash(pickUpParamName);
         dodgeParamID = Animator.StringToHash(dodgeParamName);
+        jumpParamID = Animator.StringToHash(jumpParamName);
 
         isStrafingParamID = Animator.StringToHash(isStrafingParamName);
         isEquipingParamID = Animator.StringToHash(isEquipingParamName);
@@ -328,6 +337,7 @@ public class AnimatorProxy : MonoBehaviour
         enteringAttackParamID = Animator.StringToHash(enteringAttackParamName);
 
         currentStateParamID = Animator.StringToHash(currentStateParamName);
+
     }
 
 }

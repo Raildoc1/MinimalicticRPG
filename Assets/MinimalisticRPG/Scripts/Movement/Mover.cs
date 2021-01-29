@@ -26,8 +26,10 @@ namespace KG.Movement
         protected StateSwitch stateSwitch;
         protected CharacterController controller;
 
-        protected bool _isStrafing;
+        protected Vector3 beforeJumpVelocity = Vector3.zero;
 
+        protected bool _isStrafing;
+        protected bool _isJumping;
 
         //protected readonly float defaultGravity = Physics.gravity.y;
 
@@ -42,6 +44,20 @@ namespace KG.Movement
                 animator.isStrafing = value;
                 _isStrafing = value;
             }
+        }
+
+        public bool IsJumping
+        {
+            get
+            {
+                return _isJumping;
+            }
+
+            private set 
+            {
+                _isJumping = value;
+            }
+
         }
 
         protected virtual void Awake()
@@ -63,8 +79,17 @@ namespace KG.Movement
         }
         protected virtual void Update()
         {
+            UpdatePosition();
             UpdateRotation();
             ProccesGravity();
+        }
+
+        private void UpdatePosition()
+        {
+            if (IsJumping)
+            {
+                controller.Move(beforeJumpVelocity * Time.deltaTime);
+            }
         }
 
         private void ProccesGravity()
@@ -72,19 +97,17 @@ namespace KG.Movement
 
             var grounded = controller.isGrounded;
 
+            if (_isJumping)
+            {
+                return;
+            }
+
             RaycastHit hit;
 
             if (Physics.Raycast(new Ray(transform.position, Vector3.down), out hit, snapDistace))
             {
                 controller.Move(new Vector3(0f, -pullDownMagnitude, 0f));
             }
-            else
-            {
-                //Debug.Log("TOO FAR FROM GROUND");
-            }
-
-
-            //Debug.Log(grounded);
 
         }
 
@@ -129,6 +152,12 @@ namespace KG.Movement
             Debug.Log($"{name} looks at {target.name}");
             var direction = (target.position - transform.position).normalized;
             targetDirection = (new Vector3(direction.x, 0f, direction.z)).normalized;
+        }
+        public void Jump()
+        {
+            animator.Jump();
+            _isJumping = true;
+            beforeJumpVelocity = controller.velocity;
         }
     }
 }
