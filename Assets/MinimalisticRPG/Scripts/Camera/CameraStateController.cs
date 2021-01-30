@@ -103,8 +103,6 @@ namespace KG.CameraControl
         public void OnChangeState(State _, State currentState)
         {
 
-            Debug.Log($"OnChangeState(_, {currentState})");
-
             if (currentState == State.DIALOG)
             {
                 StartDialog();
