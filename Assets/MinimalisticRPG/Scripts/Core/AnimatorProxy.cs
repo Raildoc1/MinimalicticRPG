@@ -67,6 +67,19 @@ public class AnimatorProxy : MonoBehaviour
         }
     }
 
+    public float inAirTimer
+    {
+        get
+        {
+            return animator.GetFloat(inAirTimerParamID);
+        }
+
+        set
+        {
+            animator.SetFloat(inAirTimerParamID, value);
+        }
+    }
+
     #endregion
 
     #region BOOL
@@ -180,6 +193,29 @@ public class AnimatorProxy : MonoBehaviour
         }
     }
 
+    public bool startingJump
+    {
+        get {
+            return animator.GetBool(startingJumpParamID);
+        }
+
+        set
+        {
+            animator.SetBool(startingJumpParamID, value);
+        }
+    }
+
+    public bool isGrounded
+    {
+        get {
+            return animator.GetBool(isGroundedParamID);
+        }
+
+        set {
+            animator.SetBool(isGroundedParamID, value);
+        }
+    }
+
     #endregion
 
     #region VOID
@@ -241,10 +277,12 @@ public class AnimatorProxy : MonoBehaviour
     private readonly string inputMagnitudeParamName = "InputMagnitude";
     private readonly string inputVerticalParamName = "InputVertical";
     private readonly string inputHorizontalParamName = "InputHorizontal";
+    private readonly string inAirTimerParamName = "InAirTimer";
 
     private int inputMagnitudeParamID;
     private int inputVerticalParamID;
     private int inputHorizontalParamID;
+    private int inAirTimerParamID;
 
     #endregion
 
@@ -281,6 +319,8 @@ public class AnimatorProxy : MonoBehaviour
     private readonly string lockRotationParamName = "LockRotation";
     private readonly string inAttackParamName = "InAttack";
     private readonly string enteringAttackParamName = "EnteringAttack";
+    private readonly string startingJumpParamName = "StartingJump";
+    private readonly string isGroundedParamName = "IsGrounded";
 
     private int isStrafingParamID;
     private int isEquipingParamID;
@@ -293,6 +333,8 @@ public class AnimatorProxy : MonoBehaviour
     private int lockRotationParamID;
     private int inAttackParamID;
     private int enteringAttackParamID;
+    private int startingJumpParamID;
+    private int isGroundedParamID;
 
     #endregion
 
@@ -315,6 +357,7 @@ public class AnimatorProxy : MonoBehaviour
         inputMagnitudeParamID = Animator.StringToHash(inputMagnitudeParamName);
         inputVerticalParamID = Animator.StringToHash(inputVerticalParamName);
         inputHorizontalParamID = Animator.StringToHash(inputHorizontalParamName);
+        inAirTimerParamID = Animator.StringToHash(inAirTimerParamName);
 
         attackParamID = Animator.StringToHash(attackParamName);
         equipParamID = Animator.StringToHash(equipParamName);
@@ -335,6 +378,8 @@ public class AnimatorProxy : MonoBehaviour
         lockRotationParamID = Animator.StringToHash(lockRotationParamName);
         inAttackParamID = Animator.StringToHash(inAttackParamName);
         enteringAttackParamID = Animator.StringToHash(enteringAttackParamName);
+        startingJumpParamID = Animator.StringToHash(startingJumpParamName);
+        isGroundedParamID = Animator.StringToHash(isGroundedParamName);
 
         currentStateParamID = Animator.StringToHash(currentStateParamName);
 

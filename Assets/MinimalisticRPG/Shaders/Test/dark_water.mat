@@ -41,7 +41,7 @@ Material:
     m_Floats:
     - Vector1_42fb49572ea34744a7af7e1985337be5: 0.25
     - Vector1_6551f1ff62394bb18e18ae275baa6669: 0.0625
-    - Vector1_f60d253f085b4b17b43a48f8f61574f5: 0.09
+    - Vector1_f60d253f085b4b17b43a48f8f61574f5: 0.35
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 10

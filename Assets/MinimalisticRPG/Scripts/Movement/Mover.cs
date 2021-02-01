@@ -21,17 +21,23 @@ namespace KG.Movement
         [SerializeField] protected float pullDownMagnitude = 50f;
         [SerializeField] protected LayerMask groundLayers;
 
+        [Header("Jump")]
+        [SerializeField] protected float jumpSpeed = 2f;
+        [SerializeField] protected float jumpHeight = 2f;
+
         protected Vector3 targetDirection;
         protected AnimatorProxy animator;
         protected StateSwitch stateSwitch;
         protected CharacterController controller;
 
         protected Vector3 beforeJumpVelocity = Vector3.zero;
+        protected Vector3 playerVelocity;
 
         protected bool _isStrafing;
         protected bool _isJumping;
+        protected bool _isGrounded;
 
-        //protected readonly float defaultGravity = Physics.gravity.y;
+        protected readonly float defaultGravity = Physics.gravity.y;
 
         public bool IsStrafing
         {
@@ -53,9 +59,24 @@ namespace KG.Movement
                 return _isJumping;
             }
 
-            private set 
+            private set
             {
                 _isJumping = value;
+            }
+
+        }
+
+        public bool IsGrounded
+        {
+            get
+            {
+                return _isGrounded;
+            }
+
+            private set
+            {
+                animator.isGrounded = value;
+                _isGrounded = value;
             }
 
         }
@@ -86,29 +107,61 @@ namespace KG.Movement
 
         private void UpdatePosition()
         {
-            if (IsJumping)
-            {
-                controller.Move(beforeJumpVelocity * Time.deltaTime);
-            }
+            controller.Move(playerVelocity * Time.deltaTime);
         }
 
         private void ProccesGravity()
         {
 
-            var grounded = controller.isGrounded;
-
-            if (_isJumping)
+            if (!IsGrounded)
             {
+                animator.inAirTimer += Time.deltaTime;
+            }
+
+            if (animator.startingJump)
+            {
+                IsGrounded = false;
                 return;
             }
 
             RaycastHit hit;
 
-            if (Physics.Raycast(new Ray(transform.position, Vector3.down), out hit, snapDistace))
+            Debug.DrawRay(transform.position, Vector3.down);
+
+            if (Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, snapDistace + 1))
             {
-                controller.Move(new Vector3(0f, -pullDownMagnitude, 0f));
+                playerVelocity = Vector3.zero;
+                transform.position = hit.point;
+                IsJumping = false;
+                animator.inAirTimer = 0f;
+
+                IsGrounded = true;
+            }
+            else
+            {
+                playerVelocity.y += defaultGravity * Time.deltaTime;
+
+
+                IsGrounded = false;
             }
 
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (IsGrounded)
+            {
+                return;
+            }
+
+            RaycastHit outHit;
+
+            if (Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out outHit, snapDistace + 1))
+            {
+                return;
+            }
+
+            controller.Move(hit.normal * controller.radius * 1.25f * Time.deltaTime);
         }
 
         private void UpdateRotation()
@@ -155,9 +208,23 @@ namespace KG.Movement
         }
         public void Jump()
         {
+
+            if (!animator.isGrounded)
+            {
+                return;
+            }
+
             animator.Jump();
-            _isJumping = true;
-            beforeJumpVelocity = controller.velocity;
+            IsJumping = true;
+            animator.startingJump = true;
+
+
+            var velocity = controller.velocity;
+            playerVelocity.y = Mathf.Sqrt(jumpHeight * 3f * 9.81f);
+            velocity.y = 0;
+
+
+            playerVelocity = velocity * jumpSpeed + Vector3.up * Mathf.Sqrt(jumpHeight * 3f * 9.81f);
         }
     }
 }
