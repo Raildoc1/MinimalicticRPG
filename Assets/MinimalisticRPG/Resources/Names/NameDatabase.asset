@@ -13,39 +13,45 @@ MonoBehaviour:
   m_Name: NameDatabase
   m_EditorClassIdentifier: 
   names:
-  - unique_name: ITM_PICKAXE
-    display_name:
-    - language: EN
-      name: Pickaxe
-    - language: RU
-      name: "\u041A\u0438\u0440\u043A\u0430"
-  - unique_name: NPC_YHORM
-    display_name:
-    - language: EN
-      name: Yhorm
-    - language: RU
-      name: "\u0419\u043E\u0440\u043C"
-  - unique_name: NPC_SOFIA
-    display_name:
-    - language: EN
-      name: Sofia
-    - language: RU
-      name: "\u0421\u043E\u0444\u0438\u044F"
-  - unique_name: NPC_DAVID
-    display_name:
-    - language: EN
-      name: David
-    - language: RU
-      name: "\u0414\u044D\u0432\u0438\u0434"
   - unique_name: ITM_BREAD
     display_name:
     - language: EN
       name: Bread
     - language: RU
       name: "\u0425\u043B\u0435\u0431"
+  - unique_name: ITM_PICKAXE
+    display_name:
+    - language: EN
+      name: Pickaxe
+    - language: RU
+      name: "\u041A\u0438\u0440\u043A\u0430"
   - unique_name: MELEE_SWORD_2
     display_name:
     - language: EN
       name: Mace
     - language: RU
       name: "\u0414\u0443\u0431\u0438\u043D\u0430"
+  - unique_name: NPC_DAVID
+    display_name:
+    - language: EN
+      name: David
+    - language: RU
+      name: "\u0414\u044D\u0432\u0438\u0434"
+  - unique_name: NPC_SAM
+    display_name:
+    - language: EN
+      name: Sam
+    - language: RU
+      name: "\u0421\u044D\u043C"
+  - unique_name: NPC_SOFIA
+    display_name:
+    - language: EN
+      name: Sofia
+    - language: RU
+      name: "\u0421\u043E\u0444\u0438\u044F"
+  - unique_name: NPC_YHORM
+    display_name:
+    - language: EN
+      name: Yhorm
+    - language: RU
+      name: "\u0419\u043E\u0440\u043C"

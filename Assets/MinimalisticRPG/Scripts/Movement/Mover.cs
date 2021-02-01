@@ -161,7 +161,7 @@ namespace KG.Movement
                 return;
             }
 
-            controller.Move(hit.normal * controller.radius * 1.25f);
+            controller.Move(hit.normal * controller.radius * 1.25f * Time.deltaTime);
         }
 
         private void UpdateRotation()
