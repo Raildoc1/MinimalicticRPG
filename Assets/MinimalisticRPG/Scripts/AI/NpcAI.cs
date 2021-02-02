@@ -1,3 +1,4 @@
+using KG.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,13 @@ namespace KG.AI
 
         private Transform companion;
         private float companionDistance => companion ? Vector3.Distance(companion.position, transform.position) : 0f;
-        private float waypointDistance => currentWaypoint ? Vector3.Distance(currentWaypoint.transform.position, transform.position) : 0f;
+        private float waypointDistance => currentScheduleEntity.point ? Vector3.Distance(currentScheduleEntity.point.transform.position, transform.position) : 0f;
 
-        [SerializeField] private Waypath waypath;
+        [SerializeField] private Schedule schedule;
         private int waypathIndex;
-        private Waypoint currentWaypoint;
+        private Schedule.Entity currentScheduleEntity;
+
+        private bool inAction = false;
 
         private void Start()
         {
@@ -61,22 +64,39 @@ namespace KG.AI
                 }
 
             }
-            else if (waypath)
+            else if (Schedule.IsValid(schedule))
             {
-                if (!currentWaypoint)
+
+                if (currentScheduleEntity != null && Schedule.InTimeInterval(GameTime.instance.minutes % (24 * 60), currentScheduleEntity.startTime, currentScheduleEntity.endTime))
                 {
-                    currentWaypoint = waypath.GetNextPoint();
+
+                    if (waypointDistance < waypointStopDistance)
+                    {
+
+                        if (currentScheduleEntity.actionHolder)
+                        {
+                            transform.position = currentScheduleEntity.actionHolder.interactionPosition.position;
+                            transform.forward = currentScheduleEntity.actionHolder.interactionPosition.forward;
+                            animatorProxy.GotoState(currentScheduleEntity.actionHolder.animatorStateName);
+                        }
+
+                        agent.isStopped = true;
+                        animatorProxy.ResetInput();
+                    }
+                    else
+                    {
+                        agent.SetDestination(currentScheduleEntity.point.transform.position);
+                        agent.isStopped = false;
+                        animatorProxy.inputMagnitude = .5f;
+                        mover.RotateToDirection(agent.desiredVelocity);
+                    }
+                }
+                else
+                {
+                    animatorProxy.StopAction();
+                    currentScheduleEntity = schedule.GetEntityByTime(GameTime.instance.minutes);
                 }
 
-                if (waypointDistance < waypointStopDistance)
-                {
-                    currentWaypoint = waypath.GetNextPoint();
-                }
-
-                agent.SetDestination(currentWaypoint.transform.position);
-                agent.isStopped = false;
-                animatorProxy.inputMagnitude = 1f;
-                mover.RotateToDirection(agent.desiredVelocity);
 
             }
 

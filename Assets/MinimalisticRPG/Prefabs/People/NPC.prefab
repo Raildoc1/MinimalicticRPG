@@ -29,8 +29,9 @@ MonoBehaviour:
   dodgeWhileGettingDamgeProbability: 0.5
   dodgeWhileTargetAttacksProbability: 0.5
   companionStopDistance: 2
-  waypointStopDistance: 0.5
-  waypath: {fileID: 0}
+  waypointStopDistance: 1
+  schedule:
+    list: []
 --- !u!114 &2055385687185209257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,6 +297,8 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 0
+  jumpSpeed: 2
+  jumpHeight: 2
 --- !u!1001 &5129355169615503595
 PrefabInstance:
   m_ObjectHideFlags: 0

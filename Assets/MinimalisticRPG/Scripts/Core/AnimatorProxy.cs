@@ -244,9 +244,14 @@ public class AnimatorProxy : MonoBehaviour
         animator.SetTrigger(attackParamID);
     }
 
-    internal void Jump()
+    public void Jump()
     {
         animator.SetTrigger(jumpParamID);
+    }
+
+    public void StopAction()
+    {
+        animator.SetTrigger(stopActionParamID);
     }
 
     public void SetAxisInput(Vector2 input)
@@ -295,6 +300,7 @@ public class AnimatorProxy : MonoBehaviour
     private readonly string pickUpParamName = "PickUp";
     private readonly string dodgeParamName = "Dodge";
     private readonly string jumpParamName = "Jump";
+    private readonly string stopActionParamName = "StopAction";
 
     private int attackParamID;
     private int equipParamID;
@@ -303,6 +309,7 @@ public class AnimatorProxy : MonoBehaviour
     private int pickUpParamID;
     private int dodgeParamID;
     private int jumpParamID;
+    private int stopActionParamID;
 
     #endregion
 
@@ -348,6 +355,12 @@ public class AnimatorProxy : MonoBehaviour
 
     #endregion
 
+    public void GotoState(string stateName, bool isAciton = true)
+    {
+        animator.ResetTrigger(stopActionParamID);
+        animator.Play(stateName);
+    }
+
     private Animator animator;
 
     private void Awake()
@@ -366,6 +379,8 @@ public class AnimatorProxy : MonoBehaviour
         pickUpParamID = Animator.StringToHash(pickUpParamName);
         dodgeParamID = Animator.StringToHash(dodgeParamName);
         jumpParamID = Animator.StringToHash(jumpParamName);
+        stopActionParamID = Animator.StringToHash(stopActionParamName);
+
 
         isStrafingParamID = Animator.StringToHash(isStrafingParamName);
         isEquipingParamID = Animator.StringToHash(isEquipingParamName);

@@ -54,6 +54,8 @@ namespace KG.AI
         protected virtual void AttackTarget()
         {
 
+            animatorProxy.StopAction();
+
             if (animatorProxy.isDead || stateSwitch.CurrentState != State.COMBAT)
             {
                 return;

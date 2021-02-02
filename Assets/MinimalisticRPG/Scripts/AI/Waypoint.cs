@@ -7,7 +7,7 @@ namespace KG.AI
     public class Waypoint : MonoBehaviour
     {
 
-        public float exitTime;
+        public string AnimatorActionName = "";
 
         protected virtual void OnDrawGizmos()
         {
