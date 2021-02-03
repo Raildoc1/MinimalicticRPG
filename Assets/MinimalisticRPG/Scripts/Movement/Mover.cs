@@ -107,7 +107,20 @@ namespace KG.Movement
 
         private void UpdatePosition()
         {
+            if (!controller.enabled)
+            {
+                return;
+            }
+
             controller.Move(playerVelocity * Time.deltaTime);
+        }
+
+        public void MoveToTick(Vector3 position)
+        {
+
+            var direction = position - transform.position;
+
+            controller.Move(direction.normalized * Time.deltaTime);
         }
 
         private void ProccesGravity()

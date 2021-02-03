@@ -39,6 +39,16 @@ namespace KG.AI
             animatorProxy.GotoState(actionName);
         }
 
+        public virtual void MoveTo(Vector3 position)
+        {
+            mover.MoveToTick(position);
+        }
+
+        public virtual void RotateToDirection(Vector3 direction)
+        {
+            mover.RotateToDirection(direction);
+        }
+
     }
 }
 

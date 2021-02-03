@@ -79,8 +79,6 @@ namespace KG.AI
                     {
                         agent.isStopped = true;
                         animatorProxy.ResetInput();
-                        mover.RotateToDirection(currentScheduleEntity.actionHolder.interactionPosition.forward);
-                        transform.position = currentScheduleEntity.actionHolder.interactionPosition.position;
                         action.Update();
                     }
                     else if (waypointDistance < waypointStopDistance)
@@ -89,6 +87,12 @@ namespace KG.AI
                         if (currentScheduleEntity.actionHolder)
                         {
                             var newAction = new CustomScheduleAction(currentScheduleEntity.actionHolder.animatorStateName, currentScheduleEntity.actionHolder.interactionPosition);
+                            newAction.Init(this);
+                            action = newAction;
+                        }
+                        else
+                        {
+                            var newAction = new IdleScheduleAction(currentScheduleEntity.point.transform);
                             newAction.Init(this);
                             action = newAction;
                         }
