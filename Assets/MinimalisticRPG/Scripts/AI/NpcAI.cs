@@ -17,6 +17,7 @@ namespace KG.AI
         [SerializeField] private Schedule schedule;
         private int waypathIndex;
         private Schedule.Entity currentScheduleEntity;
+        private ScheduleAction action;
 
         private bool inAction = false;
 
@@ -39,14 +40,18 @@ namespace KG.AI
         {
 
             var state = stateSwitch.CurrentState;
-            
+
             if (state != Core.State.PEACE)
             {
+                StopScheduleAction();
+
                 agent.isStopped = true;
                 animatorProxy.ResetInput();
             }
             else if (companion)
             {
+                StopScheduleAction();
+
                 agent.SetDestination(companion.position);
 
                 if (companionDistance < companionStopDistance)
@@ -70,14 +75,22 @@ namespace KG.AI
                 if (currentScheduleEntity != null && Schedule.InTimeInterval(GameTime.instance.minutes % (24 * 60), currentScheduleEntity.startTime, currentScheduleEntity.endTime))
                 {
 
-                    if (waypointDistance < waypointStopDistance)
+                    if (action != null)
+                    {
+                        agent.isStopped = true;
+                        animatorProxy.ResetInput();
+                        mover.RotateToDirection(currentScheduleEntity.actionHolder.interactionPosition.forward);
+                        transform.position = currentScheduleEntity.actionHolder.interactionPosition.position;
+                        action.Update();
+                    }
+                    else if (waypointDistance < waypointStopDistance)
                     {
 
                         if (currentScheduleEntity.actionHolder)
                         {
-                            transform.position = currentScheduleEntity.actionHolder.interactionPosition.position;
-                            transform.forward = currentScheduleEntity.actionHolder.interactionPosition.forward;
-                            animatorProxy.GotoState(currentScheduleEntity.actionHolder.animatorStateName);
+                            var newAction = new CustomScheduleAction(currentScheduleEntity.actionHolder.animatorStateName, currentScheduleEntity.actionHolder.interactionPosition);
+                            newAction.Init(this);
+                            action = newAction;
                         }
 
                         agent.isStopped = true;
@@ -93,13 +106,20 @@ namespace KG.AI
                 }
                 else
                 {
-                    animatorProxy.StopAction();
+                    StopScheduleAction();
                     currentScheduleEntity = schedule.GetEntityByTime(GameTime.instance.minutes);
+                    Debug.Log($"new currentScheduleEntity = {currentScheduleEntity}");
                 }
 
 
             }
 
+        }
+
+        private void StopScheduleAction()
+        {
+            action?.Exit();
+            action = null;
         }
     }
 }

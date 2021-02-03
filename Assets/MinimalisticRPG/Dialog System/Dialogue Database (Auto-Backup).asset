@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 935899b62f48ae5498594680ed17d133, type: 3}
-  m_Name: Dialogue Database (Auto-Backup)
+  m_Name: Dialogue Database
   m_EditorClassIdentifier: 
   version: 0.1
   author: Kirill Gayduk
@@ -748,7 +748,10 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: ru
-        value: 
+        value: "\u042F \u043E\u0447\u043D\u0443\u043B\u0441\u044F \u043D\u0435\u043F\u043E\u0434\u0430\u043B\u0435\u043A\u0443
+          \u043E\u0442\u0441\u044E\u0434\u0430, \u0432\u0438\u0434\u0438\u043C\u043E
+          \u044F \u0434\u043E\u043B\u0433\u043E \u0431\u044B\u043B \u0431\u0435\u0437
+          \u0441\u043E\u0437\u043D\u0430\u043D\u0438\u044F, \u0433\u0434\u0435 \u044F?"
         type: 4
         typeString: CustomFieldType_Localization
       conversationID: 2
@@ -823,7 +826,9 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: ru
-        value: 
+        value: "\u0422\u0435\u0431\u0435 \u043F\u043E\u0432\u0435\u0437\u043B\u043E,
+          \u0447\u0442\u043E \u043C\u043E\u043D\u0441\u0442\u0440\u044B \u0442\u0435\u0431\u044F
+          \u043D\u0435 \u0441\u044A\u0435\u043B\u0438!"
         type: 4
         typeString: CustomFieldType_Localization
       conversationID: 2
@@ -898,7 +903,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: ru
-        value: 
+        value: "\u041C\u043E\u043D\u0441\u0442\u0440\u044B? \u041E \u0447\u0435\u043C
+          \u0442\u044B?"
         type: 4
         typeString: CustomFieldType_Localization
       conversationID: 2
@@ -973,7 +979,9 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: ru
-        value: 
+        value: "\u041E\u043A\u043E\u043B\u043E \u0442\u0440\u0435\u0445 \u0434\u043D\u0435\u0439
+          \u043D\u0430\u0437\u0430\u0434 \u043D\u0430\u0448 \u043E\u0441\u0442\u0440\u043E\u0432
+          \u0437\u0430\u043F\u043E\u043B\u043E\u043D\u0438\u043B\u0438 \u043C\u043E\u043D\u0441\u0442\u0440\u044B!"
         type: 4
         typeString: CustomFieldType_Localization
       conversationID: 2
@@ -1994,8 +2002,8 @@ MonoBehaviour:
         y: 217.40262
         width: 160
         height: 30
-    canvasScrollPosition: {x: 5.0466356, y: 7.5449586}
-    canvasZoom: 0.79
+    canvasScrollPosition: {x: 100.51277, y: 0}
+    canvasZoom: 0.9999999
   - id: 3
     fields:
     - title: Title
@@ -2964,7 +2972,7 @@ MonoBehaviour:
     - title: Title
       value: Sam
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Pictures
       value: '[]'
       type: 3
@@ -2972,7 +2980,7 @@ MonoBehaviour:
     - title: Description
       value: 
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Actor
       value: 1
       type: 5
@@ -2982,11 +2990,11 @@ MonoBehaviour:
       type: 5
       typeString: CustomFieldType_Actor
     overrideSettings:
-      useOverrides: 0
-      overrideSubtitleSettings: 0
+      useOverrides: 1
+      overrideSubtitleSettings: 1
       showNPCSubtitlesDuringLine: 1
       showNPCSubtitlesWithResponses: 1
-      showPCSubtitlesDuringLine: 0
+      showPCSubtitlesDuringLine: 1
       skipPCSubtitleAfterResponseMenu: 0
       subtitleCharsPerSecond: 30
       minSubtitleSeconds: 2
@@ -2995,8 +3003,8 @@ MonoBehaviour:
       defaultSequence: 
       defaultPlayerSequence: 
       defaultResponseMenuSequence: 
-      overrideInputSettings: 0
-      alwaysForceResponseMenu: 1
+      overrideInputSettings: 1
+      alwaysForceResponseMenu: 0
       includeInvalidEntries: 0
       responseTimeout: 0
       cancelSubtitle:
@@ -3079,7 +3087,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 20
-        y: 30
+        y: 29.2126
         width: 160
         height: 30
     - id: 1
@@ -3461,7 +3469,7 @@ MonoBehaviour:
     - id: 6
       fields:
       - title: Title
-        value: New Dialogue Entry
+        value: 
         type: 0
         typeString: CustomFieldType_Text
       - title: Pictures
@@ -3473,11 +3481,11 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 1
+        value: 2
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 2
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -3485,7 +3493,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: 
+        value: Monsters ate everything!
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -3527,8 +3535,8 @@ MonoBehaviour:
         y: 330
         width: 160
         height: 30
-    canvasScrollPosition: {x: 0, y: 12.711868}
-    canvasZoom: 1.1799998
+    canvasScrollPosition: {x: 4.8309717, y: 13.563443}
+    canvasZoom: 1.3299998
   syncInfo:
     syncActors: 0
     syncItems: 0
