@@ -12,9 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5dc23e30588ac3489124902e6d82dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopTime: 0.25
   angleError: 0.2
   rotationSpeed: 720
+  snapDistace: 0.5
+  pullDownMagnitude: 50
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  jumpSpeed: 2
+  jumpHeight: 2
 --- !u!195 &102009015873695325
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -50,12 +56,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headTransform: {fileID: 6184564849346348563}
-  detectMinRadius: 5
-  strafeDistance: 5
-  stopDistance: 2
   tagsToDetect:
     serializedVersion: 2
     m_Bits: 3072
+  detectMinRadius: 5
+  strafeDistance: 5
+  stopDistance: 2
+  tooCloseDistance: 1
+  outflankMinTime: 1
+  outflankMaxTime: 2
+  attackMinTime: 1
+  attackMaxTime: 2
+  outFlankProbability: 0.25
+  dodgeProbability: 0.25
+  dodgeWhileGettingDamgeProbability: 0.5
+  dodgeWhileTargetAttacksProbability: 0.5
   checkForTargetsInterval: 0.25
 --- !u!1001 &102009015833453950
 PrefabInstance:

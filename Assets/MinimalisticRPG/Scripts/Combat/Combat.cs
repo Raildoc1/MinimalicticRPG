@@ -44,8 +44,16 @@ namespace KG.CombatCore
             animatorProxy = GetComponent<AnimatorProxy>();
             stateSwitch = GetComponent<StateSwitch>();
 
-            rightArmHitbox.GetComponent<HitBox>().SetOwner(this);
-            leftArmHitbox.GetComponent<HitBox>().SetOwner(this);
+            if (rightArmHitbox)
+            {
+                rightArmHitbox.GetComponent<HitBox>().SetOwner(this);
+            }
+
+            if (leftArmHitbox)
+            {
+                leftArmHitbox.GetComponent<HitBox>().SetOwner(this);
+            }
+
         }
 
         public void Attack()
