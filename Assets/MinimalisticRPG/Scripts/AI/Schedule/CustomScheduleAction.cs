@@ -1,3 +1,5 @@
+using KG.Interact;
+using System.Collections;
 using UnityEngine;
 
 namespace KG.AI
@@ -6,38 +8,32 @@ namespace KG.AI
     {
 
         private AIBase aiBase;
-        private Transform targetTransform;
-        private string actionName;
+        private ActionHolder actionHolder;
 
-        public CustomScheduleAction(string actionName, Transform targetTransform)
+        public CustomScheduleAction(ActionHolder actionHolder)
         {
-
-            this.actionName = actionName;
-            this.targetTransform = targetTransform;
-
-            var forward = targetTransform.forward;
-            forward.y = 0;
-            targetTransform.forward = forward;
-
+            this.actionHolder = actionHolder;
         }
 
         public override void Exit()
         {
             aiBase.StopAction();
+            aiBase.EnableNavMeshAgent(true);
         }
 
         public override void Init(AIBase aiBase)
         {
             this.aiBase = aiBase;
-            aiBase.transform.position = targetTransform.position;
-            aiBase.transform.forward = targetTransform.forward;
-            aiBase.StartAction(actionName);
+            aiBase.EnableNavMeshAgent(false);
+            aiBase.MoveTo(actionHolder.transform.position);
+            aiBase.transform.forward = actionHolder.transform.forward;
+            aiBase.StartAction(actionHolder);
         }
 
         public override void Update()
         {
-            aiBase.transform.position = targetTransform.position;
-            aiBase.transform.forward = targetTransform.forward;
+            aiBase.MoveTo(actionHolder.transform.position);
+            aiBase.transform.forward = actionHolder.transform.forward;
         }
     }
 

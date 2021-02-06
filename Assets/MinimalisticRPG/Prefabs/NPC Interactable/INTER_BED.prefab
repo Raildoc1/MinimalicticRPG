@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionPosition: {fileID: 2596903768652197164}
   animatorStateName: Sleep
+  colliderToDisable: {fileID: 1779988457837999933}
 --- !u!1 &5239505025703825813
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,5 +187,10 @@ PrefabInstance:
 --- !u!4 &1747420414781362363 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4683999332304232, guid: 738cf61d8bf80e846b0cca454d760017, type: 3}
+  m_PrefabInstance: {fileID: 1752095459097941459}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1779988457837999933 stripped
+MeshCollider:
+  m_CorrespondingSourceObject: {fileID: 64030726061892334, guid: 738cf61d8bf80e846b0cca454d760017, type: 3}
   m_PrefabInstance: {fileID: 1752095459097941459}
   m_PrefabAsset: {fileID: 0}

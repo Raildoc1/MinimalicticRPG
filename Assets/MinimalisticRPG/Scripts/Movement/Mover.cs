@@ -174,7 +174,15 @@ namespace KG.Movement
                 return;
             }
 
-            controller.Move(hit.normal * controller.radius * 1.25f * Time.deltaTime);
+            if (Vector3.Angle(Vector3.up, hit.normal) > 90f)
+            {
+                return;
+            }
+
+            if (!Physics.Raycast(new Ray(transform.position, hit.normal), out outHit, controller.radius * 1.25f))
+            {
+                controller.Move(hit.normal * controller.radius * 1.25f * Time.deltaTime);
+            }
         }
 
         private void UpdateRotation()

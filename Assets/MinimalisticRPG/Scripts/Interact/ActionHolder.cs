@@ -9,6 +9,7 @@ namespace KG.Interact
     {
         public Transform interactionPosition;
         public string animatorStateName;
+        public Collider colliderToDisable;
     }
 
 }

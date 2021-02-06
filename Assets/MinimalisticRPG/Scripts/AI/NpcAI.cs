@@ -36,6 +36,16 @@ namespace KG.AI
             this.companion = companion;
         }
 
+        protected override void AttackTarget()
+        {
+            base.AttackTarget();
+
+            if (action != null)
+            {
+                StopScheduleAction();
+            }
+        }
+
         protected override void OnDontHaveTarget()
         {
 
@@ -86,7 +96,7 @@ namespace KG.AI
 
                         if (currentScheduleEntity.actionHolder)
                         {
-                            var newAction = new CustomScheduleAction(currentScheduleEntity.actionHolder.animatorStateName, currentScheduleEntity.actionHolder.interactionPosition);
+                            var newAction = new CustomScheduleAction(currentScheduleEntity.actionHolder);
                             newAction.Init(this);
                             action = newAction;
                         }

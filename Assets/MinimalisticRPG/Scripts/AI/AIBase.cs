@@ -1,4 +1,5 @@
 using KG.Core;
+using KG.Interact;
 using KG.Movement;
 using UnityEngine;
 using UnityEngine.AI;
@@ -18,6 +19,8 @@ namespace KG.AI
         protected Mover mover;
         protected CharacterController controller;
 
+        protected ActionHolder actionHolder;
+
         protected virtual void Awake()
         {
             mover = GetComponent<Mover>();
@@ -30,13 +33,25 @@ namespace KG.AI
         public virtual void StopAction()
         {
             animatorProxy.StopAction();
-            controller.enabled = true;
+
+            if (actionHolder)
+            {
+                actionHolder.colliderToDisable.enabled = true;
+            }
+
+            actionHolder = null;
         }
 
-        public virtual void StartAction(string actionName)
+        public virtual void StartAction(ActionHolder actionHolder)
         {
-            controller.enabled = false;
-            animatorProxy.GotoState(actionName);
+            if (actionHolder)
+            {
+                StopAction();
+            }
+
+            this.actionHolder = actionHolder;
+            actionHolder.colliderToDisable.enabled = false;
+            animatorProxy.GotoState(actionHolder.animatorStateName);
         }
 
         public virtual void MoveTo(Vector3 position)
@@ -47,6 +62,11 @@ namespace KG.AI
         public virtual void RotateToDirection(Vector3 direction)
         {
             mover.RotateToDirection(direction);
+        }
+
+        public void EnableNavMeshAgent(bool enabled = true)
+        {
+            agent.enabled = enabled;
         }
 
     }
