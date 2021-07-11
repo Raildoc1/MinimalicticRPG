@@ -70,7 +70,10 @@ public class ProceduralSkyHandler : MonoBehaviour
         Sun.position = new Vector3(Mathf.Sin(teta) * Mathf.Sin(phi), Mathf.Sin(teta) * Mathf.Cos(phi),  Mathf.Cos(teta));
         Sun.LookAt(Vector3.zero);
 
-        testTransform.position = new Vector3(Mathf.Sin(testTeta) * Mathf.Sin(phi), Mathf.Sin(testTeta) * Mathf.Cos(phi), Mathf.Cos(testTeta));
+        if (testTransform)
+        {
+            testTransform.position = new Vector3(Mathf.Sin(testTeta) * Mathf.Sin(phi), Mathf.Sin(testTeta) * Mathf.Cos(phi), Mathf.Cos(testTeta));
+        }
     }
 
     private void UpdateSunIntensity()
