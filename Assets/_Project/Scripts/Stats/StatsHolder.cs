@@ -11,26 +11,47 @@ namespace KG.Stats
     [RequireComponent(typeof(StateSwitch))]
     public class StatsHolder : MonoBehaviour
     {
+        private float _currentHealth;
+        private float _currentStamina;
+        private float _currentPoise;
+        private bool _staminaRecoveryStopped = false;
+        private bool _poiseRecoveryStopped = false;
+        private Coroutine _staminaRecoveryRoutine = null;
+        private Coroutine _poiseRecoveryRoutine = null;
 
-        public UnityEvent<int, int> OnHealthUpdate = new UnityEvent<int, int>();
+        [SerializeField] private int _maxHealth = 100;
+        [SerializeField] private int _maxStamina = 100;
+        [SerializeField] private int _maxPoise = 100;
+        [SerializeField] private int _strength = 10;
+        [SerializeField] private int _dexterity = 10;
+        [SerializeField] private int _intelligence = 10;
+        [SerializeField] private float _staminaRecoverySpeed = 1;
+
+        private const float StaminaRecoveryDelay = 1f;
+
+        protected AnimatorProxy Animator;
+        protected StateSwitch StateSwitch;
+
         public UnityEvent<Transform> OnGetDamage = new UnityEvent<Transform>();
 
-        #region SerializableAndPublicFields
+        public delegate void OnHealthUpdateEvent(float current, int max);
+        public event OnHealthUpdateEvent OnHealthUpdate;
 
-        [SerializeField] protected int maxHealth = 100;
-        [SerializeField] protected int strength = 10;
-        [SerializeField] protected int dexterity = 10;
-        [SerializeField] protected int intelligence = 10;
+        public delegate void OnStaminaUpdateEvent(float current, int max);
+        public event OnStaminaUpdateEvent OnStaminaUpdate;
+
+        public delegate void OnPoiseUpdateEvent(float current, int max);
+        public event OnPoiseUpdateEvent OnPoiseUpdate;
 
         public int MaxHealth
         {
             get
             {
-                return maxHealth;
+                return _maxHealth;
             }
         }
 
-        public int Health
+        public float Health
         {
             get
             {
@@ -38,13 +59,55 @@ namespace KG.Stats
             }
             set
             {
-                _currentHealth = Mathf.Clamp(value, 0, maxHealth);
+                _currentHealth = Mathf.Clamp(value, 0, _maxHealth);
                 if (_currentHealth == 0)
                 {
                     IsDead = true;
-                    stateSwitch.CurrentState = State.DEAD;
+                    StateSwitch.CurrentState = State.DEAD;
                 }
-                OnHealthUpdate.Invoke(Health, MaxHealth);
+                OnHealthUpdate?.Invoke(Health, MaxHealth);
+            }
+        }
+
+        public float Stamina
+        {
+            get => _currentStamina;
+            set 
+            {
+                var clampedValue = Mathf.Clamp(value, 0, _maxStamina);
+
+                if (clampedValue != _currentStamina)
+                {
+                    OnStaminaUpdate?.Invoke(clampedValue, _maxStamina);
+                }
+
+                if (clampedValue < _currentStamina)
+                {
+                    StopStaminaRecoveryFor(StaminaRecoveryDelay);
+                }
+
+                _currentStamina = clampedValue;
+            }
+        }
+
+        public float Poise
+        {
+            get => _currentPoise;
+            set 
+            {
+                var clampedValue = Mathf.Clamp(value, 0, _maxPoise);
+
+                if (clampedValue != _currentPoise)
+                {
+                    OnStaminaUpdate?.Invoke(clampedValue, _maxPoise);
+                }
+
+                if (clampedValue < _currentPoise)
+                {
+                    StopStaminaRecoveryFor(StaminaRecoveryDelay);
+                }
+
+                _currentPoise = clampedValue;
             }
         }
 
@@ -52,7 +115,7 @@ namespace KG.Stats
         {
             get
             {
-                return strength;
+                return _strength;
             }
         }
 
@@ -60,7 +123,7 @@ namespace KG.Stats
         {
             get
             {
-                return dexterity;
+                return _dexterity;
             }
         }
 
@@ -68,7 +131,7 @@ namespace KG.Stats
         {
             get
             {
-                return intelligence;
+                return _intelligence;
             }
         }
 
@@ -84,29 +147,33 @@ namespace KG.Stats
             }
         }
 
-        #endregion
-
-        #region PrivateFields
-
-        protected int _currentHealth;
-        protected AnimatorProxy _animator;
-        protected StateSwitch stateSwitch;
-
         protected AnimatorProxy animatorProxy
         {
             get
             {
-                if (!_animator) _animator = GetComponent<AnimatorProxy>();
-                return _animator;
+                if (!Animator) Animator = GetComponent<AnimatorProxy>();
+                return Animator;
             }
         }
 
-        #endregion
-
         protected virtual void Awake()
         {
-            _currentHealth = maxHealth;
-            stateSwitch = GetComponent<StateSwitch>();
+            _currentHealth = _maxHealth;
+            _currentStamina = _maxStamina;
+            StateSwitch = GetComponent<StateSwitch>();
+        }
+
+        private void Update()
+        {
+            if (!_staminaRecoveryStopped)
+            {
+                Stamina += _staminaRecoverySpeed * Time.deltaTime;
+            }
+
+            if (!_poiseRecoveryStopped)
+            {
+                Poise += _staminaRecoverySpeed * Time.deltaTime;
+            }
         }
 
         public void Eat(Item item)
@@ -140,9 +207,39 @@ namespace KG.Stats
             {
                 OnGetDamage.Invoke(target);
             }
-
         }
 
+        public void StopStaminaRecoveryFor(float time)
+        {
+            if (_staminaRecoveryRoutine != null)
+            {
+                StopCoroutine(_staminaRecoveryRoutine);
+            }
+            _staminaRecoveryRoutine = StartCoroutine(StopStaminaRecoveryRoutine(time));
+        }
+
+        private IEnumerator StopStaminaRecoveryRoutine(float time)
+        {
+            _staminaRecoveryStopped = true;
+            yield return new WaitForSeconds(time);
+            _staminaRecoveryStopped = false;
+        }
+
+        public void StopPoiseRecoveryFor(float time)
+        {
+            if (_staminaRecoveryRoutine != null)
+            {
+                StopCoroutine(_poiseRecoveryRoutine);
+            }
+            _poiseRecoveryRoutine = StartCoroutine(StopPoiseRecoveryRoutine(time));
+        }
+
+        private IEnumerator StopPoiseRecoveryRoutine(float time)
+        {
+            _poiseRecoveryStopped = true;
+            yield return new WaitForSeconds(time);
+            _poiseRecoveryStopped = false;
+        }
     }
 }
 

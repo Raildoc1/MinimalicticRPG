@@ -14,20 +14,21 @@ namespace KG.Inventory
 
         private GameObject _rightArmMeleeObject = null;
         private GameObject _beltMeleeObject = null;
-        private Combat combat;
+        private Combat _combat;
 
         private void Awake()
         {
-            combat = GetComponent<Combat>();
+            _combat = GetComponent<Combat>();
         }
 
         public void Equip(Item weapon)
         {
-
             if (weapon == null)
             {
                 return;
             }
+
+            _combat.SetCurrentWeapon(weapon);
 
             if (weapon.type == ItemType.MELEE_WEAPON)
             {
@@ -36,23 +37,24 @@ namespace KG.Inventory
                 _rightArmMeleeObject = Instantiate(weapon.gameObject, _rightArmMeleeHolder);
                 var hitboxCollider = _rightArmMeleeObject.GetComponentInChildren<Collider>();
                 var hitbox = _rightArmMeleeObject.GetComponentInChildren<HitBox>();
-                hitbox.SetOwner(combat);
+                hitbox.SetOwner(_combat);
                 //hitbox.SetWeaponName(weapon.name);
-                combat.WeaponHitBox = hitboxCollider;
+                _combat.WeaponHitBox = hitboxCollider;
             }
         }
 
         public void Hide(Item weapon)
         {
-
             if (weapon == null)
             {
                 return;
             }
 
+            _combat.SetCurrentWeapon(null);
+
             if (weapon.type == ItemType.MELEE_WEAPON)
             {
-                combat.WeaponHitBox = null;
+                _combat.WeaponHitBox = null;
                 Destroy(_rightArmMeleeObject);
                 Destroy(_beltMeleeObject);
                 _beltMeleeObject = Instantiate(weapon.gameObject, _beltMeleeHolder);
@@ -61,9 +63,11 @@ namespace KG.Inventory
 
         public void Unequip(Item weapon)
         {
+            _combat.SetCurrentWeapon(null);
+
             if (weapon.type == ItemType.MELEE_WEAPON)
             {
-                combat.WeaponHitBox = null;
+                _combat.WeaponHitBox = null;
                 Destroy(_rightArmMeleeObject);
                 Destroy(_beltMeleeObject);
             }

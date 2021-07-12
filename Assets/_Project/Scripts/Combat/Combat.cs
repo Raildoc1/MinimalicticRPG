@@ -1,4 +1,6 @@
 ﻿using KG.Core;
+using KG.Inventory;
+using KG.Stats;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,15 +9,20 @@ namespace KG.CombatCore
     [RequireComponent(typeof(Animator), typeof(StateSwitch))]
     public class Combat : MonoBehaviour
     {
-
         [SerializeField] private List<string> _tagsToAttack;
-        [SerializeField] private Collider rightArmHitbox;
-        [SerializeField] private Collider leftArmHitbox;
+        [SerializeField] private Collider _rightArmHitbox;
+        [SerializeField] private Collider _leftArmHitbox;
 
-        private AnimatorProxy animatorProxy;
-        private StateSwitch stateSwitch;
+        private AnimatorProxy _animatorProxy;
+        private StateSwitch _stateSwitch;
         private Collider _weaponHitBox;
+        private StatsHolder _statsHolder;
+        private Item _currentWeapon = null;
 
+        public void SetCurrentWeapon(Item weapon)
+        {
+            _currentWeapon = weapon;
+        }
 
         public Collider WeaponHitBox
         {
@@ -41,37 +48,45 @@ namespace KG.CombatCore
 
         private void Start()
         {
-            animatorProxy = GetComponent<AnimatorProxy>();
-            stateSwitch = GetComponent<StateSwitch>();
+            _animatorProxy = GetComponent<AnimatorProxy>();
+            _stateSwitch = GetComponent<StateSwitch>();
+            _statsHolder = GetComponent<StatsHolder>();
 
-            if (rightArmHitbox)
+            if (_rightArmHitbox)
             {
-                rightArmHitbox.GetComponent<HitBox>().SetOwner(this);
+                _rightArmHitbox.GetComponent<HitBox>().SetOwner(this);
             }
 
-            if (leftArmHitbox)
+            if (_leftArmHitbox)
             {
-                leftArmHitbox.GetComponent<HitBox>().SetOwner(this);
+                _leftArmHitbox.GetComponent<HitBox>().SetOwner(this);
             }
 
         }
 
         public void Attack()
         {
-            if (stateSwitch.CurrentState != State.COMBAT)
+            if (_stateSwitch.CurrentState != State.COMBAT)
             {
                 return;
             }
-            animatorProxy.Attack();
+
+            if (_statsHolder.Stamina <= 0.01f)
+            {
+                return;
+            }
+
+            _animatorProxy.Attack();
         }
 
         public void SendDamage()
         {
-            //Debug.Log($"{name} sending damage");
+
         }
 
         public void StartDamage(bool rightArm = true)
         {
+            _statsHolder.Stamina -= _currentWeapon.GetAttributeValue(AttributeType.STAMINA_COST);
             if (WeaponHitBox)
             {
                 WeaponHitBox.enabled = true;
@@ -80,11 +95,11 @@ namespace KG.CombatCore
             {
                 if (rightArm)
                 {
-                    rightArmHitbox.enabled = true;
+                    _rightArmHitbox.enabled = true;
                 }
                 else
                 {
-                    leftArmHitbox.enabled = true;
+                    _leftArmHitbox.enabled = true;
                 }
             }
         }
@@ -99,23 +114,23 @@ namespace KG.CombatCore
             {
                 if (rightArm)
                 {
-                    rightArmHitbox.enabled = false;
+                    _rightArmHitbox.enabled = false;
                 }
                 else
                 {
-                    leftArmHitbox.enabled = false;
+                    _leftArmHitbox.enabled = false;
                 }
             }
         }
 
         public void Dodge()
         {
-            if (stateSwitch.CurrentState != State.COMBAT)
+            if (_stateSwitch.CurrentState != State.COMBAT)
             {
                 return;
             }
 
-            animatorProxy.Dodge();
+            _animatorProxy.Dodge();
         }
     }
 }

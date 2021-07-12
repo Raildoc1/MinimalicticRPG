@@ -1,76 +1,60 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using KG.CombatCore;
+﻿using KG.CombatCore;
+using KG.Stats;
 using UnityEngine;
 
 public class MeleeAttack : StateMachineBehaviour
 {
-
-    public bool DEBUG_MODE = false;
+    [Range(0, 1)]
+    [SerializeField] private float _startTime = 0f;
 
     [Range(0, 1)]
-    public float start_time = 0f;
+    [SerializeField] private float _endTime = 0f;
 
-    [Range(0, 1)]
-    public float end_time = 0f;
+    [SerializeField] private bool DebugMode = false;
 
     private Combat _combat;
+    private StatsHolder _statsHolder;
 
     private bool _start = false;
     private bool _end = false;
 
     public bool rightArm = true;
 
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
         _combat = animator.GetComponent<Combat>();
+        _statsHolder = animator.GetComponent<StatsHolder>();
         _start = false;
         _end = false;
-        if (Mathf.Approximately(start_time, 0f))
+        if (Mathf.Approximately(_startTime, 0f))
         {
             _combat.StartDamage(rightArm);
             _start = true;
         }
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
-        if (DEBUG_MODE) Debug.Log(stateInfo.normalizedTime);
+        if (DebugMode) Debug.Log(stateInfo.normalizedTime);
 
         var normTime = stateInfo.normalizedTime;
-        if (normTime > start_time && normTime < end_time && !_start)
+        if (normTime > _startTime && normTime < _endTime && !_start)
         {
             _combat.StartDamage(rightArm);
             _start = true;
-            if (DEBUG_MODE) Debug.Log("Start damage");
+            if (DebugMode) Debug.Log("Start damage");
         }
-        else if (normTime > end_time && !_end)
+        else if (normTime > _endTime && !_end)
         {
             _combat.EndDamage(rightArm);
             _end = true;
-            if (DEBUG_MODE) Debug.Log("End damage");
+            if (DebugMode) Debug.Log("End damage");
         }
     }
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _combat.EndDamage(rightArm);
     }
-
-    // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK()
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that sets up animation IK (inverse kinematics)
-    //}
 }

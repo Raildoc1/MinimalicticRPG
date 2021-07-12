@@ -10,7 +10,7 @@ namespace KG.Interact
     public class PlayerTargetDetector : MonoBehaviour
     {
 
-        public BarView enemyHpBar;
+        public HealthBarView enemyHpBar;
 
         [SerializeField] private float maxDistance = 6f;
         [SerializeField] private List<string> tags_to_detect;
@@ -86,7 +86,7 @@ namespace KG.Interact
 
                 if (stats)
                 {
-                    enemyHpBar.stats = stats;
+                    enemyHpBar.Stats = stats;
 
                     enemyHpBar.gameObject.SetActive(true);
                 }

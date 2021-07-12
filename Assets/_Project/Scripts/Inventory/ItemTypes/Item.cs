@@ -64,6 +64,7 @@ namespace KG.Inventory
         REQUIRE_STRENGTH,
         REQUIRE_DEXTERITY,
         HEALTH_RECOVERY,
+        STAMINA_COST,
         /*...*/
         CUSTOM
     }

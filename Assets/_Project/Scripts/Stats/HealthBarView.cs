@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 namespace KG.Stats
 {
-    public class BarView : MonoBehaviour
+    public class HealthBarView : MonoBehaviour
     {
-
-        public Image image;
+        [SerializeField] private Image _image;
         [SerializeField] private StatsHolder _stats;
-        public StatsHolder stats
+
+        public StatsHolder Stats
         {
             get
             {
@@ -18,17 +18,17 @@ namespace KG.Stats
             }
             set
             {
-                if (stats)
+                if (Stats)
                 {
-                    stats.OnHealthUpdate.RemoveListener(OnHealthUpdate);
+                    Stats.OnHealthUpdate += OnHealthUpdate;
                 }
 
                 _stats = value;
 
-                if (stats)
+                if (Stats)
                 {
-                    stats.OnHealthUpdate.AddListener(OnHealthUpdate);
-                    OnHealthUpdate(stats.Health, stats.MaxHealth);
+                    Stats.OnHealthUpdate += OnHealthUpdate;
+                    OnHealthUpdate(Stats.Health, Stats.MaxHealth);
                 }
                 else 
                 {
@@ -39,12 +39,17 @@ namespace KG.Stats
 
         }
 
+        private void Awake()
+        {
+            
+        }
+
         private void Start()
         {
-            if (stats)
+            if (Stats)
             {
-                stats.OnHealthUpdate.AddListener(OnHealthUpdate);
-                OnHealthUpdate(stats.Health, stats.MaxHealth);
+                Stats.OnHealthUpdate -= OnHealthUpdate;
+                OnHealthUpdate(Stats.Health, Stats.MaxHealth);
             }
             else
             {
@@ -59,12 +64,12 @@ namespace KG.Stats
 
         private void OnDisable()
         {
-            stats = null;
+            Stats = null;
         }
 
-        public void OnHealthUpdate(int health, int maxHealth)
+        public void OnHealthUpdate(float health, int maxHealth)
         {
-            image.fillAmount = health / (float)maxHealth;
+            _image.fillAmount = health / maxHealth;
         }
 
     }

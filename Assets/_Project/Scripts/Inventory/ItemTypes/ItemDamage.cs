@@ -7,6 +7,7 @@
     }
     [System.Serializable]
     public class ItemDamage {
+        public int poiseDrain;
         public int value;
         public DamageType damageType;
     }
