@@ -1739,13 +1739,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2833647305172053605}
-  m_LocalRotation: {x: -0.68596095, y: -0.17113923, z: 0.68622226, w: -0.17107882}
-  m_LocalPosition: {x: -0.29496613, y: 0.19157012, z: 0.1741591}
-  m_LocalScale: {x: 0.9900991, y: 0.99009895, z: 0.9900991}
+  m_LocalRotation: {x: -0.79266304, y: -0.22780219, z: 0.5610185, w: -0.071062274}
+  m_LocalPosition: {x: -0.234, y: 0.202, z: 0.24}
+  m_LocalScale: {x: 0.9900991, y: 0.99009883, z: 0.99009895}
   m_Children: []
   m_Father: {fileID: 901452393199446027}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -53.4, y: 180.033, z: -180.036}
+  m_LocalEulerAnglesHint: {x: 21.608, y: 247.19101, z: -197.618}
 --- !u!1 &3139654234903910592
 GameObject:
   m_ObjectHideFlags: 0
@@ -2095,6 +2095,7 @@ MonoBehaviour:
   _dexterity: 10
   _intelligence: 10
   _staminaRecoverySpeed: 25
+  _dodgeIgnoreDamageTime: 0.15
   OnGetDamage:
     m_PersistentCalls:
       m_Calls: []

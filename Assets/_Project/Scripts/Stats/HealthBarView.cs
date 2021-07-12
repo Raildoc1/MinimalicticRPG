@@ -18,40 +18,27 @@ namespace KG.Stats
             }
             set
             {
-                if (Stats)
-                {
-                    Stats.OnHealthUpdate += OnHealthUpdate;
-                }
-
                 _stats = value;
-
-                if (Stats)
-                {
-                    Stats.OnHealthUpdate += OnHealthUpdate;
-                    OnHealthUpdate(Stats.Health, Stats.MaxHealth);
-                }
-                else 
-                {
-                    Disable();
-                }
-
             }
 
         }
 
-        private void Awake()
+        private void OnEnable()
         {
-            
+            if (Stats)
+            {
+                Stats.OnHealthUpdate += OnHealthUpdate;
+                OnHealthUpdate(Stats.Health, Stats.MaxHealth);
+            }
+            else
+            {
+                Disable();
+            }
         }
 
         private void Start()
         {
-            if (Stats)
-            {
-                Stats.OnHealthUpdate -= OnHealthUpdate;
-                OnHealthUpdate(Stats.Health, Stats.MaxHealth);
-            }
-            else
+            if (!Stats)
             {
                 gameObject.SetActive(false);
             }
@@ -61,15 +48,19 @@ namespace KG.Stats
         {
             gameObject.SetActive(false);
         }
-
+         
         private void OnDisable()
         {
+            if (Stats)
+            {
+                Stats.OnHealthUpdate -= OnHealthUpdate;
+            }
             Stats = null;
         }
 
         public void OnHealthUpdate(float health, int maxHealth)
         {
-            _image.fillAmount = health / maxHealth;
+            _image.fillAmount = health / (float)maxHealth;
         }
 
     }

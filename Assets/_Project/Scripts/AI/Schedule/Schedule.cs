@@ -1,5 +1,6 @@
 using KG.Interact;
 using System.Collections.Generic;
+#nullable enable
 
 namespace KG.AI
 {
@@ -38,7 +39,6 @@ namespace KG.AI
                 return time > start || time < end;
             }
         }
-
         public static bool IsValid(Schedule? schedule)
         {
             return schedule != null && schedule.list.Count > 0;

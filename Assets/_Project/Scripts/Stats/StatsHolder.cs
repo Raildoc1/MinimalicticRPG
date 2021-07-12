@@ -16,8 +16,10 @@ namespace KG.Stats
         private float _currentPoise;
         private bool _staminaRecoveryStopped = false;
         private bool _poiseRecoveryStopped = false;
+        private bool _inDodge = false;
         private Coroutine _staminaRecoveryRoutine = null;
         private Coroutine _poiseRecoveryRoutine = null;
+        private Coroutine _dodgeRoutine = null;
 
         [SerializeField] private int _maxHealth = 100;
         [SerializeField] private int _maxStamina = 100;
@@ -26,6 +28,7 @@ namespace KG.Stats
         [SerializeField] private int _dexterity = 10;
         [SerializeField] private int _intelligence = 10;
         [SerializeField] private float _staminaRecoverySpeed = 1;
+        [SerializeField] private float _dodgeIgnoreDamageTime = 0.5f;
 
         private const float StaminaRecoveryDelay = 1f;
 
@@ -66,6 +69,7 @@ namespace KG.Stats
                     StateSwitch.CurrentState = State.DEAD;
                 }
                 OnHealthUpdate?.Invoke(Health, MaxHealth);
+                Debug.Log($"Health: gameObject = {gameObject}");
             }
         }
 
@@ -189,6 +193,11 @@ namespace KG.Stats
 
         public void ApplyDamage(List<ItemDamage> damage)
         {
+            if (_inDodge)
+            {
+                return;
+            }
+
             var healthDelta = 0;
             var poiseDelta = 0;
 
@@ -210,6 +219,11 @@ namespace KG.Stats
 
         public void ApplyPhysicalDamage(int damage, int poise, Transform target = null)
         {
+            if (_inDodge)
+            {
+                return;
+            }
+
             Health -= damage < 5 ? 5 : damage;
             AnimatorProxy.GetDamage();
             Poise -= poise;
@@ -250,6 +264,23 @@ namespace KG.Stats
             _poiseRecoveryStopped = true;
             yield return new WaitForSeconds(time);
             _poiseRecoveryStopped = false;
+        }
+
+        public void Dodge()
+        {
+            Debug.Log("Dodge");
+            if (_dodgeRoutine != null)
+            {
+                StopCoroutine(_dodgeRoutine);
+            }
+            _dodgeRoutine = StartCoroutine(DodgeRoutine(_dodgeIgnoreDamageTime));
+        }
+
+        private IEnumerator DodgeRoutine(float time)
+        {
+            _inDodge = true;
+            yield return new WaitForSeconds(time);
+            _inDodge = false;
         }
     }
 }

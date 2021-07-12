@@ -135,10 +135,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 693226713093417817, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
-      propertyPath: m_Radius
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 693226713093417824, guid: d433a2117ee36094cbb3678dbca015e2, type: 3}
       propertyPath: onStateChange.m_PersistentCalls.m_Calls.Array.size
       value: 0

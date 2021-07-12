@@ -317,6 +317,7 @@ MonoBehaviour:
   _dexterity: 10
   _intelligence: 10
   _staminaRecoverySpeed: 25
+  _dodgeIgnoreDamageTime: 1.5
   OnGetDamage:
     m_PersistentCalls:
       m_Calls: []
