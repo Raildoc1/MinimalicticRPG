@@ -25,6 +25,14 @@ public class AnimatorProxy : MonoBehaviour
         }
     }
 
+    public int Poise
+    {
+        set
+        {
+            animator.SetInteger(poiseParamID, value);
+        }
+    }
+
     #endregion
 
     #region FLOAT
@@ -348,8 +356,10 @@ public class AnimatorProxy : MonoBehaviour
     #region Integers
 
     private readonly string currentStateParamName = "CurrentState";
+    private readonly string poiseParamName = "Poise";
 
     private int currentStateParamID;
+    private int poiseParamID;
 
     #endregion
 
@@ -397,7 +407,7 @@ public class AnimatorProxy : MonoBehaviour
         isGroundedParamID = Animator.StringToHash(isGroundedParamName);
 
         currentStateParamID = Animator.StringToHash(currentStateParamName);
-
+        poiseParamID = Animator.StringToHash(poiseParamName);
     }
 
 }

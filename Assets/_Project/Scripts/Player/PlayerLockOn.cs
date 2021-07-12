@@ -60,7 +60,6 @@ namespace KG.CombatCore
 
             if (transform)
             {
-
                 var interactable = transform.GetComponent<Interactable>();
 
                 if (interactable)
@@ -90,8 +89,15 @@ namespace KG.CombatCore
                 ResetTarget();
                 return;
             }
-            if (isLockedOn) ResetTarget();
-            else SetTarget(FindBestTarget());
+
+            if (isLockedOn)
+            {
+                ResetTarget();
+            }
+            else
+            {
+                SetTarget(FindBestTarget());
+            }
         }
 
         public void ResetTarget()

@@ -29,7 +29,7 @@ namespace KG.Stats
 
         private const float StaminaRecoveryDelay = 1f;
 
-        protected AnimatorProxy Animator;
+        private AnimatorProxy _animator;
         protected StateSwitch StateSwitch;
 
         public UnityEvent<Transform> OnGetDamage = new UnityEvent<Transform>();
@@ -72,7 +72,7 @@ namespace KG.Stats
         public float Stamina
         {
             get => _currentStamina;
-            set 
+            set
             {
                 var clampedValue = Mathf.Clamp(value, 0, _maxStamina);
 
@@ -93,21 +93,22 @@ namespace KG.Stats
         public float Poise
         {
             get => _currentPoise;
-            set 
+            set
             {
                 var clampedValue = Mathf.Clamp(value, 0, _maxPoise);
 
                 if (clampedValue != _currentPoise)
                 {
-                    OnStaminaUpdate?.Invoke(clampedValue, _maxPoise);
+                    OnPoiseUpdate?.Invoke(clampedValue, _maxPoise);
                 }
 
                 if (clampedValue < _currentPoise)
                 {
-                    StopStaminaRecoveryFor(StaminaRecoveryDelay);
+                    StopPoiseRecoveryFor(StaminaRecoveryDelay);
                 }
 
                 _currentPoise = clampedValue;
+                AnimatorProxy.Poise = Mathf.RoundToInt(_currentPoise);
             }
         }
 
@@ -139,20 +140,20 @@ namespace KG.Stats
         {
             get
             {
-                return animatorProxy.isDead;
+                return AnimatorProxy.isDead;
             }
             set
             {
-                animatorProxy.isDead = value;
+                AnimatorProxy.isDead = value;
             }
         }
 
-        protected AnimatorProxy animatorProxy
+        protected AnimatorProxy AnimatorProxy
         {
             get
             {
-                if (!Animator) Animator = GetComponent<AnimatorProxy>();
-                return Animator;
+                if (!_animator) _animator = GetComponent<AnimatorProxy>();
+                return _animator;
             }
         }
 
@@ -188,20 +189,30 @@ namespace KG.Stats
 
         public void ApplyDamage(List<ItemDamage> damage)
         {
-            var sum = 0;
+            var healthDelta = 0;
+            var poiseDelta = 0;
+
             foreach (var d in damage)
             {
-                sum += d.value;
+                healthDelta += d.value;
+                poiseDelta += d.poiseDrain;
             }
-            if (sum <= 5) sum = 5;
-            Health -= sum;
-            animatorProxy.GetDamage();
+
+            if (healthDelta <= 5)
+            {
+                healthDelta = 5;
+            }
+
+            Health -= healthDelta;
+            Poise -= poiseDelta;
+            AnimatorProxy.GetDamage();
         }
 
-        public void ApplyPhysicalDamage(int damage, Transform target = null)
+        public void ApplyPhysicalDamage(int damage, int poise, Transform target = null)
         {
             Health -= damage < 5 ? 5 : damage;
-            animatorProxy.GetDamage();
+            AnimatorProxy.GetDamage();
+            Poise -= poise;
 
             if (target)
             {
@@ -227,7 +238,7 @@ namespace KG.Stats
 
         public void StopPoiseRecoveryFor(float time)
         {
-            if (_staminaRecoveryRoutine != null)
+            if (_poiseRecoveryRoutine != null)
             {
                 StopCoroutine(_poiseRecoveryRoutine);
             }

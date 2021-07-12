@@ -65,6 +65,7 @@ namespace KG.Inventory
         REQUIRE_DEXTERITY,
         HEALTH_RECOVERY,
         STAMINA_COST,
+        PoiseDrain,
         /*...*/
         CUSTOM
     }

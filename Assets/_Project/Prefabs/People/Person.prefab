@@ -250,9 +250,6 @@ MonoBehaviour:
   onStateChange:
     m_PersistentCalls:
       m_Calls: []
-  onAddCompanion:
-    m_PersistentCalls:
-      m_Calls: []
   onDialogStart:
     m_PersistentCalls:
       m_Calls: []
@@ -285,8 +282,8 @@ MonoBehaviour:
   _tagsToAttack:
   - NPC
   - Enemy
-  rightArmHitbox: {fileID: 3619586349942926298}
-  leftArmHitbox: {fileID: 1113616190318475055}
+  _rightArmHitbox: {fileID: 0}
+  _leftArmHitbox: {fileID: 0}
 --- !u!114 &693226713093417827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,16 +310,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34100199dc3c8d478a32c0673c77b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnHealthUpdate:
-    m_PersistentCalls:
-      m_Calls: []
+  _maxHealth: 100
+  _maxStamina: 100
+  _maxPoise: 100
+  _strength: 10
+  _dexterity: 10
+  _intelligence: 10
+  _staminaRecoverySpeed: 25
   OnGetDamage:
     m_PersistentCalls:
       m_Calls: []
-  maxHealth: 100
-  strength: 10
-  dexterity: 10
-  intelligence: 10
 --- !u!114 &4094837621821031944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,6 +373,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e907c75288ef144818700093ea9189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IKEnabled: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  groundDistance: 0.25
+  IKOffset: 0.1
+  IKSpeed: 2
 --- !u!1 &746119006705895439
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +719,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: 
-  defaultDamage: 5
+  _defaultDamage: 5
+  _defaultPoiseDrain: 30
 --- !u!1 &2373430632794929924
 GameObject:
   m_ObjectHideFlags: 0
@@ -2687,7 +2692,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: 
-  defaultDamage: 5
+  _defaultDamage: 5
+  _defaultPoiseDrain: 30
 --- !u!1 &9010662305794915114
 GameObject:
   m_ObjectHideFlags: 0

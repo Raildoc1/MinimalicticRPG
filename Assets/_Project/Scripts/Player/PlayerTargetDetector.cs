@@ -55,7 +55,6 @@ namespace KG.Interact
 
         public void ForceNewTarget(Interactable new_target)
         {
-
             if (!new_target)
             {
                 Debug.LogError("ForceNewTarget: new_target cannot be null!");

@@ -23,6 +23,8 @@ MonoBehaviour:
       value: 10
     - type: 4
       value: 35
+    - type: 5
+      value: 35
     gameObject: {fileID: 4621055232258266464, guid: c994d771eb0b1ed479d538aaf106c13a, type: 3}
     cost: 250
     canBeSold: 1

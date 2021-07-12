@@ -11,12 +11,11 @@ namespace KG.CombatCore
     {
         [SerializeField] private string weaponName;
 
-        public int defaultDamage = 5;
+        [SerializeField] private int _defaultDamage = 5;
+        [SerializeField] private int _defaultPoiseDrain = 30;
 
         private Combat owner = null;
         private Item weapon;
-
-
 
         private void Start()
         {
@@ -72,9 +71,11 @@ namespace KG.CombatCore
                 return;
             }
 
-            var damage = weaponName.Equals("") ? defaultDamage : weapon.GetAttributeValue(AttributeType.PHYSICAL_DAMAGE);
+            var damage = weaponName.Equals("") ? _defaultDamage : weapon.GetAttributeValue(AttributeType.PHYSICAL_DAMAGE);
+            var poise = weaponName.Equals("") ? _defaultPoiseDrain : weapon.GetAttributeValue(AttributeType.PoiseDrain);
 
-            target.ApplyPhysicalDamage(damage, owner.transform);
+            target.ApplyPhysicalDamage(damage, poise, owner.transform);
+
 
             GetComponent<Collider>().enabled = false;
         }
