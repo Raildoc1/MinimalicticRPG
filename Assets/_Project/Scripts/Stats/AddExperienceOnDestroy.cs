@@ -1,6 +1,4 @@
 using KG.Core;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace KG.Stats
@@ -8,36 +6,28 @@ namespace KG.Stats
     [RequireComponent(typeof(StateSwitch))]
     public class AddExperienceOnDestroy : MonoBehaviour
     {
+        private StateSwitch _stateSwitch;
 
-        private StateSwitch stateSwitch;
+        [SerializeField] private int _experience = 0;
 
-        public int experience = 0;
-
-        private void Awake()
+        private void OnEnable()
         {
-            stateSwitch = GetComponent<StateSwitch>();
-        }
-
-        private void Start()
-        {
-            stateSwitch.onStateChange.AddListener(OnStateChange);
+            _stateSwitch = GetComponent<StateSwitch>();
+            _stateSwitch.OnStateChange += OnStateChange;
         }
 
         private void OnDisable()
         {
-            stateSwitch.onStateChange.RemoveListener(OnStateChange);
+            _stateSwitch.OnStateChange -= OnStateChange;
         }
 
         private void OnStateChange(State prev, State cur)
         {
-
             if (cur == State.DEAD && prev != State.DEAD)
             {
-                PlayerStatsHolder.instance.AddExperience(experience);
+                PlayerStatsHolder.instance.AddExperience(_experience);
             }
-
         }
-
     }
 }
 

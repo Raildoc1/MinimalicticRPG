@@ -84,18 +84,22 @@ namespace KG.Movement
         protected virtual void Awake()
         {
             animator = GetComponent<AnimatorProxy>();
-            stateSwitch = GetComponent<StateSwitch>();
             controller = GetComponent<CharacterController>();
+        }
+
+        private void OnEnable()
+        {
+            stateSwitch = GetComponent<StateSwitch>();
+            stateSwitch.OnDialogStart += LookAtTransform;
         }
 
         protected void OnDisable()
         {
-            stateSwitch.onDialogStart.RemoveListener(LookAtTransform);
+            stateSwitch.OnDialogStart -= LookAtTransform;
         }
 
         protected virtual void Start()
         {
-            stateSwitch.onDialogStart.AddListener(LookAtTransform);
             targetDirection = transform.forward;
         }
         protected virtual void Update()

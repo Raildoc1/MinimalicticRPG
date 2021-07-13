@@ -64,14 +64,12 @@ namespace KG.Inventory
         {
             animatorProxy = GetComponent<AnimatorProxy>();
             equipmentDisplay = GetComponent<EquipmentDisplay>();
-            stateSwitch = GetComponent<StateSwitch>();
             itemColllection = GetComponent<ItemCollection>();
         }
 
         private void Start()
         {
 
-            stateSwitch.onStateChange.AddListener(OnStateChange);
 
             if (!initWeaponName.Equals(""))
             {
@@ -90,9 +88,15 @@ namespace KG.Inventory
             }
         }
 
+        private void OnEnable()
+        {
+            stateSwitch = GetComponent<StateSwitch>();
+            stateSwitch.OnStateChange += OnStateChange;
+        }
+
         private void OnDisable()
         {
-            stateSwitch.onStateChange.RemoveListener(OnStateChange);
+            stateSwitch.OnStateChange -= OnStateChange;
         }
 
         public void EquipUnequip(Item weapon)

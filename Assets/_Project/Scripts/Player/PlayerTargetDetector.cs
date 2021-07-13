@@ -6,49 +6,59 @@ using UnityEngine;
 
 namespace KG.Interact
 {
-    [RequireComponent(typeof(StateSwitch))]
+    [RequireComponent(typeof(PlayerStateSwitch))]
     public class PlayerTargetDetector : MonoBehaviour
     {
+        private InputHandler _inputHandler;
+        private bool _fixedTarget = false;
+        private PlayerStateSwitch _stateSwitch;
 
-        public HealthBarView enemyHpBar;
+        [Header("References")]
+        [SerializeField] private HealthBarView _enemyHpBar;
 
-        [SerializeField] private float maxDistance = 6f;
-        [SerializeField] private List<string> tags_to_detect;
+        [Header("Settings")]
+        [SerializeField] private float _maxDistance = 6f;
+        [SerializeField] private List<string> _tagsToDetect;
 
-        #region Event
+        public Interactable CurrentTarget { get; private set; } = null;
+
         public delegate void OnUpdateTargetEvent(Interactable target);
         public event OnUpdateTargetEvent OnUpdateTarget;
-        #endregion
-
-        public Interactable current_target { get; private set; } = null;
-
-        private bool _fixedTarget = false;
-        private StateSwitch stateSwitch;
 
         private void Awake()
         {
-            stateSwitch = GetComponent<StateSwitch>();
+            _stateSwitch = GetComponent<PlayerStateSwitch>();
+        }
+
+        private void OnEnable()
+        {
+            _inputHandler = FindObjectOfType<InputHandler>();
+            _inputHandler.OnMainKeyInput += Interact;
+        }
+        private void OnDisable()
+        {
+            _inputHandler.OnMainKeyInput -= Interact;
         }
 
         public void Interact()
         {
-            if (stateSwitch.CurrentState != State.PEACE || !current_target)
+            if (_stateSwitch.CurrentState != State.PEACE || !CurrentTarget)
             {
                 return;
             }
 
-            if (current_target is Talkable)
+            if (CurrentTarget is Talkable)
             {
-                stateSwitch.CurrentState = State.DIALOG;
+                _stateSwitch.CurrentState = State.DIALOG;
             }
 
-            current_target.Interact(transform);
+            CurrentTarget.Interact(transform);
         }
 
         private void Update()
         {
             if (_fixedTarget) return;
-            RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.forward, maxDistance);
+            RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.forward, _maxDistance);
             var new_target = GetNewTarget(hits);
             SetNewTarget(new_target);
         }
@@ -72,11 +82,11 @@ namespace KG.Interact
 
         private void SetNewTarget(Interactable new_target)
         {
-            if (new_target == null || new_target != current_target)
+            if (new_target == null || new_target != CurrentTarget)
             {
-                enemyHpBar.Disable();
+                _enemyHpBar.Disable();
                 OnUpdateTarget?.Invoke(new_target);
-                current_target = new_target;
+                CurrentTarget = new_target;
             }
 
             if (new_target)
@@ -85,16 +95,16 @@ namespace KG.Interact
 
                 if (stats)
                 {
-                    enemyHpBar.Stats = stats;
+                    _enemyHpBar.Stats = stats;
 
-                    enemyHpBar.gameObject.SetActive(true);
+                    _enemyHpBar.gameObject.SetActive(true);
                 }
             }
         }
 
         private bool IsRightTag(string tag)
         {
-            foreach (string s in tags_to_detect)
+            foreach (string s in _tagsToDetect)
             {
                 if (string.Equals(tag, s)) return true;
             }

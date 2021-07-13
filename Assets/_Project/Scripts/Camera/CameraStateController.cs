@@ -31,6 +31,12 @@ namespace KG.CameraControl
 
         private void Start()
         {
+            freeLookCamera.m_XAxis.Value = 0f;
+            freeLookCamera.m_YAxis.Value = 0f;
+        }
+
+        private void OnEnable()
+        {
             playerStateSwtich = playerTransform.GetComponent<StateSwitch>();
 
             if (!playerStateSwtich)
@@ -38,16 +44,12 @@ namespace KG.CameraControl
                 Debug.LogError($"Player do not have StateSwtich component!");
             }
 
-            playerStateSwtich.onStateChange.AddListener(OnChangeState);
-
-
-            freeLookCamera.m_XAxis.Value = 0f;
-            freeLookCamera.m_YAxis.Value = 0f;
+            playerStateSwtich.OnStateChange += OnChangeState;
         }
 
         private void OnDisable()
         {
-            playerStateSwtich.onStateChange.RemoveListener(OnChangeState);
+            playerStateSwtich.OnStateChange -= OnChangeState;
         }
 
         public void LockOnTarget()

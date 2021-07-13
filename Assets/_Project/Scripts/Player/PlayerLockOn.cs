@@ -15,47 +15,47 @@ namespace KG.CombatCore
     [RequireComponent(typeof(PlayerTargetDetector))]
     public class PlayerLockOn : MonoBehaviour
     {
+        private Transform _currentTarget = null;
+        private bool _isLockedOn = false;
+        private PlayerMover _mover;
+        private StateSwitch _stateSwitch;
+        private PlayerTargetDetector _playerTargetDetector;
+        private InputHandler _inputHandler;
 
         [SerializeField] private CameraStateController cameraStateController;
-
         [SerializeField] private CinemachineTargetGroup targetGroup;
-
         [SerializeField] private float targetWeight = 1.5f;
         [SerializeField] private float targetRadius = 1f;
-
         [SerializeField] private List<string> tagsToLockOn;
         [SerializeField] private float distanceToDetect = 10f;
         [SerializeField] private float maxAngle = 90f;
 
-        private Transform currentTarget = null;
-        private bool isLockedOn = false;
-        private PlayerMover mover;
-        private StateSwitch stateSwitch;
-        private PlayerTargetDetector playerTargetDetector;
-
         private void Awake()
         {
-            mover = GetComponent<PlayerMover>();
-            stateSwitch = GetComponent<StateSwitch>();
-            playerTargetDetector = GetComponent<PlayerTargetDetector>();
+            _mover = GetComponent<PlayerMover>();
+            _playerTargetDetector = GetComponent<PlayerTargetDetector>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
-            stateSwitch.onStateChange.AddListener(OnChangeState);
+            _stateSwitch = GetComponent<StateSwitch>();
+            _inputHandler = FindObjectOfType<InputHandler>();
+            _inputHandler.OnLockOnKeyInput += LockOn;
+            _stateSwitch.OnStateChange += OnChangeState;
         }
 
         private void OnDisable()
         {
-            stateSwitch.onStateChange.RemoveListener(OnChangeState);
+            _inputHandler.OnLockOnKeyInput -= LockOn;
+            _stateSwitch.OnStateChange -= OnChangeState;
         }
 
         private void SetTarget(Transform transform)
         {
 
-            if (currentTarget)
+            if (_currentTarget)
             {
-                targetGroup.RemoveMember(currentTarget);
+                targetGroup.RemoveMember(_currentTarget);
             }
 
             if (transform)
@@ -64,33 +64,33 @@ namespace KG.CombatCore
 
                 if (interactable)
                 {
-                    playerTargetDetector.ForceNewTarget(interactable);
+                    _playerTargetDetector.ForceNewTarget(interactable);
                 }
 
                 targetGroup.AddMember(transform, targetWeight, targetRadius);
                 cameraStateController.LockOnTarget();
-                isLockedOn = true;
+                _isLockedOn = true;
             }
             else
             {
-                playerTargetDetector.UnlockTarget();
+                _playerTargetDetector.UnlockTarget();
                 cameraStateController.UnlockTarget();
-                isLockedOn = false;
+                _isLockedOn = false;
             }
-            currentTarget = transform;
-            mover.IsStrafing = isLockedOn;
-            mover.LookAt = transform;
+            _currentTarget = transform;
+            _mover.IsStrafing = _isLockedOn;
+            _mover.LookAt = transform;
         }
 
         public void LockOn()
         {
-            if (stateSwitch.CurrentState != State.COMBAT)
+            if (_stateSwitch.CurrentState != State.COMBAT)
             {
                 ResetTarget();
                 return;
             }
 
-            if (isLockedOn)
+            if (_isLockedOn)
             {
                 ResetTarget();
             }
@@ -107,12 +107,12 @@ namespace KG.CombatCore
 
         public void ResetTarget(State currentState)
         {
-            playerTargetDetector.UnlockTarget();
+            _playerTargetDetector.UnlockTarget();
             cameraStateController.UnlockTarget(currentState);
-            isLockedOn = false;
-            mover.IsStrafing = false;
-            currentTarget = null;
-            mover.LookAt = null;
+            _isLockedOn = false;
+            _mover.IsStrafing = false;
+            _currentTarget = null;
+            _mover.LookAt = null;
         }
 
         public void OnChangeState(State _, State currentState)

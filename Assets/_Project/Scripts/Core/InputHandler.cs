@@ -8,16 +8,17 @@ namespace KG.Core
     [RequireComponent(typeof(StateSwitch))]
     public class InputHandler : MonoBehaviour
     {
-
-        #region PublicOrSerializableFields
+        private Vector3 inputDirection;
+        private AnimatorProxy animatorProxy;
+        private StateSwitch stateSwitch;
+        private float _horizontalRaw = 0f;
+        private float _verticalRaw = 0f;
+        private float _vertical = 0f;
+        private float _horizontal = 0f;
+        private bool axisInputLocked = false;
 
         [SerializeField] private float inputSensitivity = 4f;
         [SerializeField] private float stopTime = 0.2f;
-        [SerializeField] private UnityEvent OnDrawWeaponInput;
-        [SerializeField] private UnityEvent OnInventoryInput;
-        [SerializeField] private UnityEvent OnMainKeyInput;
-        [SerializeField] private UnityEvent OnLockOnKeyInput;
-        [SerializeField] private UnityEvent DodgeOnKeyInput;
         [SerializeField] private UnityEvent OnJumpKeyInput;
 
         public KeyCode DrawWeaponKey = KeyCode.Mouse2;
@@ -26,6 +27,13 @@ namespace KG.Core
         public KeyCode Inventory = KeyCode.Tab;
         public KeyCode Dodge = KeyCode.Mouse1;
         public KeyCode Jump = KeyCode.Space;
+
+        public delegate void OnKeyInputEvent();
+        public event OnKeyInputEvent OnDrawWeaponInput;
+        public event OnKeyInputEvent OnInventoryInput;
+        public event OnKeyInputEvent OnMainKeyInput;
+        public event OnKeyInputEvent DodgeOnKeyInput;
+        public event OnKeyInputEvent OnLockOnKeyInput;
 
         public float Vertical
         {
@@ -73,20 +81,6 @@ namespace KG.Core
                 return inputDirection;
             }
         }
-        #endregion
-
-        #region PrivateOrProtectedFields
-        private Vector3 inputDirection;
-        private AnimatorProxy animatorProxy;
-        private StateSwitch stateSwitch;
-        private float _horizontalRaw = 0f;
-        private float _verticalRaw = 0f;
-        private float _vertical = 0f;
-        private float _horizontal = 0f;
-        private bool axisInputLocked = false;
-        #endregion
-
-        #region UnityFunctions
 
         private void Awake()
         {
@@ -112,7 +106,6 @@ namespace KG.Core
             UpdateAnimator();
             CheckKeyInput();
         }
-        #endregion
 
         public void LockInputAxisInput(float time)
         {
@@ -172,27 +165,27 @@ namespace KG.Core
         {
             if (Input.GetKeyDown(DrawWeaponKey))
             {
-                OnDrawWeaponInput.Invoke();
+                OnDrawWeaponInput?.Invoke();
             }
             if (Input.GetKeyDown(MainKey))
             {
-                OnMainKeyInput.Invoke();
+                OnMainKeyInput?.Invoke();
             }
             if (Input.GetKeyDown(LockOn))
             {
-                OnLockOnKeyInput.Invoke();
+                OnLockOnKeyInput?.Invoke();
             }
             if (Input.GetKeyDown(Inventory))
             {
-                OnInventoryInput.Invoke();
+                OnInventoryInput?.Invoke();
             }
             if (Input.GetKeyDown(Dodge))
             {
-                DodgeOnKeyInput.Invoke();
+                DodgeOnKeyInput?.Invoke();
             }
             if (Input.GetKeyDown(Jump))
             {
-                OnJumpKeyInput.Invoke();
+                OnJumpKeyInput?.Invoke();
             }
         }
     }

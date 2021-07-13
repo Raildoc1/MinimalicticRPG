@@ -9,15 +9,15 @@ namespace KG.CombatCore
     [RequireComponent(typeof(Animator), typeof(StateSwitch))]
     public class Combat : MonoBehaviour
     {
-        [SerializeField] private List<string> _tagsToAttack;
-        [SerializeField] private Collider _rightArmHitbox;
-        [SerializeField] private Collider _leftArmHitbox;
-
         private AnimatorProxy _animatorProxy;
         private StateSwitch _stateSwitch;
         private Collider _weaponHitBox;
         private StatsHolder _statsHolder;
         private Item _currentWeapon = null;
+
+        [SerializeField] private List<string> _tagsToAttack;
+        [SerializeField] private Collider _rightArmHitbox;
+        [SerializeField] private Collider _leftArmHitbox;
 
         public void SetCurrentWeapon(Item weapon)
         {

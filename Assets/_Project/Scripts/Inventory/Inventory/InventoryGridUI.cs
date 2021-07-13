@@ -55,7 +55,7 @@ namespace KG.UI
                 _slots[i].equipedIcon.SetActive(false);
             }
 
-            OnUpdateUI.Invoke();
+            OnUpdateUI?.Invoke();
         }
 
         public void OnClick(int index)

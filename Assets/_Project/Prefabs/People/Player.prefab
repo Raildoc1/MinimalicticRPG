@@ -1757,9 +1757,7 @@ GameObject:
   - component: {fileID: 2367092716515345018}
   - component: {fileID: 8519040952406513664}
   - component: {fileID: 3139654234903910605}
-  - component: {fileID: 3139654234903910644}
   - component: {fileID: 3139654234903910646}
-  - component: {fileID: 3139654234903910645}
   - component: {fileID: 3139654234903910647}
   - component: {fileID: 1936360917286352284}
   - component: {fileID: 290762378883379001}
@@ -1770,6 +1768,8 @@ GameObject:
   - component: {fileID: 7659863872990932255}
   - component: {fileID: 9214409000205975820}
   - component: {fileID: 3139654234903910607}
+  - component: {fileID: 4355627304228518465}
+  - component: {fileID: 998562217986525152}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -1831,24 +1831,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &3139654234903910644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3139654234903910592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ce726b9be3cf504e8e4f34c5f0fb692, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onStateChange:
-    m_PersistentCalls:
-      m_Calls: []
-  onDialogStart:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &3139654234903910646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1863,23 +1845,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rightArmMeleeHolder: {fileID: 2833647303477011539}
   _beltMeleeHolder: {fileID: 2833647305172053604}
---- !u!114 &3139654234903910645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3139654234903910592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdd0a5229d537c5439dcda761aaff89d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tagsToAttack:
-  - NPC
-  - Enemy
-  _rightArmHitbox: {fileID: 1168620855823063118}
-  _leftArmHitbox: {fileID: 3276580831347295419}
 --- !u!114 &3139654234903910647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1936,63 +1901,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputSensitivity: 4
   stopTime: 0.2
-  OnDrawWeaponInput:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3139654234903910644}
-        m_TargetAssemblyTypeName: KG.Core.StateSwitch, Assembly-CSharp
-        m_MethodName: DrawHideWeapon
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnInventoryInput:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5372326447578193952}
-        m_TargetAssemblyTypeName: KG.Inventory.InventoryView, Assembly-CSharp
-        m_MethodName: OpenCloseInventory
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnMainKeyInput:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3139654234903910645}
-        m_TargetAssemblyTypeName: KG.CombatCore.Combat, Assembly-CSharp
-        m_MethodName: Attack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4877378778363725619}
-        m_TargetAssemblyTypeName: KG.Interact.PlayerTargetDetector, Assembly-CSharp
-        m_MethodName: Interact
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   OnLockOnKeyInput:
     m_PersistentCalls:
       m_Calls:
@@ -2011,7 +1919,7 @@ MonoBehaviour:
   DodgeOnKeyInput:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3139654234903910645}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: KG.CombatCore.Combat, Assembly-CSharp
         m_MethodName: Dodge
         m_Mode: 1
@@ -2042,8 +1950,8 @@ MonoBehaviour:
   MainKey: 323
   LockOn: 113
   Inventory: 9
-  Dodge: 324
-  Jump: 32
+  Dodge: 32
+  Jump: 0
 --- !u!114 &5372326447578193952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2057,7 +1965,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 0}
-  playerStateSwitch: {fileID: 3139654234903910644}
 --- !u!114 &4877378778363725619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2070,9 +1977,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4d185c7d912b144498f04df03064bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHpBar: {fileID: 0}
-  maxDistance: 6
-  tags_to_detect:
+  _enemyHpBar: {fileID: 0}
+  _maxDistance: 6
+  _tagsToDetect:
   - Enemy
   - NPC
   - Item
@@ -2153,13 +2060,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e907c75288ef144818700093ea9189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IKEnabled: 1
+  IKEnabled: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 1
   groundDistance: 0.5
   IKOffset: 0.07
   IKSpeed: 20
+--- !u!114 &4355627304228518465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3139654234903910592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fcaeed5a6611c246bab394bbe26bfa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onStateChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onDialogStart:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &998562217986525152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3139654234903910592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 633d568d00b608e49b073bacaff86f39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tagsToAttack:
+  - NPC
+  - Enemy
+  _rightArmHitbox: {fileID: 1168620855823063118}
+  _leftArmHitbox: {fileID: 3276580831347295419}
 --- !u!1 &4511641863617240316
 GameObject:
   m_ObjectHideFlags: 0

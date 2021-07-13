@@ -1,8 +1,4 @@
-﻿using KG.Stats;
-using PixelCrushers.DialogueSystem;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace KG.Core
 {
@@ -20,15 +16,16 @@ namespace KG.Core
     [RequireComponent(typeof(AnimatorProxy))]
     public class StateSwitch : MonoBehaviour
     {
-
-        public UnityEngine.Events.UnityEvent<State, State> onStateChange = new UnityEngine.Events.UnityEvent<State, State>();
-        public UnityEngine.Events.UnityEvent<Transform> onDialogStart = new UnityEngine.Events.UnityEvent<Transform>();
-
-        private AnimatorProxy animatorProxy;
-
+        private AnimatorProxy _animatorProxy;
         private State _currentState = State.PEACE;
 
         public StateSwitch currentInterlocutor { get; private set; } = null;
+
+        public delegate void OnStateChangeEvent(State previous, State current);
+        public event OnStateChangeEvent OnStateChange;
+
+        public delegate void OnDialogStartEvent(Transform target);
+        public event OnDialogStartEvent OnDialogStart;
 
         public State CurrentState
         {
@@ -40,13 +37,13 @@ namespace KG.Core
             {
                 if (_currentState != value)
                 {
-                    onStateChange.Invoke(_currentState, value);
-                    if (!animatorProxy)
+                    OnStateChange?.Invoke(_currentState, value);
+                    if (!_animatorProxy)
                     {
-                        animatorProxy = GetComponent<AnimatorProxy>();
+                        _animatorProxy = GetComponent<AnimatorProxy>();
                     }
                     _currentState = value;
-                    animatorProxy.currentState = (int)value;
+                    _animatorProxy.currentState = (int)value;
 
                 }
             }
@@ -85,7 +82,7 @@ namespace KG.Core
 
             CurrentState = State.DIALOG;
 
-            onDialogStart.Invoke(interlocutor.transform);
+            OnDialogStart?.Invoke(interlocutor.transform);
         }
 
         public void FinishDialog(bool initiator)
