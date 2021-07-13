@@ -60,7 +60,6 @@ namespace KG.UI
 
         public void OnClick(int index)
         {
-
             if (index >= _inventory.items.Count)
             {
                 return;
@@ -83,7 +82,6 @@ namespace KG.UI
             }
 
             UpdateUI();
-
         }
 
     }

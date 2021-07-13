@@ -1,13 +1,11 @@
 using KG.Interact;
 using System.Collections.Generic;
-#nullable enable
 
 namespace KG.AI
 {
     [System.Serializable]
     public class Schedule
     {
-
         public List<Entity> list;
 
         public Entity GetEntityByTime(float time)
@@ -39,7 +37,8 @@ namespace KG.AI
                 return time > start || time < end;
             }
         }
-        public static bool IsValid(Schedule? schedule)
+
+        public static bool IsValid(Schedule schedule)
         {
             return schedule != null && schedule.list.Count > 0;
         }

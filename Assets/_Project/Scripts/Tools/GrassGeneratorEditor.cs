@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -6,7 +7,6 @@ using UnityEngine;
 [CustomEditor(typeof(GrassGenerator))]
 public class GrassGeneratorEditor : Editor
 {
-
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -19,5 +19,5 @@ public class GrassGeneratorEditor : Editor
         }
 
     }
-
 }
+#endif
