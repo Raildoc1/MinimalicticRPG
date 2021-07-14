@@ -15,7 +15,10 @@ namespace KG.CombatCore
         private StatsHolder _statsHolder;
         private Item _currentWeapon = null;
 
+        [Header("Tags")]
         [SerializeField] private List<string> _tagsToAttack;
+        [Header("Punch")]
+        [SerializeField] private int _punchStaminaCost = 35;
         [SerializeField] private Collider _rightArmHitbox;
         [SerializeField] private Collider _leftArmHitbox;
 
@@ -86,13 +89,14 @@ namespace KG.CombatCore
 
         public void StartDamage(bool rightArm = true)
         {
-            _statsHolder.Stamina -= _currentWeapon.GetAttributeValue(AttributeType.STAMINA_COST);
             if (WeaponHitBox)
             {
+                _statsHolder.Stamina -= _currentWeapon.GetAttributeValue(AttributeType.STAMINA_COST);
                 WeaponHitBox.enabled = true;
             }
             else
             {
+                _statsHolder.Stamina -= _punchStaminaCost;
                 if (rightArm)
                 {
                     _rightArmHitbox.enabled = true;
