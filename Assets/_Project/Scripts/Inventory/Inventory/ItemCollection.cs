@@ -51,7 +51,6 @@ namespace KG.Inventory
             items.Add(newItemStack);
 
             Sort();
-
         }
 
         public void RemoveItems(string itemName, int amount = 1)
@@ -111,6 +110,12 @@ namespace KG.Inventory
             }
             return false;
         }
+
+        public bool HasItems(string itemName, double amount)
+        {
+            return HasItems(itemName, (int)amount);
+        }
+
         public void EarnGold(double amount)
         {
             gold += (long)amount;
@@ -140,6 +145,11 @@ namespace KG.Inventory
 
         private void Sort()
         {
+            if (items.Count < 2)
+            {
+                return;
+            }
+
             items.Sort((a,b) => {
                 var temp = a.item.type.CompareTo(b.item.type);
                 temp = temp == 0 ? a.item.itemName.CompareTo(b.item.itemName) : temp;

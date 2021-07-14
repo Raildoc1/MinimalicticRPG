@@ -16,6 +16,9 @@ MonoBehaviour:
   - functionName: SpendGold
     parameters: 01000000
     returnValue: 1
+  - functionName: HasItems
+    parameters: 0200000001000000
+    returnValue: 1
   scriptFunctions:
   - functionName: EarnGold
     parameters: 01000000

@@ -4129,7 +4129,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ac7482b1631b89242b0b60d86eca8c97, type: 2}
+  - {fileID: 2100000, guid: 18afd6655ab7885409ebd2da32c3adb0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8256,7 +8256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 970576703}
   m_Layer: 0
-  m_Name: ----------Enviroment--------------
+  m_Name: -------------Enviroment-----------------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9520,7 +9520,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ac7482b1631b89242b0b60d86eca8c97, type: 2}
+  - {fileID: 2100000, guid: 18afd6655ab7885409ebd2da32c3adb0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10649,7 +10649,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ac7482b1631b89242b0b60d86eca8c97, type: 2}
+  - {fileID: 2100000, guid: 18afd6655ab7885409ebd2da32c3adb0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11023,7 +11023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1272323272}
   m_Layer: 0
-  m_Name: -----------Enemies---------------
+  m_Name: --------------Enemies------------------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11647,7 +11647,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1343046046}
   m_Layer: 0
-  m_Name: ------------NPCs-----------------
+  m_Name: ---------------NPCs--------------------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16149,7 +16149,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ac7482b1631b89242b0b60d86eca8c97, type: 2}
+  - {fileID: 2100000, guid: 18afd6655ab7885409ebd2da32c3adb0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16828,7 +16828,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2026580901}
   m_Layer: 0
-  m_Name: -----------Pick-Up----------------
+  m_Name: --------------Pick-Up-------------------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17852,11 +17852,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436408732212, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000017028432
+      value: 0.00000001702844
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436408732212, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000024681812
+      value: -0.000000002468182
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436728314693, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17872,11 +17872,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436728314693, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 8.822815e-16
+      value: -8.822815e-16
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436728314693, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 8.84445e-18
+      value: -8.84445e-18
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436906184185, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17892,15 +17892,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436906184185, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.17191945
+      value: 0.17191942
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436906184185, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000023971195
+      value: 0.000000024885727
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436906184185, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000004183401
+      value: -0.000000004343003
       objectReference: {fileID: 0}
     - target: {fileID: 1091361437381033821, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_Follow
