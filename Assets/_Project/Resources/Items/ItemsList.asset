@@ -73,3 +73,13 @@ MonoBehaviour:
     canBeEquiped: 0
     consumable: 1
     icon: {fileID: 21300000, guid: 5ef1705979047614dab30af5899bfa5c, type: 3}
+  - itemName: ITM_MUSHROOM
+    hash: 1071408531
+    type: 6
+    attributes: []
+    gameObject: {fileID: 0}
+    cost: 35
+    canBeSold: 1
+    canBeEquiped: 0
+    consumable: 0
+    icon: {fileID: 21300000, guid: 5ef1705979047614dab30af5899bfa5c, type: 3}
