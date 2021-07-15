@@ -1858,7 +1858,7 @@ CharacterController:
   m_Height: 1.8
   m_Radius: 0.375
   m_SlopeLimit: 60
-  m_StepOffset: 0.3
+  m_StepOffset: 0.6
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
@@ -1889,7 +1889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
-  initWeaponName: MELEE_SWORD_1
+  initWeaponName: 
 --- !u!114 &1936360917286352284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2003,7 +2003,7 @@ MonoBehaviour:
   _dexterity: 10
   _intelligence: 10
   _staminaRecoverySpeed: 25
-  _dodgeIgnoreDamageTime: 0.15
+  _dodgeIgnoreDamageTime: 0.3
   OnGetDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -2021,6 +2021,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angleError: 0.2
   rotationSpeed: 720
+  maxSpeed: 3.5
   snapDistace: 0.5
   pullDownMagnitude: 50
   groundLayers:
@@ -2095,6 +2096,7 @@ MonoBehaviour:
   _tagsToAttack:
   - NPC
   - Enemy
+  _punchStaminaCost: 35
   _rightArmHitbox: {fileID: 1168620855823063118}
   _leftArmHitbox: {fileID: 3276580831347295419}
 --- !u!1 &4511641863617240316
