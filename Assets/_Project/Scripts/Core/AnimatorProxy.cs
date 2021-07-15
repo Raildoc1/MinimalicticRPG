@@ -336,6 +336,7 @@ public class AnimatorProxy : MonoBehaviour
     private readonly string enteringAttackParamName = "EnteringAttack";
     private readonly string startingJumpParamName = "StartingJump";
     private readonly string isGroundedParamName = "IsGrounded";
+    private readonly string landingParamName = "Landing";
 
     private int isStrafingParamID;
     private int isEquipingParamID;
@@ -350,6 +351,7 @@ public class AnimatorProxy : MonoBehaviour
     private int enteringAttackParamID;
     private int startingJumpParamID;
     private int isGroundedParamID;
+    private int landingParamID;
 
     #endregion
 
@@ -364,6 +366,10 @@ public class AnimatorProxy : MonoBehaviour
     #endregion
 
     #endregion
+
+    public bool InAttack => animator.GetCurrentAnimatorStateInfo(2).IsTag("Attack");
+    public bool BlockMovement => animator.GetCurrentAnimatorStateInfo(2).IsTag("BlockMovement");
+    public bool Landing => animator.GetBool(landingParamID);
 
     public void GotoState(string stateName, bool isAciton = true)
     {
@@ -391,7 +397,6 @@ public class AnimatorProxy : MonoBehaviour
         jumpParamID = Animator.StringToHash(jumpParamName);
         stopActionParamID = Animator.StringToHash(stopActionParamName);
 
-
         isStrafingParamID = Animator.StringToHash(isStrafingParamName);
         isEquipingParamID = Animator.StringToHash(isEquipingParamName);
         isUnequipingParamID = Animator.StringToHash(isUnequipingParamName);
@@ -405,9 +410,15 @@ public class AnimatorProxy : MonoBehaviour
         enteringAttackParamID = Animator.StringToHash(enteringAttackParamName);
         startingJumpParamID = Animator.StringToHash(startingJumpParamName);
         isGroundedParamID = Animator.StringToHash(isGroundedParamName);
+        landingParamID = Animator.StringToHash(landingParamName);
 
         currentStateParamID = Animator.StringToHash(currentStateParamName);
         poiseParamID = Animator.StringToHash(poiseParamName);
+    }
+
+    public void ApplyRootMotion()
+    {
+        animator.ApplyBuiltinRootMotion();
     }
 
 }

@@ -167,22 +167,27 @@ namespace KG.Core
             {
                 OnDrawWeaponInput?.Invoke();
             }
+            else
             if (Input.GetKeyDown(MainKey))
             {
                 OnMainKeyInput?.Invoke();
             }
+            else
             if (Input.GetKeyDown(LockOn))
             {
                 OnLockOnKeyInput?.Invoke();
             }
+            else
             if (Input.GetKeyDown(Inventory))
             {
                 OnInventoryInput?.Invoke();
             }
+            else
             if (Input.GetKeyDown(Dodge))
             {
                 DodgeOnKeyInput?.Invoke();
             }
+            else
             if (Input.GetKeyDown(Jump))
             {
                 OnJumpKeyInput?.Invoke();
