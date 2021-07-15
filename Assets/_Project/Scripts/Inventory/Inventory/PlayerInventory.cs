@@ -37,6 +37,8 @@ namespace KG.Inventory
             Lua.RegisterFunction("EarnGold", this, SymbolExtensions.GetMethodInfo(() => EarnGold((double)0)));
             Lua.RegisterFunction("SpendGold", this, SymbolExtensions.GetMethodInfo(() => SpendGold((double)0)));
             Lua.RegisterFunction("HasItems", this, SymbolExtensions.GetMethodInfo(() => HasItems(string.Empty, (double)0)));
+            Lua.RegisterFunction("AddItems", this, SymbolExtensions.GetMethodInfo(() => AddItems(string.Empty, (double)0)));
+            Lua.RegisterFunction("RemoveItems", this, SymbolExtensions.GetMethodInfo(() => RemoveItems(string.Empty, (double)0)));
         }
 
         private void OnDisable()
@@ -44,6 +46,8 @@ namespace KG.Inventory
             Lua.UnregisterFunction("EarnGold");
             Lua.UnregisterFunction("SpendGold");
             Lua.UnregisterFunction("HasItems");
+            Lua.UnregisterFunction("AddItems");
+            Lua.UnregisterFunction("RemoveItems");
         }
 
         #endregion

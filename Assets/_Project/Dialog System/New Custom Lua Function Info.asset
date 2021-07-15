@@ -23,3 +23,9 @@ MonoBehaviour:
   - functionName: EarnGold
     parameters: 01000000
     returnValue: 0
+  - functionName: AddItems
+    parameters: 0200000001000000
+    returnValue: 0
+  - functionName: RemoveItems
+    parameters: 0200000001000000
+    returnValue: 0
