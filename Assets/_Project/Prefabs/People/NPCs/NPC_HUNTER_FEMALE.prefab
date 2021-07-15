@@ -2154,8 +2154,9 @@ MonoBehaviour:
   _tagsToAttack:
   - NPC
   - Enemy
-  _rightArmHitbox: {fileID: 0}
-  _leftArmHitbox: {fileID: 0}
+  _punchStaminaCost: 35
+  _rightArmHitbox: {fileID: 3018410454964642531}
+  _leftArmHitbox: {fileID: 5541604980561752961}
 --- !u!114 &6909005906832087196
 MonoBehaviour:
   m_ObjectHideFlags: 0

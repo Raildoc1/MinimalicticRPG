@@ -7046,6 +7046,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7103099589567289350, guid: d65f3286dd76f7044a9ea0a1450d813e, type: 3}
+      propertyPath: conversation
+      value: DLG_HUNTER_2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d65f3286dd76f7044a9ea0a1450d813e, type: 3}
 --- !u!1 &889830084
@@ -10616,6 +10620,10 @@ PrefabInstance:
     - target: {fileID: 4190526980994045084, guid: d65f3286dd76f7044a9ea0a1450d813e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7103099589567289350, guid: d65f3286dd76f7044a9ea0a1450d813e, type: 3}
+      propertyPath: conversation
+      value: DLG_HUNTER_3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d65f3286dd76f7044a9ea0a1450d813e, type: 3}
@@ -17742,11 +17750,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1091361435830647843, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000037112617
+      value: -0.000000037112624
       objectReference: {fileID: 0}
     - target: {fileID: 1091361435830647843, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000053792784
+      value: 0.000000005379279
       objectReference: {fileID: 0}
     - target: {fileID: 1091361435999420659, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_Follow
@@ -17838,11 +17846,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436408732212, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000017028437
+      value: -0.000000017028444
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436408732212, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000024681814
+      value: 0.000000002468183
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436728314693, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17854,15 +17862,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436728314693, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.11504204
+      value: 0.11504203
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436728314693, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000007401114
+      value: 8.822815e-16
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436728314693, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 8.5713003e-10
+      value: 8.84445e-18
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436906184185, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17878,15 +17886,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436906184185, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.17191942
+      value: 0.17191945
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436906184185, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000023971198
+      value: -0.000000024044974
       objectReference: {fileID: 0}
     - target: {fileID: 1091361436906184185, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000004183401
+      value: 0.0000000041962767
       objectReference: {fileID: 0}
     - target: {fileID: 1091361437381033821, guid: b408d2056eddf924988f31a756327238, type: 3}
       propertyPath: m_Follow

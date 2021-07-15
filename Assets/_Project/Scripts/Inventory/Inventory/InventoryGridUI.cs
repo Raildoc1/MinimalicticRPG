@@ -47,12 +47,18 @@ namespace KG.UI
                 _slots[i].image.sprite = _inventory.items[i].item.icon;
                 _slots[i].image.enabled = true;
                 _slots[i].equipedIcon.SetActive(_inventory.items[i].isEquiped && _inventory.items[i].item.canBeEquiped);
+
+                var amount = _inventory.items[i].amount;
+
+                _slots[i].amountText.text = amount.ToString();
+                _slots[i].amountText.enabled = amount > 1;
             }
 
             for (int i = _inventory.items.Count; i < _slots.Length; i++)
             {
                 _slots[i].image.enabled = false;
                 _slots[i].equipedIcon.SetActive(false);
+                _slots[i].amountText.enabled = false;
             }
 
             OnUpdateUI?.Invoke();

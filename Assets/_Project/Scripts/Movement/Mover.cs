@@ -227,7 +227,7 @@ namespace KG.Movement
         }
         public void LookAtTransform(Transform target)
         {
-            Debug.Log($"{name} looks at {target.name}");
+            //Debug.Log($"{name} looks at {target.name}");
             var direction = (target.position - transform.position).normalized;
             targetDirection = (new Vector3(direction.x, 0f, direction.z)).normalized;
         }

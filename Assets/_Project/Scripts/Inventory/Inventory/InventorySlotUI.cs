@@ -1,6 +1,7 @@
 using KG.Inventory;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ namespace KG.UI
 
         public int index = 0;
         public Image image;
+        public TextMeshProUGUI amountText;
         public GameObject equipedIcon;
 
         public InventoryGridUI inventoryGridUI;
