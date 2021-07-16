@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using KG.Core;
 using System;
+using System.Collections;
 
 namespace KG.Movement
 {
@@ -14,6 +15,7 @@ namespace KG.Movement
         private StateSwitch _stateSwitch;
         private CharacterController _controller;
         private float _inAirTime = 0f;
+        private bool _startJump = false;
 
         private Vector3 _beforeJumpVelocity = Vector3.zero;
         private Vector3 _playerVelocity;
@@ -36,6 +38,7 @@ namespace KG.Movement
         [Header("Jump")]
         [SerializeField] protected float jumpSpeed = 2f;
         [SerializeField] protected float jumpHeight = 2f;
+        [SerializeField] protected float startJumpTime = .25f;
 
         private readonly float defaultGravity = Physics.gravity.y;
 
@@ -83,7 +86,7 @@ namespace KG.Movement
 
         }
 
-        public bool CanMove => IsGrounded && !_animator.InAttack && !_animator.BlockMovement && !_animator.Landing;
+        public bool CanMove => IsGrounded && !_animator.InAttack && !_animator.BlockMovement && !_animator.Landing && !_startJump && !_animator.inDodge;
 
         protected virtual void Awake()
         {
@@ -91,13 +94,13 @@ namespace KG.Movement
             _controller = GetComponent<CharacterController>();
         }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             _stateSwitch = GetComponent<StateSwitch>();
             _stateSwitch.OnDialogStart += LookAtTransform;
         }
 
-        protected void OnDisable()
+        protected virtual void OnDisable()
         {
             _stateSwitch.OnDialogStart -= LookAtTransform;
         }
@@ -126,6 +129,7 @@ namespace KG.Movement
             {
                 _falling = false;
                 _inAirTime = 0f;
+                _animator.inAirTimer = 0f;
             }
 
             _animator.isGrounded = !_falling;
@@ -138,12 +142,15 @@ namespace KG.Movement
                 return;
             }
 
-            if (!IsGrounded)
+            if ((!IsGrounded || _startJump) && !_animator.Landing)
             {
                 _controller.Move(_playerVelocity * Time.deltaTime);
+                _playerVelocity += Physics.gravity * Time.deltaTime;
             }
-
-            _controller.Move(Physics.gravity * Time.deltaTime);
+            else
+            {
+                _controller.Move(Physics.gravity * Time.deltaTime);
+            }
         }
 
         public void Move(Vector3 direction, float proportion)
@@ -170,48 +177,10 @@ namespace KG.Movement
                 _animator.inAirTimer += Time.deltaTime;
             }
 
-            if (_animator.startingJump)
-            {
-                IsGrounded = false;
-                return;
-            }
-
             RaycastHit hit;
 
             IsGrounded = Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, snapDistace + 1);
-
-            //if (IsGrounded)
-            //{
-            //    transform.position = hit.point;
-            //    IsJumping = false;
-            //    _animator.inAirTimer = 0f;
-            //}
         }
-
-        //private void OnControllerColliderHit(ControllerColliderHit hit)
-        //{
-        //    if (IsGrounded)
-        //    {
-        //        return;
-        //    }
-
-        //    RaycastHit outHit;
-
-        //    if (Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out outHit, snapDistace + 1))
-        //    {
-        //        return;
-        //    }
-
-        //    if (Vector3.Angle(Vector3.up, hit.normal) > 90f)
-        //    {
-        //        return;
-        //    }
-
-        //    if (!Physics.Raycast(new Ray(transform.position, hit.normal), out outHit, _controller.radius * 1.25f))
-        //    {
-        //        _controller.Move(hit.normal * _controller.radius * 1.25f * Time.deltaTime);
-        //    }
-        //}
 
         private void UpdateRotation()
         {
@@ -254,15 +223,13 @@ namespace KG.Movement
 
         public void LookAtTransform(Transform target)
         {
-            //Debug.Log($"{name} looks at {target.name}");
             var direction = (target.position - transform.position).normalized;
             _targetDirection = (new Vector3(direction.x, 0f, direction.z)).normalized;
         }
 
         public void Jump()
         {
-
-            if (!_animator.isGrounded)
+            if (!IsGrounded || StateSwitch.CurrentState != State.PEACE)
             {
                 return;
             }
@@ -271,21 +238,25 @@ namespace KG.Movement
             IsJumping = true;
             _animator.startingJump = true;
 
+            StartCoroutine(StartJumpRoutine());
 
             var velocity = _controller.velocity;
-            _playerVelocity.y = Mathf.Sqrt(jumpHeight * 3f * 9.81f);
-            velocity.y = 0;
-
-
-            _playerVelocity = velocity * jumpSpeed + Vector3.up * Mathf.Sqrt(jumpHeight * 3f * 9.81f);
+            _playerVelocity.y = Mathf.Sqrt(jumpHeight * 2f * 9.81f);
         }
 
         private void OnAnimatorMove()
         {
-            if (_animator.InAttack)
+            if (_animator.InAttack || _animator.inDodge)
             {
                 _animator.ApplyRootMotion();
             }
+        }
+
+        private IEnumerator StartJumpRoutine()
+        {
+            _startJump = true;
+            yield return new WaitForSeconds(startJumpTime);
+            _startJump = false;
         }
     }
 }

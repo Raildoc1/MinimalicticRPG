@@ -15,11 +15,8 @@ namespace KG.AI
         private float waypointDistance => currentScheduleEntity.point ? Vector3.Distance(currentScheduleEntity.point.transform.position, transform.position) : 0f;
 
         [SerializeField] private Schedule schedule;
-        private int waypathIndex;
         private Schedule.Entity currentScheduleEntity;
         private ScheduleAction action;
-
-        private bool inAction = false;
 
         public void SetInterlocutorAsCompanion()
         {

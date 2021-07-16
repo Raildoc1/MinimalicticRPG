@@ -11,14 +11,17 @@ namespace KG.Movement {
 
         public Transform LookAt { set; private get; }
 
-        protected override void Awake()
+        protected override void OnEnable()
         {
-            base.Awake();
+            base.OnEnable();
+            _input = GetComponent<InputHandler>();
+            _input.OnJumpKeyInput += Jump;
         }
 
-        protected override void Start() {
-            base.Start();
-            _input = GetComponent<InputHandler>();
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            _input.OnJumpKeyInput -= Jump;
         }
 
         protected override void Update() {

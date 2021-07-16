@@ -18,8 +18,6 @@ namespace KG.Core
         private bool axisInputLocked = false;
 
         [SerializeField] private float inputSensitivity = 4f;
-        [SerializeField] private float stopTime = 0.2f;
-        [SerializeField] private UnityEvent OnJumpKeyInput;
 
         public KeyCode DrawWeaponKey = KeyCode.Mouse2;
         public KeyCode MainKey = KeyCode.Mouse0;
@@ -34,6 +32,7 @@ namespace KG.Core
         public event OnKeyInputEvent OnMainKeyInput;
         public event OnKeyInputEvent DodgeOnKeyInput;
         public event OnKeyInputEvent OnLockOnKeyInput;
+        public event OnKeyInputEvent OnJumpKeyInput;
 
         public float Vertical
         {
@@ -167,27 +166,27 @@ namespace KG.Core
             {
                 OnDrawWeaponInput?.Invoke();
             }
-            else
+
             if (Input.GetKeyDown(MainKey))
             {
                 OnMainKeyInput?.Invoke();
             }
-            else
+
             if (Input.GetKeyDown(LockOn))
             {
                 OnLockOnKeyInput?.Invoke();
             }
-            else
+
             if (Input.GetKeyDown(Inventory))
             {
                 OnInventoryInput?.Invoke();
             }
-            else
+
             if (Input.GetKeyDown(Dodge))
             {
                 DodgeOnKeyInput?.Invoke();
             }
-            else
+
             if (Input.GetKeyDown(Jump))
             {
                 OnJumpKeyInput?.Invoke();

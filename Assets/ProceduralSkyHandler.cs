@@ -58,7 +58,7 @@ public class ProceduralSkyHandler : MonoBehaviour
     private void UpdateSunRotation()
     {
         var time = GetMinutes();
-        var halfTime = 12f * 60f;
+        //var halfTime = 12f * 60f;
 
         //var k = 1f - Mathf.Abs(time - halfTime) / halfTime;
         var k = time / 1440;
