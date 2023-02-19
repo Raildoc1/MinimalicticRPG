@@ -83,7 +83,7 @@ MonoBehaviour:
     cost: 150
     canBeSold: 1
     canBeEquiped: 0
-    consumable: 0
+    consumable: 1
     icon: {fileID: 21300000, guid: 5ef1705979047614dab30af5899bfa5c, type: 3}
   - itemName: ITM_MUSHROOM
     hash: 1917163319
